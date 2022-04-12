@@ -95,9 +95,10 @@ def sign_up():
     if 'profile_pic' in request.files:
         pic = request.files['profile_pic']
         pic.filename = get_unique_filename(pic.filename)
-        s3 = upload_file_to_s3(pic)
-        print(s3, 's3333333333333333333333333')
-        img_url = s3['url']
+        image = upload_file_to_s3(pic)
+        print(pic.filename, 'piccccccccccccccccccccccccccc')
+        print(image, 's3333333333333333333333333')
+        img_url = image['url']
 
 
     newUser = User(
