@@ -73,9 +73,11 @@ def sign_up():
     #     login_user(user)
     #     return user.to_dict()
     # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    print(request.form, 'forrrrrrrrrrrrrrrrm')
+
     errors = []
-    username = User.query.filter(User.username == request.form['username'].first())
-    email = User.query.filter(User.email == request.form['email'].first())
+    username = User.query.filter(User.username == request.form['username']).first()
+    email = User.query.filter(User.email == request.form['email']).first()
     password = request.form['password']
     confirm = request.form['confirm']
 
@@ -90,10 +92,26 @@ def sign_up():
     if len(errors):
         return {'errros': errors}, 401
 
+    if 'profile_pic' in request.files:
+        pic = request.files['profile_pic']
+        pic.filename = get_unique_filename(pic.filename)
+        s3 = upload_file_to_s3(pic)
+        print(s3, 's3333333333333333333333333')
+        img_url = s3['url']
+
 
     newUser = User(
-        name=request.form['name']
+        name=request.form['name'],
+        username=request.form['username'],
+        email=request.form['email'],
+        profile_url=img_url,
+        password=request.form['password']
     )
+
+    db.session.add(newUser)
+    db.session.commit()
+    login_user(newUser)
+    return newUser.to_dict()
 
 
 @auth_routes.route('/unauthorized')

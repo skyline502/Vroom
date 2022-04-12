@@ -45,6 +45,7 @@ export const login = (email, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
+    console.log(data, 'data....')
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -75,6 +76,7 @@ export const signUp = (name, username, email, password, confirm, profile_pic) =>
   formData.append("name", name);
   formData.append("username", username);
   formData.append("password", password);
+  formData.append('email', email)
   formData.append("confirm", confirm);
   formData.append("profile_pic", profile_pic)
 
