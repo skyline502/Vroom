@@ -16,7 +16,7 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
+    if (password === confirm) {
       const data = await dispatch(signUp(name, username, email, password, confirm, profile_pic));
       if (data) {
         setErrors(data)
@@ -60,7 +60,7 @@ const SignUpForm = () => {
         <input
           type='text'
           name='name'
-          onChange={setName}
+          onChange={e => setName(e.target.value)}
           value={name}
           placeholder='name'
           />
@@ -108,7 +108,7 @@ const SignUpForm = () => {
           accept='image/*'
           name='profile_url'
           onChange={updateProfile}
-          defaultValue={profile_picture}
+          defaultValue={profile_pic}
           placeholder='profile picture'
         />
       </div>
