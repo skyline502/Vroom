@@ -43,7 +43,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
-          {user && <img src={user.profile_url}/>}
+          {user && <img src={user.profile_url} alt='profile'/>}
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
