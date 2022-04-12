@@ -7,6 +7,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -56,8 +57,18 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
       </div>
+      <div>
+        <label htmlFor='confirm'>Confirm Password</label>
+        <input
+          name='confirm'
+          type='password'
+          placeholder='Confirm Password'
+          value={confirmPass}
+          onChange={e => setConfirmPass(e.target.value)}
+          />
+      </div>
+      <button type='submit'>Login</button>
     </form>
   );
 };
