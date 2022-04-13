@@ -35,7 +35,12 @@ const NavBar = () => {
           <NavLink to='/users' exact={true} activeClassName='active'>
             <img src={'/users.png'} alt='users' className='users' />
           </NavLink>
-          <img src={'/cars.png'} alt='gallery' className='gallery' />
+          <NavLink to='/posts/create' exact={true} activeClassName='active'>
+            <img src={'/add-post.png'} alt='post' className='create-post' />
+          </NavLink>
+          <NavLink to='/posts' exact={true} activeClassName='active'>
+            <img src={'/cars.png'} alt='gallery' className='gallery' />
+          </NavLink>
           <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
         </div>
         <div className={`drop-down ${dropdown}`}>

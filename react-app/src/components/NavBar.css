@@ -34,7 +34,7 @@
 }
 
 .gallery {
-  height: 35px;
+  height: 33px;
 }
 
 .profile-link{
@@ -95,4 +95,9 @@
   flex-direction: column;
   justify-content: space-between;
   margin-left: 70px;
+}
+
+.create-post {
+  height: 22px;
+  margin-top: 2px;
 }
