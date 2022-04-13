@@ -1,8 +1,27 @@
 .nav-bar {
   display: flex;
+  justify-content: space-around;
   background-color: white;
 }
 
 .home-btn {
   height: 30px;
+}
+
+.profile-pic {
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.gallery {
+  height: 35px;
+}
+
+.users {
+  height: 32px;
+}
+
+.logo {
+  height: 32px;
 }
