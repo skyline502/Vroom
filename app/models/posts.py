@@ -1,6 +1,7 @@
 from .db import db
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
+from .user import User
 
 
 
@@ -24,9 +25,9 @@ class Post(db.Model):
       'title': self.title,
       'description': self.description,
       'user_id': self.user_id,
-      'images': self.images,
-      'comments': self.comments,
-      'likes': self.likes,
+      'images': [{'id': image.id, 'url': image.url, 'user_id': image.user_id, 'post_id': image.post_id} for image in self.images],
+      'comments': [{'id': comment.id, 'comment': comment.comment, 'user_id': comment.user_id, 'post_id': comment.post_id, 'created_at': comment.created_at, 'updated_at': comment.updated_at} for comment in self.comments],
+      'likes': [ {'id': like.id, 'post_id': like.post_id, 'user_id': like.user_id}for like in self.likes],
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }
