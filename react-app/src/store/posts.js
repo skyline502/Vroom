@@ -9,10 +9,10 @@ const getPosts = (posts) => ({
 
 export const getAllPosts = () => async dispatch => {
   const response = await fetch('/api/posts/');
-  console.log('posts in store', response)
   if (response.ok) {
     const posts = await response.json();
     dispatch(getPosts(posts));
+    console.log('posts....in store', posts)
     return posts;
   }
 
@@ -23,18 +23,11 @@ export const getAllPosts = () => async dispatch => {
 const initialState = {posts: [] }
 
 const postReducer = (state = initialState, action) => {
-  let newstate;
-
+  let newState = {...state}
   switch(action.type) {
     case GET_POSTS: {
-      const allPosts = {};
-      action.posts.forEach(post => {
-        allPosts[post.id] = post;
-      });
-      return {
-        ...allPosts,
-        ...state
-      }
+      newState.posts = [...state.posts, action.posts]
+      return newState;
     }
     default:
       return state;

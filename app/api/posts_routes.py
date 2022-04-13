@@ -10,4 +10,4 @@ post_routes = Blueprint('posts', __name__)
 def posts():
   posts = Post.query.all()
   print(dir(posts[0]), '.....posts....')
-  return { 'posts': [post.to_dict for post in posts]}
+  return { 'posts': [post.to_dict() for post in posts]}

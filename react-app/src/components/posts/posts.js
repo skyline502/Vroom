@@ -1,6 +1,5 @@
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { getAllPosts } from '../../store/posts';
 import { useEffect } from 'react';
 
@@ -14,7 +13,7 @@ const Posts = () => {
     dispatch(getAllPosts())
   }, [dispatch])
 
-
+  console.log(user, 'user....')
   console.log(posts, 'posts.....')
 
   return (
