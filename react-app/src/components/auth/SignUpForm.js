@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import './LoginForm.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -50,70 +51,81 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <input
-          type='text'
-          name='name'
-          onChange={e => setName(e.target.value)}
-          value={name}
-          placeholder='name'
+    <div className='sign-up-container'>
+      <img src={'/vroom-login.png'} alt='login' className='login-logo' />
+      <form onSubmit={onSignUp}>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div>
+          <input
+            type='text'
+            name='name'
+            onChange={e => setName(e.target.value)}
+            value={name}
+            placeholder='name'
           />
-      </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='confirm'
-          onChange={updateRepeatPassword}
-          value={confirm}
-          required={true}
-        ></input>
-      </div>
-      <div>
-        <input
-          type='file'
-          accept='image/*'
-          name='profile_url'
-          onChange={updateProfile}
-          defaultValue={profile_pic}
-          placeholder='profile picture'
-        />
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+        </div>
+        <div>
+          <input
+            type='text'
+            name='username'
+            onChange={updateUsername}
+            value={username}
+            placeholder='username'
+          ></input>
+        </div>
+        <div>
+          <input
+            type='text'
+            name='email'
+            onChange={updateEmail}
+            value={email}
+            placeholder='email'
+          ></input>
+        </div>
+        <div>
+          <input
+            type='password'
+            name='password'
+            onChange={updatePassword}
+            value={password}
+            placeholder='password'
+          ></input>
+        </div>
+        <div>
+          <input
+            type='password'
+            name='confirm'
+            onChange={updateRepeatPassword}
+            value={confirm}
+            required={true}
+            placeholder='confirm password'
+          ></input>
+        </div>
+        <div>
+          <label className='aws-profile-box'>
+            <div className='aws'>
+              <i className='fas fa-image'></i>
+              upload profile picture
+            </div>
+            <input
+              type='file'
+              accept='image/*'
+              name='profile_url'
+              onChange={updateProfile}
+              defaultValue={profile_pic}
+              placeholder='profile picture'
+              className='aws-upload'
+            />
+          </label>
+        </div>
+        <button type='submit'>Sign Up</button>
+      </form>
+      <Link to='/login' className='cancel-sign-up'>Cancel</Link>
+    </div>
   );
 };
 

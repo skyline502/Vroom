@@ -35,7 +35,7 @@ const LoginForm = () => {
   return (
     <div className='login-container'>
       <div className='login-header'>
-        <img src={'/vroom-login.png'} alt='login' className='login-logo'/>
+        <img src={'/vroom-login.png'} alt='login' className='login-logo' />
       </div>
       <form onSubmit={onLogin}>
         <div>
@@ -72,7 +72,14 @@ const LoginForm = () => {
         </div>
         <button type='submit'>Log In</button>
       </form>
-      <div className='login-sign-up'><p>Don't have an account?</p><Link to='/sign-up' style={{marginLeft: 10}}>Sign up</Link></div>
+      <div className='login-sign-up'><p>Don't have an account?</p><Link to='/sign-up' style={{ marginLeft: 10 }}>Sign up</Link></div>
+      <div className='demo-btn'>
+        <p style={{marginTop:1}}>Log in as a</p>
+        <button
+         className='demo'
+         onClick={() => dispatch(login('demo@aa.io', 'password'))}
+        >Demo user</button>
+      </div>
     </div>
   );
 };
