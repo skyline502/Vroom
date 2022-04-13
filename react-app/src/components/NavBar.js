@@ -50,7 +50,7 @@ const NavBar = () => {
     <nav className='nav-bar'>
       <div>
         <NavLink to='/' exact={true} activeClassName='active'>
-          Home
+          <img src={'/vroom.png'} alt='logo' className='logo' />
         </NavLink>
       </div>
       <div>
@@ -62,14 +62,6 @@ const NavBar = () => {
         <NavLink to='/sign-up' exact={true} activeClassName='active'>
           Sign Up
         </NavLink>
-      </div>
-      <div>
-        <NavLink to='/users' exact={true} activeClassName='active'>
-          Users
-        </NavLink>
-      </div>
-      <div>
-        <LogoutButton />
       </div>
     </nav>
   );
