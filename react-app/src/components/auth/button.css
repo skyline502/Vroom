@@ -1,0 +1,21 @@
+.logout-btn {
+  height: 20px;
+  background-color: transparent;
+  border: 0;
+  color: black;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  padding-left:15px;
+  height: 30px;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top: 1px solid lightgray;
+}
+
+.logout-btn:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}

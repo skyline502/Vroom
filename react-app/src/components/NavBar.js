@@ -1,5 +1,6 @@
 import './NavBar.css'
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useSelector } from 'react-redux';
@@ -7,33 +8,40 @@ import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user);
-  console.log(user);
+  const [drop, setDrop] = useState(false);
+  const [dropdown, setDropDown] = useState(false);
+
+  useEffect(() => {
+    if (drop) {
+      setDropDown('drop')
+    } else {
+      setDropDown(false)
+    }
+  }, [drop])
+
   if (user) {
     return (
       <nav className='nav-bar'>
         <div>
           <NavLink to='/' exact={true} activeClassName='active'>
-            <img src={'/vroom.png'} alt='logo' className='logo'/>
+            <img src={'/vroom.png'} alt='logo' className='logo' />
           </NavLink>
         </div>
-        <div>
+        <div className='nav-buttons'>
           <NavLink to='/' exact={true} activeClassName='active'>
             <img src='/garage.png' alt='home' className='home-btn' />
           </NavLink>
-        </div>
-        <div>
           <NavLink to='/users' exact={true} activeClassName='active'>
             <img src={'/users.png'} alt='users' className='users' />
           </NavLink>
-        </div>
-        <div>
           <img src={'/cars.png'} alt='gallery' className='gallery' />
+          <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
         </div>
-        <div>
-          <img src={user.profile_url} alt='profile' className='profile-pic' />
-        </div>
-        <div>
-          <LogoutButton />
+        <div className={`drop-down ${dropdown}`}>
+          <div style={{ paddingLeft: 15 }}>Profile</div>
+          <div>
+            <LogoutButton />
+          </div>
         </div>
       </nav>
     )
