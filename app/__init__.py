@@ -81,4 +81,6 @@ def react_root(path):
         return app.send_static_file('vroom-login.png')
     if path == 'vroom.png':
         return app.send_static_file('vroom.png')
+    if path == 'add-post.png':
+        return app.send_static_file('add-post.png')
     return app.send_static_file('index.html')
