@@ -1,1 +1,12 @@
-/* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Quicksand&display=swap');
+
+body {
+  background-color: whitesmoke;
+  min-width: 100vw;
+  min-height: 100vh;
+  margin:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family:'Bebas Neue'
+}

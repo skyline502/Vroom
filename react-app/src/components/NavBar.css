@@ -1,17 +1,36 @@
 .nav-bar {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   background-color: white;
+  height: 59px;
+  border-bottom: 1px solid lightgray;
+  box-shadow: 1px 1px 10px lightgray;
+  position: fixed;
+  top:0;
+  right: 0;
+  min-width: 100vw;
 }
 
 .home-btn {
   height: 30px;
 }
 
+.nav-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px;
+}
+
 .profile-pic {
   height: 25px;
   border: 1px solid black;
   border-radius: 50%;
+}
+
+.profile-pic:hover {
+  cursor: pointer;
 }
 
 .gallery {
@@ -24,4 +43,23 @@
 
 .logo {
   height: 32px;
+}
+
+.drop-down {
+  display: none;
+}
+
+.drop {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  right: 200px;
+  top: 56px;
+  width: 200px;
+  height:100px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px lightgray;
+  align-items: flex-start;
 }
