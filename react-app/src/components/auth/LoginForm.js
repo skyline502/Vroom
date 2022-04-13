@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './LoginForm.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -32,44 +33,46 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className='login-container'>
+      <div className='login-header'>
+        <img src={'/vroom-login.png'} alt='login' className='login-logo'/>
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-      </div>
-      <div>
-        <label htmlFor='confirm'>Confirm Password</label>
-        <input
-          name='confirm'
-          type='password'
-          placeholder='Confirm Password'
-          value={confirmPass}
-          onChange={e => setConfirmPass(e.target.value)}
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div>
+          <input
+            name='email'
+            type='text'
+            placeholder='Email'
+            value={email}
+            onChange={updateEmail}
           />
-      </div>
-      <button type='submit'>Login</button>
-    </form>
+        </div>
+        <div>
+          <input
+            name='password'
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={updatePassword}
+          />
+        </div>
+        <div>
+          <input
+            name='confirm'
+            type='password'
+            placeholder='Confirm Password'
+            value={confirmPass}
+            onChange={e => setConfirmPass(e.target.value)}
+          />
+        </div>
+        <button type='submit'>Log In</button>
+      </form>
+    </div>
   );
 };
 
