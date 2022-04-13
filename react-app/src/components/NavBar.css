@@ -6,6 +6,10 @@
   height: 59px;
   border-bottom: 1px solid lightgray;
   box-shadow: 1px 1px 10px lightgray;
+  position: fixed;
+  top:0;
+  right: 0;
+  min-width: 100vw;
 }
 
 .home-btn {
