@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './NavBar.css'
 
 function User() {
   const [user, setUser] = useState({});
@@ -20,18 +21,17 @@ function User() {
     return null;
   }
 
+  console.log('user', user)
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-    </ul>
+    <div className='profile-container'>
+      <div>
+        <img src={user.profile_url} className='profile-user' alt='profile'/>
+      </div>
+      <div className='profile-details'>
+        <strong>{user.username}</strong>
+        <strong> {user.name}</strong>
+      </div>
+    </div>
   );
 }
 export default User;

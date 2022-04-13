@@ -37,6 +37,19 @@
   height: 35px;
 }
 
+.profile-link{
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 185px;
+}
+
+.profile-link:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
 .users {
   height: 32px;
 }
@@ -62,4 +75,24 @@
   border-radius: 5px;
   box-shadow: 1px 1px 10px lightgray;
   align-items: flex-start;
+}
+
+.profile-container {
+  display: flex;
+  width: 60vw;
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
+}
+
+.profile-user {
+  border-radius: 50%;
+  height: 100px;
+  margin-left: 30px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 70px;
 }

@@ -5,6 +5,7 @@
   border: 1px solid lightgray;
   width: 35vw;
   height: 65vh;
+  background-color: white;
 }
 
 .login-logo {
@@ -83,6 +84,7 @@
   border: 1px solid lightgray;
   width: 35vw;
   height: 65vh;
+  background-color: white;
 }
 
 .sign-up-container > form {

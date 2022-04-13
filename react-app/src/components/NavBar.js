@@ -1,7 +1,7 @@
 import './NavBar.css'
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useSelector } from 'react-redux';
 
@@ -10,6 +10,7 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user);
   const [drop, setDrop] = useState(false);
   const [dropdown, setDropDown] = useState(false);
+  let history = useHistory();
 
   useEffect(() => {
     if (drop) {
@@ -17,7 +18,7 @@ const NavBar = () => {
     } else {
       setDropDown(false)
     }
-  }, [drop])
+  }, [drop]);
 
   if (user) {
     return (
@@ -38,7 +39,7 @@ const NavBar = () => {
           <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
         </div>
         <div className={`drop-down ${dropdown}`}>
-          <div style={{ paddingLeft: 15 }}>Profile</div>
+          <div style={{ paddingLeft: 15 }} onClick={() => history.push(`/users/${user.id}`)} className='profile-link'>Profile</div>
           <div>
             <LogoutButton />
           </div>
