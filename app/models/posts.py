@@ -1,5 +1,8 @@
 from .db import db
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.sql import func
+
+
 
 class Post(db.Model):
   __tablename__ = 'posts'
@@ -8,8 +11,8 @@ class Post(db.Model):
   title = db.Column(db.String(50), nullable=False)
   description = db.Column(db.String(2000), nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-  created_at = db.Column(DateTime(timezone=True), server_default=func.now())
-  updated_at = db.Column(DateTime(timezone=True), server_default=func.now())
+  created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
   images = relationship('Image', backref='post', cascade='all,delete-orphan')
   comments = relationship('Comment', backref='post', cascade='all,delete-orphan')
@@ -23,6 +26,7 @@ class Post(db.Model):
       'user_id': self.user_id,
       'images': self.images,
       'comments': self.comments,
+      'likes': self.likes,
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }
@@ -51,8 +55,8 @@ class Comment(db.Model):
   comment = db.Column(db.String(500), nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   post_id = db.Column(db.Integer, db.ForeignKey('posts.id', passive_deletes=True), nullable=False)
-  created_at = db.Column(DateTime(timezone=True), server_default=func.now())
-  updated_at = db.Column(DateTime(timezone=True), server_default=func.now())
+  created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
   def to_dict(self):
     return {
