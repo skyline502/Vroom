@@ -37,6 +37,7 @@
 .image-box {
   display: flex;
   justify-content: center;
+  background-color: black;
 }
 
 .post-title {

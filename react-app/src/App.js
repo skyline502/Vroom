@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Posts from './components/posts/posts';
+import CreatePostForm from './components/posts/create-post';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,6 +50,10 @@ function App() {
         <ProtectedRoute path='/posts' exact={true}>
           <NavBar />
           <Posts />
+        </ProtectedRoute>
+        <ProtectedRoute>
+          <NavBar />
+          <CreatePostForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
