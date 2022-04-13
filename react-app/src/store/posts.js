@@ -20,13 +20,13 @@ export const getAllPosts = () => async dispatch => {
   return response;
 }
 
-const initialState = {posts: [] }
+const initialState = {posts: {} }
 
 const postReducer = (state = initialState, action) => {
-  let newState = {...state}
+  let newState;
   switch(action.type) {
     case GET_POSTS: {
-      newState.posts = [...state.posts, action.posts]
+      newState = {posts: {...action.posts}}
       return newState;
     }
     default:

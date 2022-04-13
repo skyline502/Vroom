@@ -1,5 +1,6 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.orm import relationship, backref
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship, backref
 
@@ -15,6 +16,8 @@ class User(db.Model, UserMixin):
     profile_url = db.Column(db.String(2000), nullable=False)
 
     # followers = relationship('Follower', backref='user', cascade='all,delete-orphan', primaryjoin=())
+    posts = relationship('Post', backref='user', cascade='all,delete-orphan')
+
 
     @property
     def password(self):
@@ -34,6 +37,7 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_url': self.profile_url,
+            'posts': [post.to_dict() for post in self.posts]
             # 'followers': self.followers
         }
 

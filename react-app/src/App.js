@@ -46,9 +46,10 @@ function App() {
           <NavBar />
           <h1>My Home Page</h1>
         </ProtectedRoute>
-        <Route path='/posts' exact={true}>
+        <ProtectedRoute path='/posts' exact={true}>
+          <NavBar />
           <Posts />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

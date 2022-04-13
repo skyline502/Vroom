@@ -1,6 +1,7 @@
 from .db import db
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
+from .user import User
 
 
 
