@@ -9,6 +9,8 @@ def seed_users():
         name='Marnie Barney', username='marnie', email='marnie@aa.io', password='password', profile_url='https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg')
     bobbie = User(
         name='Bobbie Brown', username='bobbie', email='bobbie@aa.io', password='password', profile_url='https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg')
+    johnny = User(
+        name='Johnny San', username='skyline2011', email='j@j.com', password='password', profile_url='https://vroom-bucket.s3.amazonaws.com/597e65b2271044069d1ad432fc78a5da.jpg')
 
     db.session.add(demo)
     db.session.add(marnie)

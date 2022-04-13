@@ -41,7 +41,9 @@ const NavBar = () => {
           <NavLink to='/posts' exact={true} activeClassName='active'>
             <img src={'/cars.png'} alt='gallery' className='gallery' />
           </NavLink>
-          <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
+          <div className='profile-box'>
+            <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
+          </div>
         </div>
         <div className={`drop-down ${dropdown}`}>
           <div style={{ paddingLeft: 15 }} onClick={() => history.push(`/users/${user.id}`)} className='profile-link'>Profile</div>

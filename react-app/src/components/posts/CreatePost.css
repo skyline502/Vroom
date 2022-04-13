@@ -36,3 +36,43 @@
   font-size: 20px;
   font-family: 'Bebas Neue';
 }
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 300px;
+  border: 1px solid white;
+  background-color: black;
+  width:300px;
+  height: 65vh;
+}
+
+.image-preview h2 {
+  color: white;
+}
+
+.image-preview-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-prev {
+  height: 100px;
+  margin: 2px;
+}
+
+.img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.create-posts-box {
+  display: flex;
+  align-items: center;
+}

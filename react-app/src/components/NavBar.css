@@ -24,9 +24,13 @@
 }
 
 .profile-pic {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.profile-box {
   height: 25px;
-  border: 1px solid black;
-  border-radius: 15px;
 }
 
 .profile-pic:hover {
@@ -85,7 +89,7 @@
 }
 
 .profile-user {
-  border-radius: 50%;
+  border-radius: 5px;
   height: 100px;
   margin-left: 30px;
 }
