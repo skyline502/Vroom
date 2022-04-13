@@ -9,5 +9,5 @@ post_routes = Blueprint('posts', __name__)
 @login_required
 def posts():
   posts = Post.query.all()
-  print(dir(posts[0]), '.....posts....')
+  print(posts[0].images, '.....posts....')
   return { 'posts': [post.to_dict() for post in posts]}
