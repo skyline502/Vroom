@@ -32,28 +32,46 @@ const CreatePostForm = () => {
   }
 
   console.log('user...', user)
+  console.log('errors....', errors)
 
   console.log({title, description,images})
 
   const onSubmit = async(e) => {
     e.preventDefault();
     const user_id = user.id
+    let validationErrors = [];
 
-    let form = new FormData();
-    images.forEach((image, i) => {
-      form.append('images array', image)
-    });
-    form.append('user_id', user_id);
-    form.append('title', title);
-    form.append('description', description);
-
-    let data = await dispatch(createAPost(form));
-
-    if (data) {
-      setErrors(data);
+    if (title.length < 8 || title.length > 50) {
+      validationErrors.push('Title must be between 8 and 50 characters in length')
     }
 
-    history.push('/posts')
+    if (description.length < 8 || description.length > 2000) {
+      validationErrors.push('Description must be between 8 and 2000 characters in length.')
+    }
+
+    if (validationErrors) {
+      setErrors(validationErrors);
+    }
+
+    console.log(validationErrors)
+    if (!validationErrors.length) {
+      console.log('does it reach here..............')
+      let form = new FormData();
+      images.forEach((image, i) => {
+        form.append('images array', image)
+      });
+      form.append('user_id', user_id);
+      form.append('title', title);
+      form.append('description', description);
+
+      let data = await dispatch(createAPost(form));
+
+      if (data) {
+        setErrors(data);
+      }
+
+      history.push('/posts')
+    }
   }
 
   console.log(images, '...curent images in bucket')
