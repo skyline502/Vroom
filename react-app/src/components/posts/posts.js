@@ -24,7 +24,7 @@ const Posts = () => {
   console.log(user, 'user....')
   console.log(posts, 'posts.....')
 
-  const deletePost = async(post_id) => {
+  const deletePost = async (post_id) => {
     let data = await dispatch(deleteAPost(post_id));
     if (data) {
       setErrors(data);
@@ -43,7 +43,12 @@ const Posts = () => {
           <div className='user-info'>
             <div><img src={post.user_id.profile_url} alt='profile-img' className='post-profile' /></div>
             <div>{post.user_id.username}</div>
-            {user.id === post.user_id.id? (<button onClick={() => deletePost(post.id)}>delete</button>):<></>}
+            {user.id === post.user_id.id ? (
+              <div className='owner-buttons'>
+                <button onClick={() => deletePost(post.id)}>delete</button>
+                <button>edit</button>
+              </div>
+            ) : <></>}
           </div>
           <div className='image-box'>
             <div className='images'>
