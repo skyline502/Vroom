@@ -1,18 +1,23 @@
-
+import './EditPost.css'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createAPost } from '../../../store/posts';
 import { useHistory } from 'react-router-dom';
+import { editAPost } from '../../../store/posts';
 
-const EditPostForm = (post) => {
-  console.log()
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+const EditPostForm = () => {
+  const currentPost = useSelector(state => state.posts.current);
+  const [title, setTitle] = useState(currentPost?.title);
+  const [description, setDescription] = useState(currentPost?.description);
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   let history = useHistory();
+
+  const curentImages = currentPost?.images;
+  console.log('current post........', currentPost);
+  console.log('current images...', curentImages);
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -32,12 +37,7 @@ const EditPostForm = (post) => {
     }
   }
 
-  console.log('user...', user)
-  console.log('errors....', errors)
-
-  console.log({title, description,images})
-
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const user_id = user.id
     let validationErrors = [];
@@ -113,6 +113,14 @@ const EditPostForm = (post) => {
         </form>
       </div>
       <div className='image-preview'>
+        <div className='previous-images'>
+          <h2>previous images</h2>
+          <div className='prev-img-box'>
+            {curentImages?.map(image => (
+              <img key={image.id} src={image.url} alt='prev-images' />
+            ))}
+          </div>
+        </div>
         <div className='image-preview-header'>
           <h2>Add up to 5 images</h2>
         </div>

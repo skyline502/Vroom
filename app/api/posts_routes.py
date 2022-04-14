@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import Post, User, Image, db
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
 from sqlalchemy import desc
+import json
 
 
 post_routes = Blueprint('posts', __name__)
@@ -78,3 +79,14 @@ def delete_post(post_id):
   db.session.delete(post)
   db.session.commit()
   return {'post_id': post_id}
+
+@post_routes.route('/<int:post_id>', methods=['PUT'])
+@login_required
+def edit_post(post_id):
+  post = Post.query.get(post_id)
+  data = request.json
+
+  post.title = data['title']
+  post.description = data['description']
+  db.session.commit()
+  return post.to_dict();
