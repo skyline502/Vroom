@@ -2,7 +2,9 @@ import './Posts.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts, deleteAPost } from '../../store/posts';
 import { useEffect, useState } from 'react';
-
+import { showModal, setCurrentModal } from '../../store/modal';
+import EditPostForm from './edit-post-modal/edit-post';
+import { setPost } from '../../store/posts';
 
 const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
@@ -19,7 +21,7 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(getAllPosts())
-  }, [dispatch])
+  }, [dispatch]);
 
   console.log(user, 'user....')
   console.log(posts, 'posts.....')
@@ -30,6 +32,12 @@ const Posts = () => {
       setErrors(data);
     }
     dispatch(getAllPosts())
+  }
+
+  const showEditForm = (post) => {
+    dispatch(setCurrentModal(EditPostForm));
+    dispatch(showModal())
+    dispatch(setPost(post))
   }
 
   return (
@@ -46,7 +54,7 @@ const Posts = () => {
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>
                 <button onClick={() => deletePost(post.id)}>delete</button>
-                <button>edit</button>
+                <button onClick={() => showEditForm(post)}>edit</button>
               </div>
             ) : <></>}
           </div>

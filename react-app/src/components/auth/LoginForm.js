@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { login } from '../../store/session';
+import { showModal, setCurrentModal } from '../../store/modal';
 import './LoginForm.css'
+import SignUpForm from './SignUpForm';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -29,6 +31,11 @@ const LoginForm = () => {
 
   if (user) {
     return <Redirect to='/' />;
+  }
+
+  const showSignUpForm = () => {
+    dispatch(setCurrentModal(SignUpForm));
+    dispatch(showModal());
   }
 
   return (
@@ -70,6 +77,7 @@ const LoginForm = () => {
          onClick={() => dispatch(login('demo@aa.io', 'password'))}
         >Demo user</button>
       </div>
+      <button onClick={showSignUpForm}>sign up</button>
     </div>
   );
 };

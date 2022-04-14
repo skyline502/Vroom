@@ -1,0 +1,11 @@
+.previous-images {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev-img-box > img {
+  height: 40px;
+  margin: 10px;
+}
