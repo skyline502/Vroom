@@ -1,6 +1,7 @@
-const GET_POSTS = 'posts/GET_POSTS'
-const CREATE_POST = 'posts/CREATE_POST'
-const DELETE_POST = 'posts/DELETE_POST'
+const GET_POSTS = 'posts/GET_POSTS';
+const CREATE_POST = 'posts/CREATE_POST';
+const DELETE_POST = 'posts/DELETE_POST';
+const SET_POST = 'posts/SET_POST';
 
 const getPosts = (posts) => ({
   type: GET_POSTS,
@@ -15,6 +16,11 @@ const createPost = (post) => ({
 const deletePost = (post_id) => ({
   type:DELETE_POST,
   post_id
+})
+
+export const setPost = (post) => ({
+  type: SET_POST,
+  post
 })
 
 //getPosts
@@ -75,7 +81,7 @@ const sort_posts = array => {
 }
 
 
-const postReducer = (state = {posts: []}, action) => {
+const postReducer = (state = {posts: [], current: {}}, action) => {
   let newState = {...state}
   switch(action.type) {
     case GET_POSTS:
@@ -93,6 +99,11 @@ const postReducer = (state = {posts: []}, action) => {
       newState.posts.splice(newState.posts.findIndex(post => post.id === action.post_id.post_id),1);
       newState.posts = [...newState.posts]
       return newState
+    }
+    case SET_POST: {
+      newState = {...state};
+      newState.current = action.post;
+      return newState;
     }
     default:
       return state;
