@@ -90,10 +90,11 @@ def sign_up():
     if password != confirm:
         errors.append('Passwords do not match.')
     if len(errors):
-        return {'errros': errors}, 401
+        return {'errors': errors}, 401
 
     if 'profile_pic' in request.files:
         pic = request.files['profile_pic']
+        print(pic, 'pic......................')
         pic.filename = get_unique_filename(pic.filename)
         image = upload_file_to_s3(pic)
         print(pic.filename, 'piccccccccccccccccccccccccccc')

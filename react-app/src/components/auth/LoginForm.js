@@ -8,7 +8,6 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -59,15 +58,6 @@ const LoginForm = () => {
             placeholder='Password'
             value={password}
             onChange={updatePassword}
-          />
-        </div>
-        <div>
-          <input
-            name='confirm'
-            type='password'
-            placeholder='Confirm Password'
-            value={confirmPass}
-            onChange={e => setConfirmPass(e.target.value)}
           />
         </div>
         <button type='submit'>Log In</button>
