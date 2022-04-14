@@ -5,9 +5,9 @@ import { createAPost } from '../../../store/posts';
 import { useHistory } from 'react-router-dom';
 
 const EditPostForm = ({ post }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState([]);
+  const [title, setTitle] = useState(post.title);
+  const [description, setDescription] = useState(post.description);
+  const [images, setImages] = useState(post.images);
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();

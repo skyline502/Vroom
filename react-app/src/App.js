@@ -32,6 +32,7 @@ function App() {
       <Modal />
       <Switch>
         <Route path='/login' exact={true}>
+          <Modal />
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
