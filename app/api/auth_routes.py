@@ -4,6 +4,7 @@ from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
+import re
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -83,14 +84,26 @@ def sign_up():
 
     img_url = "https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg"
 
+    emailValidation = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+
     if username:
         errors.append('Username has already been taken.')
     if email:
         errors.append('That email has already been used.')
     if password != confirm:
         errors.append('Passwords do not match.')
+
+    if re.fullmatch(emailValidation, request.form['email']):
+        print('Valid email')
+    else:
+        errors.append('Please provide a valid email')
+
+    if len(request.form['username']) < 2 or len(request.form['username']) > 255:
+        errors.append('Username must be between 2 characters and 255 in length')
+
     if len(errors):
         return {'errors': errors}, 401
+
 
     if 'profile_pic' in request.files:
         pic = request.files['profile_pic']

@@ -14,10 +14,39 @@ const SignUpForm = () => {
   const [profile_pic, setProfile] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-
+  console.log('any errors', errors)
   const onSignUp = async (e) => {
+    setErrors([]);
     e.preventDefault();
-    if (password === confirm) {
+    let validationErrors = []
+    let emailValidation = new RegExp('^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$');
+    if (username.length < 2 || username.length > 255) {
+      validationErrors.push('username must be between 2 and 255 characters in length');
+    }
+
+    if (!emailValidation.test(email)) {
+      validationErrors.push('Please provide a valid email.')
+    }
+
+    if (name.length < 2 || name.length > 100) {
+      validationErrors.push('Name must be between 2 and 100 characters long')
+    }
+
+    if (password.length < 8 || password.length > 255) {
+      validationErrors.push('Password must be between 8 and 255 characters long.')
+    }
+
+    if (password !== confirm) {
+      validationErrors.push('Passwords do not match.')
+    }
+
+    if (errors) {
+      console.log('errors', errors)
+      setErrors(validationErrors)
+    }
+
+    if (password === confirm && !errors.length) {
+      setErrors([])
       const data = await dispatch(signUp(name, username, email, password, confirm, profile_pic));
       if (data) {
         setErrors(data)
@@ -42,8 +71,13 @@ const SignUpForm = () => {
   };
 
   const updateProfile = (e) => {
+    setErrors([])
     const file = e.target.files[0];
-    setProfile(file);
+    if (file.size < 1000000) {
+      setProfile(file);
+    } else {
+      setErrors(['File is too large, files must be less than 1MB in size'])
+    }
   }
 
   if (user) {
