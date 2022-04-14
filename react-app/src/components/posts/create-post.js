@@ -15,6 +15,11 @@ const CreatePostForm = () => {
 
   const addImage = e => {
     const image = e.target.files[0]
+    setErrors([]);
+    if (image.size > 1000000) {
+      setErrors(['File size too large, image must be less than 1MB in size'])
+      return;
+    }
     if (images.length === 5) {
       setErrors(['You already have 5 images!'])
       return;
