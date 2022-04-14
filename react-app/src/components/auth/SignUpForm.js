@@ -19,7 +19,7 @@ const SignUpForm = () => {
     setErrors([]);
     e.preventDefault();
     let validationErrors = []
-    let emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    let emailValidation = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
     if (username.length < 2 || username.length > 255) {
       validationErrors.push('username must be between 2 and 255 characters in length');
     }
