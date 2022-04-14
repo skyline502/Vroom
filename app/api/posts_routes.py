@@ -4,6 +4,7 @@ from app.models import Post, User, Image, db
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
 from sqlalchemy import desc
 import json
+from datetime import datetime
 
 
 post_routes = Blueprint('posts', __name__)
@@ -11,7 +12,7 @@ post_routes = Blueprint('posts', __name__)
 @post_routes.route('/')
 @login_required
 def posts():
-  posts = Post.query.order_by(desc(Post.created_at)).all()
+  posts = Post.query.order_by(desc(Post.updated_at)).all()
   post_array = []
   for post in posts:
     post_array.append(post.to_dict())
@@ -83,10 +84,36 @@ def delete_post(post_id):
 @post_routes.route('/<int:post_id>', methods=['PUT'])
 @login_required
 def edit_post(post_id):
+  print('does it get back here.....')
   post = Post.query.get(post_id)
-  data = request.json
 
-  post.title = data['title']
-  post.description = data['description']
+
+  post.title = request.form['title']
+  post.description = request.form['description']
+  post.updated_at = datetime.now()
   db.session.commit()
+
+  if request.files:
+    images = request.files.getlist('images array')
+    for image in images:
+      image.filename = get_unique_filename(image.filename)
+
+      upload = upload_file_to_s3(image)
+      print(upload, 'uploaded.....')
+      if 'url' not in upload:
+        return upload, 400
+
+      url = upload['url']
+
+      newImage = Image(
+        url = url,
+        user_id = request.form['user_id'],
+        post_id = post_id
+      )
+
+      db.session.add(newImage)
+      db.session.commit()
+  return newPost.to_dict()
+
+
   return post.to_dict();

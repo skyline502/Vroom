@@ -1,9 +1,8 @@
 import './EditPost.css'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createAPost } from '../../../store/posts';
-import { useHistory } from 'react-router-dom';
-import { editAPost } from '../../../store/posts';
+import { editAPost, getAllPosts } from '../../../store/posts';
+import { hideModal } from '../../../store/modal';
 
 const EditPostForm = () => {
   const currentPost = useSelector(state => state.posts.current);
@@ -11,13 +10,13 @@ const EditPostForm = () => {
   const [description, setDescription] = useState(currentPost?.description);
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  let history = useHistory();
+
 
   const curentImages = currentPost?.images;
   console.log('current post........', currentPost);
   console.log('current images...', curentImages);
+  console.log('user_id', currentPost.user_id.id)
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -26,7 +25,7 @@ const EditPostForm = () => {
       setErrors(['File size too large, image must be less than 1MB in size'])
       return;
     }
-    if (images.length === 5) {
+    if (images.length + curentImages.length === 5) {
       setErrors(['You already have 5 images!'])
       return;
     }
@@ -39,7 +38,7 @@ const EditPostForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const user_id = user.id
+
     let validationErrors = [];
 
     if (title.length < 8 || title.length > 50) {
@@ -56,22 +55,24 @@ const EditPostForm = () => {
 
     console.log(validationErrors)
     if (!validationErrors.length) {
-      console.log('does it reach here..............')
+      console.log('does it reach here..............', title, description)
       let form = new FormData();
-      images.forEach((image, i) => {
+      images?.forEach((image, i) => {
         form.append('images array', image)
       });
-      form.append('user_id', user_id);
+
       form.append('title', title);
       form.append('description', description);
+      form.append('id', currentPost.id);
+      form.append('user_id', currentPost.user_id.id);
 
-      let data = await dispatch(createAPost(form));
+      let data = await dispatch(editAPost(form));
 
       if (data) {
         setErrors(data);
       }
-
-      history.push('/posts')
+      dispatch(getAllPosts())
+      dispatch(hideModal())
     }
   }
 
@@ -107,7 +108,6 @@ const EditPostForm = () => {
             accept='image/*'
             onChange={addImage}
             placeholder='add an image'
-            required={true}
           />
           <button type='submit'>create post</button>
         </form>

@@ -78,7 +78,11 @@ export const deleteAPost = (post_id) => async dispatch => {
 }
 
 export const editAPost = (post) => async dispatch => {
-  const response = await fetch(`/api/posts/${post.id}`, {
+  console.log('edit a post in the store....',post.get('id'))
+
+  let id = post.get('id');
+  console.log('can i get the id....', id)
+  const response = await fetch(`/api/posts/${id}`, {
     method: 'PUT',
     body: post,
   });
