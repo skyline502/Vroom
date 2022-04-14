@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Posts from './components/posts/posts';
 import CreatePostForm from './components/posts/create-post';
+import Modal from './components/modal/modal';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Modal />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
