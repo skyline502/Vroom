@@ -113,7 +113,4 @@ def edit_post(post_id):
 
       db.session.add(newImage)
       db.session.commit()
-  return newPost.to_dict()
-
-
   return post.to_dict();

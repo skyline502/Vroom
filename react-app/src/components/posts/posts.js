@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import EditPostForm from './edit-post-modal/edit-post';
 import { setPost } from '../../store/posts';
+import { getCommentsForPost } from '../../store/comments';
 
 const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
@@ -72,6 +73,16 @@ const Posts = () => {
             </div>
             <p>{post.description}</p>
             <p>posted on {convertDate(post.created_at)}</p>
+          </div>
+          <div className='post-comments'>
+             {post.comments?.map(comment => (
+               <div className='comment-box' key={comment.id}>
+                 <div>{comment.comment}</div>
+                 <div>{comment.user_id}</div>
+                 <div>{convertDate(comment.created_at)}</div>
+                 <button onClick={() => dispatch(getCommentsForPost(post.id))}>Comments</button>
+               </div>
+             ))}
           </div>
         </div>
       ))}
