@@ -2,6 +2,7 @@ import './CreatePost.css'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createAPost } from '../../store/posts';
+import { useHistory } from 'react-router-dom';
 
 const CreatePostForm = () => {
   const [title, setTitle] = useState('');
@@ -10,6 +11,7 @@ const CreatePostForm = () => {
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -46,6 +48,7 @@ const CreatePostForm = () => {
       setErrors(data);
     }
 
+    history.push('/posts')
   }
 
   console.log(images, '...curent images in bucket')

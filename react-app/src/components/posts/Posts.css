@@ -2,9 +2,29 @@
   margin-bottom: 30px;
 }
 
-.post-images {
+.image-box {
+  justify-content: center;
+  background-color: black;
+  width: 600px;
+  overflow-x: scroll;
+}
+
+.image-box::-webkit-scrollbar {
+  display:none;
+}
+
+.images {
+  display: flex;
+  column-count: 5;
+  width: 600px;
   height: 300px;
-  margin-bottom: 0;
+  -webkit-column-width: 600px;
+  column-width: 600px;
+}
+
+.post-images {
+  object-fit: contain;
+  max-width: 600px;
 }
 
 .user-info {
@@ -32,12 +52,6 @@
 .post-content > p {
   font-family: 'Helvetica';
   font-size: 12px;
-}
-
-.image-box {
-  display: flex;
-  justify-content: center;
-  background-color: black;
 }
 
 .post-title {

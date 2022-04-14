@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Post, User, Image, db
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
-
+from sqlalchemy import desc
 
 
 post_routes = Blueprint('posts', __name__)
@@ -10,7 +10,7 @@ post_routes = Blueprint('posts', __name__)
 @post_routes.route('/')
 @login_required
 def posts():
-  posts = Post.query.all()
+  posts = Post.query.order_by(desc(Post.created_at)).all()
   post_array = []
   for post in posts:
     post_array.append(post.to_dict())
@@ -58,4 +58,4 @@ def createPost():
 
     db.session.add(newImage)
     db.session.commit()
-    return newPost.to_dict()
+  return newPost.to_dict()
