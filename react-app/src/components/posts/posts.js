@@ -1,7 +1,7 @@
 import './Posts.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts';
-
+import { useEffect } from 'react';
 
 const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
