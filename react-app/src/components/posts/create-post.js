@@ -67,6 +67,7 @@ const CreatePostForm = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='enter a title'
+            required={true}
           />
           <input
             type='text'
@@ -74,6 +75,7 @@ const CreatePostForm = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder='enter a description'
+            required={true}
           />
           <input
             type='file'
@@ -81,6 +83,7 @@ const CreatePostForm = () => {
             accept='image/*'
             onChange={addImage}
             placeholder='add an image'
+            required={true}
           />
           <button type='submit'>create post</button>
         </form>

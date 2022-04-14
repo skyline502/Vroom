@@ -1,5 +1,6 @@
 const GET_POSTS = 'posts/GET_POSTS'
 const CREATE_POST = 'posts/CREATE_POST'
+const DELETE_POST = 'posts/DELETE_POST'
 
 const getPosts = (posts) => ({
   type: GET_POSTS,
@@ -9,6 +10,11 @@ const getPosts = (posts) => ({
 const createPost = (post) => ({
   type:CREATE_POST,
   post
+})
+
+const deletePost = (post_id) => ({
+  type:DELETE_POST,
+  post_id
 })
 
 //getPosts
@@ -49,15 +55,44 @@ export const createAPost = (form) => async dispatch => {
   }
 }
 
+export const deleteAPost = (post_id) => async dispatch => {
+  const response = await fetch(`/api/posts/${post_id}`, {
+    method: 'DELETE',
+  })
 
-const initialState = {posts: {} }
+  const post = await response.json();
 
-const postReducer = (state = initialState, action) => {
-  let newState;
+  dispatch(deletePost(post));
+}
+
+const sort_posts = array => {
+  console.log(array, 'is this an array?')
+  const posts = {};
+  array.forEach(post => {
+    posts[post.id] = post
+  });
+  return posts;
+}
+
+
+const postReducer = (state = {posts: []}, action) => {
+  let newState = {...state}
   switch(action.type) {
-    case GET_POSTS: {
-      newState = {posts: {...action.posts}}
+    case GET_POSTS:
+      return {
+        ...state,
+        ...sort_posts(action.posts.posts),
+        posts: [...action.posts.posts]
+      }
+    case CREATE_POST: {
+      newState = {...state};
       return newState;
+    }
+    case DELETE_POST: {
+      delete newState[action.post_id.post_id];
+      newState.posts.splice(newState.posts.findIndex(post => post.id === action.post_id.post_id),1);
+      newState.posts = [...newState.posts]
+      return newState
     }
     default:
       return state;
