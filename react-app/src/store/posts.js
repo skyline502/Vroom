@@ -26,19 +26,13 @@ export const getAllPosts = () => async dispatch => {
 }
 
 //createPost
-export const createAPost = (post) => async dispatch => {
-  console.log('...store post from front end', post)
+export const createAPost = (form) => async dispatch => {
 
-  const formData = new FormData();
-  formData.append('title', post.title);
-  formData.append('description', post.description);
-  formData.append('user_id', post.user_id);
-  formData.append('images', post.images)
+  console.log(form, 'are there any images............')
 
-  console.log('....store create a post', formData)
   const response = await fetch('/api/posts/', {
     method: 'POST',
-    body: formData,
+    body: form,
   });
 
   if (response.ok) {

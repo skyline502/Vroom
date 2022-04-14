@@ -30,14 +30,18 @@ const CreatePostForm = () => {
 
   const onSubmit = async(e) => {
     e.preventDefault();
-    const post = {
-      user_id: user.id,
-      title: title,
-      description: description,
-      images: images
-    }
+    const user_id = user.id
 
-    const data = await dispatch(createAPost(post));
+    let form = new FormData();
+    images.forEach((image, i) => {
+      form.append('images array', image)
+    });
+    form.append('user_id', user_id);
+    form.append('title', title);
+    form.append('description', description);
+
+    let data = await dispatch(createAPost(form));
+
     if (data) {
       setErrors(data);
     }
