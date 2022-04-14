@@ -27,6 +27,8 @@ export const getAllPosts = () => async dispatch => {
 
 //createPost
 export const createAPost = (post) => async dispatch => {
+  console.log('...store post from front end', post)
+
   const formData = new FormData();
   formData.append('title', post.title);
   formData.append('description', post.description);

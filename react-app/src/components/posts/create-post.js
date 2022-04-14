@@ -28,7 +28,7 @@ const CreatePostForm = () => {
 
   console.log({title, description,images})
 
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     e.preventDefault();
     const post = {
       user_id: user.id,
@@ -37,7 +37,10 @@ const CreatePostForm = () => {
       images: images
     }
 
-    dispatch(createAPost(post));
+    const data = await dispatch(createAPost(post));
+    if (data) {
+      setErrors(data);
+    }
 
   }
 
