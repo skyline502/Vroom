@@ -90,6 +90,7 @@ const SignUpForm = () => {
   }
 
   if (user) {
+    dispatch(hideModal());
     return <Redirect to='/' />;
   }
 

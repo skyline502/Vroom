@@ -31,15 +31,19 @@ def createPost():
   print('foooooooooooorm create', request.form)
 
   errors = []
-  title=request.form['title'],
-  user_id=request.form['user_id'],
+  title=request.form['title']
+  user_id=request.form['user_id']
   description=request.form['description']
+  print(title, 'title.....')
+  print(len(title), 'title...length')
+  print(len(description), 'length....description')
+  print(len(user_id), 'user_id...length')
 
   if len(title) < 8 or len(title) > 50:
     errors.append('Title must be between 8 characters and 50 characters in length')
 
-  if len(description) < 8 or len(description) > 2000:
-    errors.append('Description must be between 8 characters and 2000 characters in length.')
+  if len(description) < 8 or len(description) > 200:
+    errors.append('Description must be between 8 characters and 200 characters in length.')
 
   if len(errors):
     return {'errors': errors}, 401

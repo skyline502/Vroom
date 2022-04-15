@@ -81,7 +81,7 @@ def sign_up():
     email = User.query.filter(User.email == request.form['email']).first()
     password = request.form['password']
     confirm = request.form['confirm']
-    ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+    ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
     def allowed_file(filename):
         return "." in filename and \

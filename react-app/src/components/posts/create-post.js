@@ -41,6 +41,8 @@ const CreatePostForm = () => {
   console.log('errors....', errors)
 
   console.log({ title, description, images })
+  console.log(description.length, 'length of description.......')
+  console.log(title.length, 'title length..................')
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -51,23 +53,23 @@ const CreatePostForm = () => {
       validationErrors.push('Title must be between 8 and 50 characters in length')
     }
 
-    if (description.length < 8 || description.length > 2000) {
-      validationErrors.push('Description must be between 8 and 2000 characters in length.')
+    if (description.length < 8 || description.length > 200) {
+      validationErrors.push('Description must be between 8 and 200 characters in length.')
     }
 
     if (validationErrors) {
       setErrors(validationErrors);
     }
 
-    console.log(validationErrors)
+    console.log(validationErrors, 'errrors......')
     if (!validationErrors.length) {
       e.preventDefault();
-      console.log('does it reach here..............')
       let form = new FormData();
       images.forEach((image) => {
         console.log('image is what', image);
         form.append('images array', image)
       });
+
       form.append('user_id', user_id);
       form.append('title', title);
       form.append('description', description);

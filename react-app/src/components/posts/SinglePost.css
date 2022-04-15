@@ -82,9 +82,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  min-width: 100px;
 }
 
+.date {
+  margin-top: -5px;
+  max-height: 5px;
+  font-weight: 600;
+}
 .poster-info {
   display: flex;
   border-bottom: 1px solid lightgray;
@@ -104,15 +110,20 @@
 
 .post-contents {
   display: flex;
+  min-height: 100px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgb(211, 211, 211, 0.1);
+  padding: 20px;
+  max-width: 37vw;
+  min-width:37vw;
 }
 
 .comment-box {
   display: block;
-  padding: 20px;
   overflow-x: hidden;
   border-bottom: 1px solid lightgray;
   height:100vh;
-  width: 37vw;
+  max-width: 40vw;
   box-sizing: content-box;
 }
 
@@ -123,15 +134,27 @@
 .comment-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   margin-left: 15px;
-  width: 300px;
+  max-width: 37vw;
 }
 
 .comment-content > p {
   font-family: 'Helvetica';
   font-size: 12px;
+  word-wrap: break-word;
+}
+
+.the-comment {
+  margin-top: 0;
+  max-width: 31vw;
+  word-wrap: break-word;
+}
+
+.current-post-desc {
+  max-width: 31vw;
+  word-wrap: break-word;
 }
 
 .current-img {
