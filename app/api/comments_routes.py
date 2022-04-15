@@ -20,3 +20,19 @@ def getComments():
   for comment in comments_array:
     comment['user_id'] = User.query.get(comment['user_id']).to_dict()
   return { 'comments': comments_array}
+
+@comments_routes.route('/', methods=['POST'])
+@login_required
+def createComment():
+  print('comment create.....', request.form)
+
+  newComment = Comment(
+    comment=request.form['comment'],
+    post_id=request.form['post_id'],
+    user_id=request.form['user_id']
+  )
+
+  db.session.add(newComment)
+  db.session.commit()
+
+  return newComment.to_dict()
