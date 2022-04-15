@@ -46,7 +46,6 @@ export const createAComment = (comment) => async dispatch => {
 
 
 const commentsReducer = (state = {comments: [], current: {}}, action) => {
-  let newState = {...state}
   switch(action.type) {
     case GET_COMMENTS:
       return {
