@@ -5,8 +5,8 @@ const getComments = (comments) => ({
   comments
 });
 
-export const getCommentsForPost = (post_id) => async dispatch => {
-  const response = await fetch(`/api/comments/${post_id}`)
+export const getAllComments = () => async dispatch => {
+  const response = await fetch(`/api/comments/`)
   if (response.ok) {
     const comments = await response.json();
     dispatch(getComments(comments));

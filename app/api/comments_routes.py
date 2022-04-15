@@ -10,10 +10,10 @@ from datetime import datetime
 comments_routes = Blueprint('comments', __name__)
 
 
-@comments_routes.route('/<int:post_id>')
+@comments_routes.route('/')
 @login_required
-def getComments(post_id):
-  comments = db.session.query(Comment).filter(Comment.post_id == post_id).all()
+def getComments():
+  comments = Comment.query.all();
   comments_array = []
   for comment in comments:
     comments_array.append(comment.to_dict())
