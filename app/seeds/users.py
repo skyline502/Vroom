@@ -4,13 +4,13 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        name='Demo User', username='Demo', email='demo@aa.io', password='password', profile_url='https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg')
+        name='Demo User', username='Demo', email='demo@aa.io', password='password', profile_url='https://vroom-bucket.s3.us-west-1.amazonaws.com/jin.jpg')
     marnie = User(
-        name='Marnie Barney', username='marnie', email='marnie@aa.io', password='password', profile_url='https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg')
+        name='Marnie Barney', username='marnie', email='marnie@aa.io', password='password', profile_url='https://vroom-bucket.s3.us-west-1.amazonaws.com/deadpool.jpg')
     bobbie = User(
-        name='Bobbie Brown', username='bobbie', email='bobbie@aa.io', password='password', profile_url='https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg')
+        name='Bobbie Brown', username='bobbie', email='bobbie@aa.io', password='password', profile_url='https://vroom-bucket.s3.us-west-1.amazonaws.com/dp.jfif')
     johnny = User(
-        name='Johnny San', username='skyline2011', email='john@john.com', password='password', profile_url='https://vroom-bucket.s3.amazonaws.com/597e65b2271044069d1ad432fc78a5da.jpg')
+        name='Johnny San', username='skyline2011', email='john@john.com', password='password', profile_url='https://vroom-bucket.s3.us-west-1.amazonaws.com/profile2.jpg')
 
     db.session.add(demo)
     db.session.add(marnie)
