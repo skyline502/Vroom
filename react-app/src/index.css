@@ -10,4 +10,10 @@ body {
   align-items: flex-start;
   font-family:'Bebas Neue';
   padding-top: 100px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
