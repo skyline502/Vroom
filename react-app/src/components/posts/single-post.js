@@ -21,7 +21,7 @@ const SinglePost = () => {
     commentsEnd.current?.scrollIntoView();
   }, [comments])
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     if (e.keyCode === 13) {
       let comment = new FormData();
       comment.append('post_id', currentPost.id);
@@ -35,19 +35,19 @@ const SinglePost = () => {
     }
   }
 
-  // console.log('in single post', currentPost)
-  // console.log('current post comments', post_comments)
+  console.log('in single post the current post', currentPost)
+  console.log('current user', user)
+  console.log('current post comments', post_comments)
   // console.log('my comment is...', newComment);
   return (
     <div className="single-post-container">
-      <div className="single-post-img">
+      <div className="single-post-img-box">
         {currentPost.images?.map(image => (
-          <div key={image.id}>
+          <div key={image.id} className="single-post-img">
             <img src={image.url} alt='cars' />
-            {currentPost.user_id === user.id && <button>delete</button>}
+            <div style={{ color: 'white' }}>{currentPost.title}</div>
           </div>
         ))}
-        <div style={{ color: 'white' }}>{currentPost.title}</div>
       </div>
       <div className="single-post-content">
         <div className="poster-info">
@@ -70,6 +70,12 @@ const SinglePost = () => {
               <div className="comment-content">
                 <p>{comment.comment}</p>
                 <p>{convertDate(comment.updated_at)}</p>
+                {comment.user_id.id === user.id &&
+                  <div className="comment-btns">
+                    <button><i className="fas fa-trash-alt"></i></button>
+                    <button><i className="fas fa-wrench"></i></button>
+                  </div>
+                }
               </div>
             </div>
           ))}

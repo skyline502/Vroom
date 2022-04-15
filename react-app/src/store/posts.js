@@ -70,7 +70,7 @@ export const createAPost = (form) => async dispatch => {
 export const deleteAPost = (post_id) => async dispatch => {
   const response = await fetch(`/api/posts/${post_id}`, {
     method: 'DELETE',
-  })
+  });
 
   const post = await response.json();
 
