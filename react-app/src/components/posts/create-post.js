@@ -12,16 +12,22 @@ const CreatePostForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   let history = useHistory();
-
+  const allowedExt = ["png", "jpg", "jpeg", "gif"];
   const addImage = e => {
     const image = e.target.files[0]
     setErrors([]);
+
+
     if (image.size > 1000000) {
       setErrors(['File size too large, image must be less than 1MB in size'])
       return;
     }
     if (images.length === 5) {
       setErrors(['You already have 5 images!'])
+      return;
+    }
+    if (!allowedExt.includes(image.name.split('.')[1])) {
+      setErrors(['That is not a supported image type!']);
       return;
     }
     if (!images.length) {
@@ -58,7 +64,8 @@ const CreatePostForm = () => {
       e.preventDefault();
       console.log('does it reach here..............')
       let form = new FormData();
-      images.forEach((image, i) => {
+      images.forEach((image) => {
+        console.log('image is what', image);
         form.append('images array', image)
       });
       form.append('user_id', user_id);

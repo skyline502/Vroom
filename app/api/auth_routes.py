@@ -3,7 +3,7 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
+from app.aws import upload_file_to_s3, get_unique_filename
 import re
 
 auth_routes = Blueprint('auth', __name__)
@@ -81,6 +81,11 @@ def sign_up():
     email = User.query.filter(User.email == request.form['email']).first()
     password = request.form['password']
     confirm = request.form['confirm']
+    ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+
+    def allowed_file(filename):
+        return "." in filename and \
+           filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
     img_url = "https://pbs.twimg.com/profile_images/1208234904405757953/mT0cFOVQ_400x400.jpg"
 
@@ -100,6 +105,10 @@ def sign_up():
 
     if len(request.form['username']) < 2 or len(request.form['username']) > 255:
         errors.append('Username must be between 2 characters and 255 in length')
+
+    if allowed_file(request.files['profile_pic'].filename) == False:
+        print(allowed_file(request.files['profile_pic']), '......file in backend')
+        errors.append('Cannot use that file as a profile picture!')
 
     if len(errors):
         return {'errors': errors}, 401
