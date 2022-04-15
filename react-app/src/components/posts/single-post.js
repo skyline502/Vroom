@@ -17,19 +17,19 @@ const SinglePost = () => {
     <div className="single-post-container">
       <div className="single-post-img">
         {currentPost.images?.map(image => (
-          <img key={image.id} src={image.url} alt='cars'/>
+          <img key={image.id} src={image.url} alt='cars' />
         ))}
-        <div style={{color: 'white'}}>{currentPost.title}</div>
+        <div style={{ color: 'white' }}>{currentPost.title}</div>
       </div>
       <div className="single-post-content">
         <div className="poster-info">
           <div className="poster-img">
             <img src={currentPost.user_id.profile_url} alt='profile' />
+            <div className="post-name"> {currentPost.user_id.username}</div>
           </div>
           <div className="poster-content">
-            <div className="post-name"> {currentPost.user_id.username}</div>
-            <p>{currentPost.description}</p>
-            <p>{convertDate(currentPost.updated_at)}</p>
+              <p>{currentPost.description}</p>
+              <p>{convertDate(currentPost.updated_at)}</p>
           </div>
         </div>
         <div className="poster-post-content">
@@ -37,9 +37,9 @@ const SinglePost = () => {
             <div key={comment.id} className='post-contents'>
               <div className="poster-img">
                 <img src={comment.user_id.profile_url} alt='profile' />
+                <div className="post-name">{comment.user_id.username}</div>
               </div>
               <div className="comment-content">
-                <div>{comment.user_id.username}</div>
                 <p>{comment.comment}</p>
                 <p>{convertDate(comment.updated_at)}</p>
               </div>
