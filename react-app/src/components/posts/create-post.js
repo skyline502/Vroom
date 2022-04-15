@@ -34,9 +34,9 @@ const CreatePostForm = () => {
   console.log('user...', user)
   console.log('errors....', errors)
 
-  console.log({title, description,images})
+  console.log({ title, description, images })
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const user_id = user.id
     let validationErrors = [];
@@ -100,15 +100,22 @@ const CreatePostForm = () => {
             placeholder='enter a description'
             required={true}
           />
-          <input
-            type='file'
-            name='image'
-            accept='image/*'
-            onChange={addImage}
-            placeholder='add an image'
-            required={true}
-          />
-          <button type='submit'>create post</button>
+          <label className='aws-image-box'>
+            <div className='aws'>
+              <i className='fas fa-image'></i>
+              upload up to 5 images
+            </div>
+            <input
+              type='file'
+              name='image'
+              accept='image/*'
+              onChange={addImage}
+              placeholder='add an image'
+              required={true}
+              className='aws-upload'
+            />
+          </label>
+            <button type='submit'>create post</button>
         </form>
       </div>
       <div className='image-preview'>

@@ -1,5 +1,6 @@
 const GET_COMMENTS = 'comments/GET_COMMENTS';
 const CREATE_COMMENT = 'comments/CREATE_COMMENT';
+const DELETE_COMMENT = 'comments/DELETE_COMMENT';
 
 const getComments = (comments) => ({
   type: GET_COMMENTS,
@@ -10,6 +11,11 @@ const createComment = (comment) => ({
   type: CREATE_COMMENT,
   comment
 });
+
+const deleteComment = (comment_id) => ({
+  type: DELETE_COMMENT,
+  comment_id
+})
 
 export const getAllComments = () => async dispatch => {
   const response = await fetch(`/api/comments/`)
@@ -44,12 +50,34 @@ export const createAComment = (comment) => async dispatch => {
   }
 }
 
+export const deleteAComment = (comment_id) => async dispatch => {
+  console.log('delete a comment is inside the store...', comment_id)
+  const response = await fetch(`/api/comments/${comment_id}`, {
+    method: 'DELETE',
+  });
+
+  const comment = await response.json();
+
+  dispatch(deleteComment(comment));
+}
+
+const sort_comments = array => {
+  console.log(array, 'is this an array?')
+  const comments = {};
+  array.forEach(comment => {
+    comments[comment.id] = comment
+  });
+  return comments;
+}
 
 const commentsReducer = (state = {comments: [], current: {}}, action) => {
+  let newState = {...state}
+
   switch(action.type) {
     case GET_COMMENTS:
       return {
         ...state,
+        ...sort_comments(action.comments.comments),
         comments: [...action.comments.comments]
       }
     case CREATE_COMMENT:
@@ -57,6 +85,11 @@ const commentsReducer = (state = {comments: [], current: {}}, action) => {
       ...state,
       comments: [action.comment, ...state.comments]
     }
+    case DELETE_COMMENT:
+      delete newState[action.comment_id.comment_id];
+      newState.comments.splice(newState.comments.findIndex(comment => comment.id === action.comment_id.comment_id),1);
+      newState.comments = [...newState.comments]
+      return newState
     default:
       return state;
   }

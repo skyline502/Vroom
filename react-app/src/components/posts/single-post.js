@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { createAComment, getAllComments } from "../../store/comments";
+import { deleteAComment } from "../../store/comments";
 import './SinglePost.css'
 
 const SinglePost = () => {
@@ -9,6 +10,7 @@ const SinglePost = () => {
   const user = useSelector(state => state.session.user);
   const post_comments = comments.filter(comment => comment.post_id === currentPost.id);
   const [newComment, setNewComment] = useState('');
+  const [idx, setIdx] = useState(0);
   const dispatch = useDispatch();
 
   const convertDate = (date) => {
@@ -21,7 +23,23 @@ const SinglePost = () => {
     commentsEnd.current?.scrollIntoView();
   }, [comments])
 
-  const onSubmit = async(e) => {
+  const nextPic = () => {
+    if (idx !== currentPost.images.length - 1) {
+      setIdx(idx + 1);
+    } else if (idx === currentPost.images.length - 1) {
+      setIdx(0);
+    }
+  }
+
+  const previousPic = () => {
+    if (idx !== 0) {
+      setIdx(idx - 1);
+    } else if (idx === 0) {
+      setIdx(currentPost.images.length - 1);
+    }
+  }
+
+  const onSubmit = async (e) => {
     if (e.keyCode === 13) {
       let comment = new FormData();
       comment.append('post_id', currentPost.id);
@@ -35,19 +53,24 @@ const SinglePost = () => {
     }
   }
 
-  // console.log('in single post', currentPost)
-  // console.log('current post comments', post_comments)
+  console.log('in single post the current post', currentPost)
+  // console.log('current user', user)
+  console.log('current post comments', post_comments)
   // console.log('my comment is...', newComment);
   return (
     <div className="single-post-container">
-      <div className="single-post-img">
-        {currentPost.images?.map(image => (
-          <div key={image.id}>
-            <img src={image.url} alt='cars' />
-            {currentPost.user_id === user.id && <button>delete</button>}
-          </div>
-        ))}
-        <div style={{ color: 'white' }}>{currentPost.title}</div>
+      <div className="single-post-img-box">
+        <div style={{ color: 'white' }} className='image-title'>{currentPost.title}</div>
+        <img src={currentPost.images[idx].url} alt='cars' className="current-img" />
+        <div className="image-btns">
+          {idx === 0 ? <p>.</p> :
+            <button onClick={previousPic}><i className="fas fa-angle-left fa-lg" style={{ color: 'white' }} /></button>
+          }
+          <p style={{ color: 'white' }}>{idx + 1}/{currentPost.images.length}</p>
+          {idx === currentPost.images.length - 1 ? <p>.</p> :
+            <button onClick={nextPic}><i className="fas fa-angle-right fa-lg" style={{ color: 'white' }} /></button>
+          }
+        </div>
       </div>
       <div className="single-post-content">
         <div className="poster-info">
@@ -70,6 +93,12 @@ const SinglePost = () => {
               <div className="comment-content">
                 <p>{comment.comment}</p>
                 <p>{convertDate(comment.updated_at)}</p>
+                {comment.user_id.id === user.id &&
+                  <div className="comment-btns">
+                    <button onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
+                    <button><i className="fas fa-wrench"></i></button>
+                  </div>
+                }
               </div>
             </div>
           ))}

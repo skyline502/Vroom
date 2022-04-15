@@ -36,3 +36,12 @@ def createComment():
   db.session.commit()
 
   return newComment.to_dict()
+
+@comments_routes.route('/<int:comment_id>', methods=['DELETE'])
+@login_required
+def delete_comment(comment_id):
+  print('delete a comment is at the backend....', comment_id)
+  comment = Comment.query.get(comment_id)
+  db.session.delete(comment)
+  db.session.commit()
+  return {'comment_id': comment_id}
