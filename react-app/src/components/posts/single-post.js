@@ -42,7 +42,10 @@ const SinglePost = () => {
     <div className="single-post-container">
       <div className="single-post-img">
         {currentPost.images?.map(image => (
-          <img key={image.id} src={image.url} alt='cars' />
+          <div key={image.id}>
+            <img src={image.url} alt='cars' />
+            {currentPost.user_id === user.id && <button>delete</button>}
+          </div>
         ))}
         <div style={{ color: 'white' }}>{currentPost.title}</div>
       </div>

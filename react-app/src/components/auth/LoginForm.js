@@ -69,7 +69,7 @@ const LoginForm = () => {
         </div>
         <button type='submit'>Log In</button>
       </form>
-      <div className='login-sign-up'><p>Don't have an account?</p><Link to='/sign-up' style={{ marginLeft: 10 }}>Sign up</Link></div>
+      <div className='login-sign-up'><p>Don't have an account?</p><button onClick={showSignUpForm}>sign up</button></div>
       <div className='demo-btn'>
         <p style={{marginTop:1}}>Log in as a</p>
         <button
@@ -77,7 +77,6 @@ const LoginForm = () => {
          onClick={() => dispatch(login('demo@aa.io', 'password'))}
         >Demo user</button>
       </div>
-      <button onClick={showSignUpForm}>sign up</button>
     </div>
   );
 };
