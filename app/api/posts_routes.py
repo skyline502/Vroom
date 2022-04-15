@@ -6,6 +6,11 @@ from sqlalchemy import desc
 import json
 from datetime import datetime
 
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+
+def allowed_file(filename):
+    return "." in filename and \
+       filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 post_routes = Blueprint('posts', __name__)
 
@@ -26,15 +31,22 @@ def createPost():
   print('foooooooooooorm create', request.form)
 
   errors = []
-  title=request.form['title'],
-  user_id=request.form['user_id'],
+  title=request.form['title']
+  user_id=request.form['user_id']
   description=request.form['description']
+  print(title, 'title.....')
+  print(len(title), 'title...length')
+  print(len(description), 'length....description')
+  print(len(user_id), 'user_id...length')
 
   if len(title) < 8 or len(title) > 50:
     errors.append('Title must be between 8 characters and 50 characters in length')
 
-  if len(description) < 8 or len(description) > 2000:
-    errors.append('Description must be between 8 characters and 2000 characters in length.')
+  if len(description) < 8 or len(description) > 200:
+    errors.append('Description must be between 8 characters and 200 characters in length.')
+
+  if len(errors):
+    return {'errors': errors}, 401
 
   newPost = Post(
     title=request.form['title'],
@@ -47,10 +59,20 @@ def createPost():
 
   newPost_id = newPost.id
 
-  errors = []
   print(request.files.getlist('images array'), 'piiiiiiiiiiiiiiiiiiiiiiiics')
   images = request.files.getlist('images array')
 
+
+
+
+  for image in images:
+    errors = []
+
+    if allowed_file(image.filename) == False:
+      errors.append(f'{image.filename} is not an Image!')
+
+    if len(errors):
+      return {'errors': errors}, 401
 
 
   for image in images:

@@ -16,11 +16,15 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   console.log('any errors', errors)
+
+  console.log(profile_pic.name, 'profile pic ....')
   const onSignUp = async (e) => {
     setErrors([]);
     e.preventDefault();
     let validationErrors = []
     let emailValidation = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+    const allowedExt = ["png", "jpg", "jpeg", "gif"];
+
     if (username.length < 2 || username.length > 255) {
       validationErrors.push('username must be between 2 and 255 characters in length');
     }
@@ -39,6 +43,10 @@ const SignUpForm = () => {
 
     if (password !== confirm) {
       validationErrors.push('Passwords do not match.')
+    }
+
+    if (!allowedExt.includes(profile_pic.name.split('.')[1])) {
+      validationErrors.push(`${profile_pic.name}'s is not an image file!`)
     }
 
     if (errors) {
@@ -82,6 +90,7 @@ const SignUpForm = () => {
   }
 
   if (user) {
+    dispatch(hideModal());
     return <Redirect to='/' />;
   }
 

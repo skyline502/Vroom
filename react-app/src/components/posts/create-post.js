@@ -12,16 +12,22 @@ const CreatePostForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   let history = useHistory();
-
+  const allowedExt = ["png", "jpg", "jpeg", "gif"];
   const addImage = e => {
     const image = e.target.files[0]
     setErrors([]);
+
+
     if (image.size > 1000000) {
       setErrors(['File size too large, image must be less than 1MB in size'])
       return;
     }
     if (images.length === 5) {
       setErrors(['You already have 5 images!'])
+      return;
+    }
+    if (!allowedExt.includes(image.name.split('.')[1])) {
+      setErrors(['That is not a supported image type!']);
       return;
     }
     if (!images.length) {
@@ -35,6 +41,8 @@ const CreatePostForm = () => {
   console.log('errors....', errors)
 
   console.log({ title, description, images })
+  console.log(description.length, 'length of description.......')
+  console.log(title.length, 'title length..................')
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -45,22 +53,23 @@ const CreatePostForm = () => {
       validationErrors.push('Title must be between 8 and 50 characters in length')
     }
 
-    if (description.length < 8 || description.length > 2000) {
-      validationErrors.push('Description must be between 8 and 2000 characters in length.')
+    if (description.length < 8 || description.length > 200) {
+      validationErrors.push('Description must be between 8 and 200 characters in length.')
     }
 
     if (validationErrors) {
       setErrors(validationErrors);
     }
 
-    console.log(validationErrors)
+    console.log(validationErrors, 'errrors......')
     if (!validationErrors.length) {
       e.preventDefault();
-      console.log('does it reach here..............')
       let form = new FormData();
-      images.forEach((image, i) => {
+      images.forEach((image) => {
+        console.log('image is what', image);
         form.append('images array', image)
       });
+
       form.append('user_id', user_id);
       form.append('title', title);
       form.append('description', description);

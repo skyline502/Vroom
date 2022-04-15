@@ -45,8 +45,8 @@ const EditPostForm = () => {
       validationErrors.push('Title must be between 8 and 50 characters in length')
     }
 
-    if (description.length < 8 || description.length > 2000) {
-      validationErrors.push('Description must be between 8 and 2000 characters in length.')
+    if (description.length < 8 || description.length > 200) {
+      validationErrors.push('Description must be between 8 and 200 characters in length.')
     }
 
     if (validationErrors) {

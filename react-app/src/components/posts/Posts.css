@@ -1,5 +1,6 @@
 .post {
   margin-bottom: 30px;
+  max-width: 600px;
 }
 
 .image-box {
@@ -38,7 +39,7 @@
 
 .post-profile {
   height: 40px;
-  border-radius: 50%;
+  border-radius: 5px;
   margin-right: 10px;
 }
 
@@ -47,6 +48,12 @@
   margin-top: 0;
   border-top: 1px solid lightgray;
   padding: 20px;
+  overflow-wrap: break-word;
+  overflow-y: scroll;
+}
+
+.post-content::-webkit-scrollbar {
+  display: none;
 }
 
 .post-content > p {

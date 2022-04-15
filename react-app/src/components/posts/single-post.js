@@ -10,6 +10,7 @@ const SinglePost = () => {
   const user = useSelector(state => state.session.user);
   const post_comments = comments.filter(comment => comment.post_id === currentPost.id);
   const [newComment, setNewComment] = useState('');
+  const [errors, setErrors] = useState([]);
   const [idx, setIdx] = useState(0);
   const dispatch = useDispatch();
 
@@ -40,15 +41,22 @@ const SinglePost = () => {
   }
 
   const onSubmit = async (e) => {
+    setErrors([]);
     if (e.keyCode === 13) {
-      let comment = new FormData();
-      comment.append('post_id', currentPost.id);
-      comment.append('user_id', user.id);
-      comment.append('comment', newComment);
-      await dispatch(createAComment(comment));
+      if (newComment.length < 2 || newComment.length > 200) {
+        setErrors(['Comment must be between 2 and 200 characters in length.'])
+        return;
+      } else {
+        let comment = new FormData();
+        comment.append('post_id', currentPost.id);
+        comment.append('user_id', user.id);
+        comment.append('comment', newComment);
+        await dispatch(createAComment(comment));
 
-      dispatch(getAllComments());
-      setNewComment('');
+        dispatch(getAllComments());
+        setNewComment('');
+      }
+
       // console.log(comment, 'I have submitted a new comment......')
     }
   }
@@ -79,8 +87,8 @@ const SinglePost = () => {
             <div className="post-name"> {currentPost.user_id.username}</div>
           </div>
           <div className="poster-content">
-            <p>{currentPost.description}</p>
-            <p>{convertDate(currentPost.updated_at)}</p>
+            <p className="current-post-desc">{currentPost.description}</p>
+            <p className="date">Posted on {convertDate(currentPost.updated_at)}</p>
           </div>
         </div>
         <div className="comment-box">
@@ -91,8 +99,8 @@ const SinglePost = () => {
                 <div className="post-name">{comment.user_id.username}</div>
               </div>
               <div className="comment-content">
-                <p>{comment.comment}</p>
-                <p>{convertDate(comment.updated_at)}</p>
+                <p className="the-comment">{comment.comment}</p>
+                <p className="date">Posted on {convertDate(comment.updated_at)}</p>
                 {comment.user_id.id === user.id &&
                   <div className="comment-btns">
                     <button onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
@@ -110,6 +118,9 @@ const SinglePost = () => {
             <i className="far fa-comment" />
           </label>
         </div>
+        {errors?.map(error => (
+          <div key={error}>{error}</div>
+        ))}
         <div className="create-comment">
           <input
             type='text'
