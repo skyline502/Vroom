@@ -53,8 +53,10 @@ const commentsReducer = (state = {comments: [], current: {}}, action) => {
         ...state,
         comments: [...action.comments.comments]
       }
-    case CREATE_COMMENT: {
-      return newState;
+    case CREATE_COMMENT:
+    return {
+      ...state,
+      comments: [action.comment, ...state.comments]
     }
     default:
       return state;

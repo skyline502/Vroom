@@ -19,27 +19,25 @@ const SinglePost = () => {
 
   useEffect(() => {
     commentsEnd.current?.scrollIntoView();
-  }, [dispatch,post_comments])
+  }, [comments])
 
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     if (e.keyCode === 13) {
       let comment = new FormData();
       comment.append('post_id', currentPost.id);
       comment.append('user_id', user.id);
       comment.append('comment', newComment);
-      let data = dispatch(createAComment(comment));
-      if (data) {
-        setNewComment('');
-      }
+      await dispatch(createAComment(comment));
 
       dispatch(getAllComments());
-      console.log(comment, 'I have submitted a new comment......')
+      setNewComment('');
+      // console.log(comment, 'I have submitted a new comment......')
     }
   }
 
-  console.log('in single post', currentPost)
-  console.log('current post comments', post_comments)
-  console.log('my comment is...', newComment);
+  // console.log('in single post', currentPost)
+  // console.log('current post comments', post_comments)
+  // console.log('my comment is...', newComment);
   return (
     <div className="single-post-container">
       <div className="single-post-img">
