@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import { hideModal } from '../../store/modal';
 import './LoginForm.css'
 
 const SignUpForm = () => {
@@ -158,7 +159,7 @@ const SignUpForm = () => {
         </div>
         <button type='submit'>Sign Up</button>
       </form>
-      <Link to='/login' className='cancel-sign-up'>Cancel</Link>
+      <button className='cancel-sign-up' onClick={() => dispatch(hideModal())}>Cancel</button>
     </div>
   );
 };
