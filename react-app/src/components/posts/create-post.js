@@ -55,6 +55,7 @@ const CreatePostForm = () => {
 
     console.log(validationErrors)
     if (!validationErrors.length) {
+      e.preventDefault();
       console.log('does it reach here..............')
       let form = new FormData();
       images.forEach((image, i) => {
@@ -65,12 +66,14 @@ const CreatePostForm = () => {
       form.append('description', description);
 
       let data = await dispatch(createAPost(form));
-
+      let audio = new Audio('/lfa-sound.mp3');
       if (data) {
         setErrors(data);
       }
-
-      history.push('/posts')
+      audio.play();
+      audio.onended = () => {
+        history.push('/posts');
+      }
     }
   }
 
