@@ -117,6 +117,16 @@ def edit_post(post_id):
 
   if request.files:
     images = request.files.getlist('images array')
+
+    for image in images:
+      errors = []
+
+      if allowed_file(image.filename) == False:
+        errors.append(f'{image.filename} is not an Image!')
+
+      if len(errors):
+        return {'errors': errors}, 401
+
     for image in images:
       image.filename = get_unique_filename(image.filename)
 

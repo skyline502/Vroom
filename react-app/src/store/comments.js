@@ -1,6 +1,7 @@
 const GET_COMMENTS = 'comments/GET_COMMENTS';
 const CREATE_COMMENT = 'comments/CREATE_COMMENT';
 const DELETE_COMMENT = 'comments/DELETE_COMMENT';
+const EDIT_COMMENT = 'comments/EDIT_COMMENT';
 
 const getComments = (comments) => ({
   type: GET_COMMENTS,
@@ -16,6 +17,11 @@ const deleteComment = (comment_id) => ({
   type: DELETE_COMMENT,
   comment_id
 })
+
+const editComment = (comment) => ({
+  type: EDIT_COMMENT,
+  comment
+});
 
 export const getAllComments = () => async dispatch => {
   const response = await fetch(`/api/comments/`)
@@ -59,6 +65,28 @@ export const deleteAComment = (comment_id) => async dispatch => {
   const comment = await response.json();
 
   dispatch(deleteComment(comment));
+}
+
+export const editAComment = (comment) => async dispatch => {
+  console.log('edit a comment is in the store....', comment)
+
+  const response = await fetch(`/api/comments/${comment.id}`, {
+    method: 'PUT',
+    body: comment,
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(editComment(data));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred.  Please try again.']
+  }
 }
 
 const sort_comments = array => {
