@@ -109,7 +109,7 @@ const EditPostForm = () => {
             onChange={addImage}
             placeholder='add an image'
           />
-          <button type='submit'>create post</button>
+          <button type='submit'>edit post</button>
         </form>
       </div>
       <div className='image-preview'>
@@ -122,7 +122,7 @@ const EditPostForm = () => {
           </div>
         </div>
         <div className='image-preview-header'>
-          <h2>Add up to 5 images</h2>
+          <h2>limit of 5 images</h2>
         </div>
         <div className='img-box'>
           {images?.map(image => (

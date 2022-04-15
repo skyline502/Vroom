@@ -5,12 +5,16 @@ import { useEffect, useState } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import EditPostForm from './edit-post-modal/edit-post';
 import { setPost } from '../../store/posts';
+import { getAllComments } from '../../store/comments';
+import SinglePost from './single-post';
 
 const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
   const user = useSelector(state => state.session.user);
-  const posts = useSelector(state => state.posts.posts)
+  const posts = useSelector(state => state.posts.posts);
+  const comments = useSelector(state => state.comments.comments);
 
+  console.log('current posts comments', comments)
   console.log(posts, 'on posts page')
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
@@ -20,7 +24,8 @@ const Posts = () => {
   }
 
   useEffect(() => {
-    dispatch(getAllPosts())
+    dispatch(getAllPosts());
+    dispatch(getAllComments());
   }, [dispatch]);
 
   console.log(user, 'user....')
@@ -36,8 +41,14 @@ const Posts = () => {
 
   const showEditForm = (post) => {
     dispatch(setCurrentModal(EditPostForm));
-    dispatch(showModal())
-    dispatch(setPost(post))
+    dispatch(showModal());
+    dispatch(setPost(post));
+  }
+
+  const showSinglePost = (post) => {
+    dispatch(setCurrentModal(SinglePost));
+    dispatch(showModal());
+    dispatch(setPost(post));
   }
 
   return (
@@ -51,6 +62,7 @@ const Posts = () => {
           <div className='user-info'>
             <div><img src={post.user_id.profile_url} alt='profile-img' className='post-profile' /></div>
             <div>{post.user_id.username}</div>
+            <button onClick={() => showSinglePost(post)}>...</button>
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>
                 <button onClick={() => deletePost(post.id)}>delete</button>
