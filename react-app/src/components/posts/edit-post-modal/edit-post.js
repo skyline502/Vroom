@@ -11,7 +11,7 @@ const EditPostForm = () => {
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-
+  const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
   const curentImages = currentPost?.images;
   console.log('current post........', currentPost);
@@ -29,6 +29,12 @@ const EditPostForm = () => {
       setErrors(['You already have 5 images!'])
       return;
     }
+
+    if (!allowedExt.includes(image.name.split('.')[1])) {
+      setErrors(['That is not a supported image type!']);
+      return;
+    }
+
     if (!images.length) {
       setImages([image]);
     } else if (images.length && images.length < 6) {
