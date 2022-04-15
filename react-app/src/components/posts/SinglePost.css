@@ -12,12 +12,33 @@
   justify-content: center;
 }
 
+.image-btns {
+  display: flex;
+  justify-content: space-around;
+  min-width: 10vw;
+  position: fixed;
+  bottom: 200px;
+}
+
+.image-btns > button {
+  background-color: transparent;
+  margin: 1px;
+  color: white;
+  border: 0;
+}
+
 .single-post-img-box {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: black;
   height: 60vh;
+}
+
+.image-title {
+  position: fixed;
+  top: 200px;
 }
 
 .single-post-img {
@@ -111,6 +132,11 @@
 .comment-content > p {
   font-family: 'Helvetica';
   font-size: 12px;
+}
+
+.current-img {
+  max-width: 35vw;
+  max-height: 30vh;
 }
 
 .create-comment {

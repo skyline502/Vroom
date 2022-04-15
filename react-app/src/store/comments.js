@@ -51,6 +51,7 @@ export const createAComment = (comment) => async dispatch => {
 }
 
 export const deleteAComment = (comment_id) => async dispatch => {
+  console.log('delete a comment is inside the store...', comment_id)
   const response = await fetch(`/api/comments/${comment_id}`, {
     method: 'DELETE',
   });
@@ -70,6 +71,8 @@ const sort_comments = array => {
 }
 
 const commentsReducer = (state = {comments: [], current: {}}, action) => {
+  let newState = {...state}
+
   switch(action.type) {
     case GET_COMMENTS:
       return {
@@ -83,7 +86,10 @@ const commentsReducer = (state = {comments: [], current: {}}, action) => {
       comments: [action.comment, ...state.comments]
     }
     case DELETE_COMMENT:
-
+      delete newState[action.comment_id.comment_id];
+      newState.comments.splice(newState.comments.findIndex(comment => comment.id === action.comment_id.comment_id),1);
+      newState.comments = [...newState.comments]
+      return newState
     default:
       return state;
   }
