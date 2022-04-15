@@ -62,11 +62,11 @@ const Posts = () => {
           <div className='user-info'>
             <div><img src={post.user_id.profile_url} alt='profile-img' className='post-profile' /></div>
             <div>{post.user_id.username}</div>
+            <button onClick={() => showSinglePost(post)}>...</button>
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>
                 <button onClick={() => deletePost(post.id)}>delete</button>
                 <button onClick={() => showEditForm(post)}>edit</button>
-                <button onClick={() => showSinglePost(post)}>...</button>
               </div>
             ) : <></>}
           </div>
