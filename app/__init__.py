@@ -87,4 +87,6 @@ def react_root(path):
         return app.send_static_file('add-post.png')
     if path == 'lfa-sound.mp3':
         return app.send_static_file('lfa-sound.mp3')
+    if path == 'loading-screen.gif':
+        return app.send_static_file('loading-screen.gif')
     return app.send_static_file('index.html')
