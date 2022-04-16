@@ -191,6 +191,20 @@
   width: 34vw;
 }
 
+.comment-btns {
+  display: flex;
+  opacity: 0;
+  height: 10px;
+  transition-duration: 0.5s;
+}
+
+.comment-btns:hover {
+  display:flex;
+  opacity: 1;
+  height: 50px;
+  align-items: center;
+}
+
 .comment-btns > button {
   background-color: transparent;
   border: 0;
@@ -204,4 +218,12 @@
   background-color: black;
   border-radius: 5px;
   transform: scale(1.2);
+}
+
+.edit-cmt-field {
+  display:none;
+}
+
+.show-edit {
+  display: flex;
 }

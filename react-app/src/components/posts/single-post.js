@@ -12,6 +12,9 @@ const SinglePost = () => {
   const [newComment, setNewComment] = useState('');
   const [errors, setErrors] = useState([]);
   const [idx, setIdx] = useState(0);
+  const [showEdit, setShowEdit] = useState(false);
+  const [editField, setEditField] = useState(null);
+  const [currentComment, setCurrentComment] = useState('');
   const dispatch = useDispatch();
 
   const convertDate = (date) => {
@@ -23,6 +26,14 @@ const SinglePost = () => {
   useEffect(() => {
     commentsEnd.current?.scrollIntoView();
   }, [comments])
+
+  useEffect(() => {
+    if (showEdit) {
+      setEditField('show-edit')
+    } else {
+      setEditField(null);
+    }
+  },[showEdit])
 
   const nextPic = () => {
     if (idx !== currentPost.images.length - 1) {
@@ -38,6 +49,11 @@ const SinglePost = () => {
     } else if (idx === 0) {
       setIdx(currentPost.images.length - 1);
     }
+  }
+
+  const handleEdit = (comment) => {
+    setCurrentComment(comment);
+    setShowEdit(true);
   }
 
   const onSubmit = async (e) => {
@@ -102,10 +118,22 @@ const SinglePost = () => {
                 <p className="the-comment">{comment.comment}</p>
                 <p className="date">Posted on {convertDate(comment.updated_at)}</p>
                 {comment.user_id.id === user.id &&
-                  <div className="comment-btns">
+                <div className="edit-menu">
+                  <i className="fas fa-caret-down" style={{marginLeft:35}}></i>
+                  <div className="comment-btns" onMouseLeave={() => setShowEdit(!showEdit)}>
                     <button onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
-                    <button><i className="fas fa-wrench"></i></button>
+                    <button onMouseEnter={() => handleEdit(comment.comment)}><i className="fas fa-wrench"></i></button>
+                    <div className={`edit-cmt-field ${editField}`}>
+                      <input
+                        type='text'
+                        value={currentComment}
+                        onChange={e => setCurrentComment(e.target.value)}
+                      />
+                      <button>Save</button>
+                      <button>Cancel</button>
+                    </div>
                   </div>
+                </div>
                 }
               </div>
             </div>
