@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createAPost } from '../../store/posts';
 import { useHistory } from 'react-router-dom';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { showModal, setCurrentModal, hideModal } from '../../store/modal';
 
 const CreatePostForm = () => {
   const [title, setTitle] = useState('');
@@ -18,21 +20,21 @@ const CreatePostForm = () => {
     setErrors([]);
 
 
-    if (image.size > 1000000) {
+    if (image?.size > 1000000) {
       setErrors(['File size too large, image must be less than 1MB in size'])
       return;
     }
-    if (images.length === 5) {
+    if (images?.length === 5) {
       setErrors(['You already have 5 images!'])
       return;
     }
-    if (!allowedExt.includes(image.name.split('.')[1])) {
+    if (!allowedExt.includes(image?.name.split('.')[1])) {
       setErrors(['That is not a supported image type!']);
       return;
     }
-    if (!images.length) {
+    if (!images?.length) {
       setImages([image]);
-    } else if (images.length && images.length < 6) {
+    } else if (images?.length && images?.length < 6) {
       setImages([...images, image]);
     }
   }
@@ -57,6 +59,10 @@ const CreatePostForm = () => {
       validationErrors.push('Description must be between 8 and 200 characters in length.')
     }
 
+    if (!images.length) {
+      validationErrors.push('Please add at least 1 image');
+    }
+
     if (validationErrors) {
       setErrors(validationErrors);
     }
@@ -79,12 +85,17 @@ const CreatePostForm = () => {
       if (data) {
         setErrors(data);
       }
+
       audio.play();
+      dispatch(setCurrentModal(LoadingScreen));
+      dispatch(showModal());
       audio.onended = () => {
+        dispatch(hideModal());
         history.push('/posts');
       }
     }
   }
+
 
   console.log(images, '...curent images in bucket')
 
@@ -123,7 +134,6 @@ const CreatePostForm = () => {
               accept='image/*'
               onChange={addImage}
               placeholder='add an image'
-              required={true}
               className='aws-upload'
             />
           </label>

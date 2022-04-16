@@ -1,0 +1,16 @@
+.loading-screen-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: black;
+  color: white;
+  height: 400px;
+  width: 40vw;
+  border-radius: 5px;
+}
+
+.loading-screen {
+  height: 400px;
+}
