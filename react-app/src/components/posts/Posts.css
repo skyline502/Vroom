@@ -30,11 +30,41 @@
 
 .user-info {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 25px;
   background-color: white;
   padding: 20px;
   border-bottom: 1px solid lightgray;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+}
+
+.post-user > button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+  height: 20px;
+}
+
+.post-user > button:hover {
+  color: white;
+  background-color: black;
+}
+
+.owner-buttons > button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+  height: 20px;
+}
+
+.owner-buttons > button:hover {
+  color: white;
+  background-color: black;
 }
 
 .post-profile {
