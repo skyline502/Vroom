@@ -194,8 +194,8 @@
 .comment-btns {
   display: flex;
   opacity: 0;
-  height: 10px;
-  transition-duration: 0.5s;
+  height: 5px;
+  transition-duration: 0.7s;
 }
 
 .comment-btns:hover {
