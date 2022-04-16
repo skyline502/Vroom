@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { createAComment, getAllComments } from "../../store/comments";
-import { deleteAComment } from "../../store/comments";
+import { deleteAComment, editAComment } from "../../store/comments";
 import './SinglePost.css'
 
 const SinglePost = () => {
@@ -10,8 +10,12 @@ const SinglePost = () => {
   const user = useSelector(state => state.session.user);
   const post_comments = comments.filter(comment => comment.post_id === currentPost.id);
   const [newComment, setNewComment] = useState('');
+  const [comment_id, setComment_Id] = useState(null);
   const [errors, setErrors] = useState([]);
   const [idx, setIdx] = useState(0);
+  const [showEdit, setShowEdit] = useState(false);
+  const [editField, setEditField] = useState(null);
+  const [currentComment, setCurrentComment] = useState('');
   const dispatch = useDispatch();
 
   const convertDate = (date) => {
@@ -23,6 +27,14 @@ const SinglePost = () => {
   useEffect(() => {
     commentsEnd.current?.scrollIntoView();
   }, [comments])
+
+  useEffect(() => {
+    if (showEdit) {
+      setEditField('show-edit')
+    } else {
+      setEditField(null);
+    }
+  },[showEdit])
 
   const nextPic = () => {
     if (idx !== currentPost.images.length - 1) {
@@ -38,6 +50,37 @@ const SinglePost = () => {
     } else if (idx === 0) {
       setIdx(currentPost.images.length - 1);
     }
+  }
+
+  const handleEdit = (comment) => {
+    setShowEdit(true);
+    setCurrentComment(comment.comment);
+    setComment_Id(comment.id);
+  }
+
+  const handleEditSubmit = async() => {
+    setErrors([]);
+
+    if (currentComment.length < 2) {
+      setErrors(['comments must be between 2 and 200 characters in length.']);
+      return;
+    }
+
+    let form = new FormData();
+
+    console.log('this is the new comment!', currentComment)
+    form.append('comment_id', comment_id);
+    form.append('comment', currentComment);
+    form.append('post_id', currentPost.id);
+    form.append('user_id', user.id);
+
+    let data = await dispatch(editAComment(form));
+
+    if (data) {
+      setErrors(data);
+    }
+    dispatch(getAllComments());
+    setShowEdit(false);
   }
 
   const onSubmit = async (e) => {
@@ -100,12 +143,27 @@ const SinglePost = () => {
               </div>
               <div className="comment-content">
                 <p className="the-comment">{comment.comment}</p>
-                <p className="date">Posted on {convertDate(comment.updated_at)}</p>
+                <p className="date">Posted on {convertDate(comment.created_at)}</p>
+                {comment.created_at !== comment.updated_at &&
+                  <p className="updated">Updated on {convertDate(comment.updated_at)}</p>
+                }
                 {comment.user_id.id === user.id &&
-                  <div className="comment-btns">
-                    <button onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
-                    <button><i className="fas fa-wrench"></i></button>
+                <div className="edit-menu">
+                  <i className="fas fa-caret-square-down" style={{marginLeft:35}}></i>
+                  <div className="comment-btns" onMouseLeave={() => setShowEdit(!showEdit)}>
+                    <button onMouseEnter={() => setShowEdit(false)} onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
+                    <button onMouseEnter={() => handleEdit(comment)}><i className="fas fa-edit"></i></button>
+                    <div className={`edit-cmt-field ${editField}`}>
+                      <input
+                        type='text'
+                        value={currentComment}
+                        onChange={e => setCurrentComment(e.target.value)}
+                      />
+                      <button className="edit-cmt-save" onClick={() => handleEditSubmit()}><i className="fas fa-check-circle"></i></button>
+                      <button className="edit-cmt-cancel" onClick={() => setShowEdit(false)}><i class="fas fa-times-circle"></i></button>
+                    </div>
                   </div>
+                </div>
                 }
               </div>
             </div>

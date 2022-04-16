@@ -45,3 +45,17 @@ def delete_comment(comment_id):
   db.session.delete(comment)
   db.session.commit()
   return {'comment_id': comment_id}
+
+@comments_routes.route('/<int:comment_id>', methods=['PUT'])
+@login_required
+def edit_comment(comment_id):
+  print('edit comment is in the backend.......', comment_id)
+  comment = Comment.query.get(comment_id)
+
+  print(dir(comment), 'this is the comment found!....')
+  print(dir(request.form.keys), 'this is the form....')
+  comment.comment = request.form['comment']
+  comment.updated_at = datetime.now()
+  db.session.commit()
+
+  return comment.to_dict();

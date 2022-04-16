@@ -60,13 +60,15 @@ const Posts = () => {
       {posts?.map(post => (
         <div key={post.id} className='post'>
           <div className='user-info'>
-            <div><img src={post.user_id.profile_url} alt='profile-img' className='post-profile' /></div>
-            <div>{post.user_id.username}</div>
-            <button onClick={() => showSinglePost(post)}>...</button>
+            <div className='post-user'>
+              <img src={post.user_id.profile_url} alt='profile-img' className='post-profile' />
+              <div>{post.user_id.username}</div>
+              <button onClick={() => showSinglePost(post)}><i className="fas fa-warehouse"></i></button>
+            </div>
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>
-                <button onClick={() => deletePost(post.id)}>delete</button>
-                <button onClick={() => showEditForm(post)}>edit</button>
+                <button onClick={() => deletePost(post.id)}><i className="fas fa-trash-alt"></i></button>
+                <button onClick={() => showEditForm(post)}><i className="fas fa-wrench"></i></button>
               </div>
             ) : <></>}
           </div>

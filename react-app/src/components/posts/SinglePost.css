@@ -99,7 +99,12 @@
 }
 
 .poster-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-left: 15px;
+  margin-top: -10px;
 }
 
 .poster-content > p {
@@ -143,6 +148,17 @@
   font-family: 'Helvetica';
   font-size: 12px;
   word-wrap: break-word;
+}
+
+.comment-content > p.date {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.comment-content > p.updated {
+  margin-top:0;
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .the-comment {
@@ -191,6 +207,20 @@
   width: 34vw;
 }
 
+.comment-btns {
+  display: flex;
+  opacity: 0;
+  height: 5px;
+  transition-duration: 0.7s;
+}
+
+.comment-btns:hover {
+  display:flex;
+  opacity: 1;
+  height: 50px;
+  align-items: center;
+}
+
 .comment-btns > button {
   background-color: transparent;
   border: 0;
@@ -204,4 +234,32 @@
   background-color: black;
   border-radius: 5px;
   transform: scale(1.2);
+}
+
+.edit-cmt-field {
+  display:none;
+}
+
+.edit-cmt-save {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+}
+
+.edit-cmt-save:hover {
+  color: green
+}
+
+.edit-cmt-cancel {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 0;
+}
+
+.edit-cmt-cancel:hover {
+  color: red;
+}
+
+.show-edit {
+  display: flex;
 }

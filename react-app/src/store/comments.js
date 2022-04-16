@@ -68,9 +68,11 @@ export const deleteAComment = (comment_id) => async dispatch => {
 }
 
 export const editAComment = (comment) => async dispatch => {
-  console.log('edit a comment is in the store....', comment)
+  console.log('edit a comment is in the store....', comment.get('comment_id'))
 
-  const response = await fetch(`/api/comments/${comment.id}`, {
+  let comment_id = comment.get('comment_id');
+  console.log(comment_id, 'this is the comment id................')
+  const response = await fetch(`/api/comments/${comment_id}`, {
     method: 'PUT',
     body: comment,
   });
@@ -118,6 +120,10 @@ const commentsReducer = (state = {comments: [], current: {}}, action) => {
       newState.comments.splice(newState.comments.findIndex(comment => comment.id === action.comment_id.comment_id),1);
       newState.comments = [...newState.comments]
       return newState
+    case EDIT_COMMENT:
+      return {
+        ...state,
+      }
     default:
       return state;
   }
