@@ -13,7 +13,7 @@ comments_routes = Blueprint('comments', __name__)
 @comments_routes.route('/')
 @login_required
 def getComments():
-  comments = Comment.query.all();
+  comments = Comment.query.order_by(Comment.created_at).all();
   comments_array = []
   for comment in comments:
     comments_array.append(comment.to_dict())
@@ -51,9 +51,15 @@ def delete_comment(comment_id):
 def edit_comment(comment_id):
   print('edit comment is in the backend.......', comment_id)
   comment = Comment.query.get(comment_id)
+  errors = []
 
-  print(dir(comment), 'this is the comment found!....')
-  print(dir(request.form.keys), 'this is the form....')
+  if len(request.form['comment']) < 2:
+    errors.append('Comments must be between 2 and 200 in length.')
+
+  if len(errors):
+    return {'errors': errors}, 405
+  # print(dir(comment), 'this is the comment found!....')
+  # print(dir(request.form.keys), 'this is the form....')
   comment.comment = request.form['comment']
   comment.updated_at = datetime.now()
   db.session.commit()
