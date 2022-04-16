@@ -12,11 +12,7 @@ const EditPostForm = () => {
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const allowedExt = ["png", "jpg", "jpeg", "gif"];
-
   const curentImages = currentPost?.images;
-  console.log('current post........', currentPost);
-  console.log('current images...', curentImages);
-  console.log('user_id', currentPost.user_id.id)
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -59,9 +55,7 @@ const EditPostForm = () => {
       setErrors(validationErrors);
     }
 
-    console.log(validationErrors)
     if (!validationErrors.length) {
-      console.log('does it reach here..............', title, description)
       let form = new FormData();
       images?.forEach((image, i) => {
         form.append('images array', image)
@@ -81,8 +75,6 @@ const EditPostForm = () => {
       dispatch(hideModal())
     }
   }
-
-  console.log(images, '...curent images in bucket')
 
   return (
     <div className='create-posts-box'>

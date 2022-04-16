@@ -15,9 +15,7 @@ const SignUpForm = () => {
   const [profile_pic, setProfile] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  console.log('any errors', errors)
 
-  console.log(profile_pic.name, 'profile pic ....')
   const onSignUp = async (e) => {
     setErrors([]);
     e.preventDefault();
@@ -50,7 +48,6 @@ const SignUpForm = () => {
     }
 
     if (errors) {
-      console.log('errors', errors)
       setErrors(validationErrors)
     }
 

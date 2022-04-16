@@ -68,7 +68,6 @@ const SinglePost = () => {
 
     let form = new FormData();
 
-    console.log('this is the new comment!', currentComment)
     form.append('comment_id', comment_id);
     form.append('comment', currentComment);
     form.append('post_id', currentPost.id);
@@ -99,15 +98,9 @@ const SinglePost = () => {
         dispatch(getAllComments());
         setNewComment('');
       }
-
-      // console.log(comment, 'I have submitted a new comment......')
     }
   }
 
-  console.log('in single post the current post', currentPost)
-  // console.log('current user', user)
-  console.log('current post comments', post_comments)
-  // console.log('my comment is...', newComment);
   return (
     <div className="single-post-container">
       <div className="single-post-img-box">
@@ -160,7 +153,7 @@ const SinglePost = () => {
                         onChange={e => setCurrentComment(e.target.value)}
                       />
                       <button className="edit-cmt-save" onClick={() => handleEditSubmit()}><i className="fas fa-check-circle"></i></button>
-                      <button className="edit-cmt-cancel" onClick={() => setShowEdit(false)}><i class="fas fa-times-circle"></i></button>
+                      <button className="edit-cmt-cancel" onClick={() => setShowEdit(false)}><i className="fas fa-times-circle"></i></button>
                     </div>
                   </div>
                 </div>

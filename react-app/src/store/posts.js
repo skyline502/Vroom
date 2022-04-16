@@ -36,7 +36,6 @@ export const getAllPosts = () => async dispatch => {
   if (response.ok) {
     const posts = await response.json();
     dispatch(getPosts(posts));
-    console.log('posts....in store', posts)
     return posts;
   }
 
@@ -45,9 +44,6 @@ export const getAllPosts = () => async dispatch => {
 
 //createPost
 export const createAPost = (form) => async dispatch => {
-
-  console.log(form, 'are there any images............')
-
   const response = await fetch('/api/posts/', {
     method: 'POST',
     body: form,
@@ -78,10 +74,7 @@ export const deleteAPost = (post_id) => async dispatch => {
 }
 
 export const editAPost = (post) => async dispatch => {
-  console.log('edit a post in the store....',post.get('id'))
-
   let id = post.get('id');
-  console.log('can i get the id....', id)
   const response = await fetch(`/api/posts/${id}`, {
     method: 'PUT',
     body: post,
@@ -103,7 +96,6 @@ export const editAPost = (post) => async dispatch => {
 }
 
 const sort_posts = array => {
-  console.log(array, 'is this an array?')
   const posts = {};
   array.forEach(post => {
     posts[post.id] = post
