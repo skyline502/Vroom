@@ -12,10 +12,6 @@ const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
   const user = useSelector(state => state.session.user);
   const posts = useSelector(state => state.posts.posts);
-  const comments = useSelector(state => state.comments.comments);
-
-  console.log('current posts comments', comments)
-  console.log(posts, 'on posts page')
   const [errors, setErrors] = useState([])
   const dispatch = useDispatch();
   const convertDate = (date) => {
@@ -27,9 +23,6 @@ const Posts = () => {
     dispatch(getAllPosts());
     dispatch(getAllComments());
   }, [dispatch]);
-
-  console.log(user, 'user....')
-  console.log(posts, 'posts.....')
 
   const deletePost = async (post_id) => {
     let data = await dispatch(deleteAPost(post_id));

@@ -21,7 +21,6 @@ function User() {
     return null;
   }
 
-  console.log('user', user)
   return (
     <div className='profile-container'>
       <div>

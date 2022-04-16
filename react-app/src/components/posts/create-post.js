@@ -39,13 +39,6 @@ const CreatePostForm = () => {
     }
   }
 
-  console.log('user...', user)
-  console.log('errors....', errors)
-
-  console.log({ title, description, images })
-  console.log(description.length, 'length of description.......')
-  console.log(title.length, 'title length..................')
-
   const onSubmit = async (e) => {
     e.preventDefault();
     const user_id = user.id
@@ -67,12 +60,10 @@ const CreatePostForm = () => {
       setErrors(validationErrors);
     }
 
-    console.log(validationErrors, 'errrors......')
     if (!validationErrors.length) {
       e.preventDefault();
       let form = new FormData();
       images.forEach((image) => {
-        console.log('image is what', image);
         form.append('images array', image)
       });
 
@@ -95,9 +86,6 @@ const CreatePostForm = () => {
       }
     }
   }
-
-
-  console.log(images, '...curent images in bucket')
 
   return (
     <div className='create-posts-box'>
