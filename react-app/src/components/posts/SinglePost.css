@@ -25,7 +25,14 @@
   margin: 1px;
   color: white;
   border: 0;
+  transition-duration: 0.5s;
 }
+
+.image-btns > button:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
 
 .single-post-img-box {
   display: flex;
@@ -92,7 +99,7 @@
 }
 .poster-info {
   display: flex;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   padding:20px;
   max-width: 37vw;
   min-width:37vw;
@@ -125,9 +132,9 @@
 .comment-box {
   display: block;
   overflow-x: hidden;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   height:100vh;
-  max-width: 40vw;
+  max-width: 41vw;
   box-sizing: content-box;
 }
 
@@ -188,17 +195,23 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* position: fixed; */
   bottom: 240px;
   margin-left: 15px;
+  margin-top: 10px;
 }
 
 .likes:hover {
   cursor: pointer;
 }
 
+.chat {
+  margin-left : 15px;
+  transition-duration: 0.5s;
+}
+
 .chat:hover {
   cursor: pointer;
+  transform: scale(1.2);
 }
 
 #newComment {
@@ -209,35 +222,32 @@
 
 .comment-btns {
   display: flex;
-  opacity: 0;
-  height: 5px;
+  align-items: center;
+  opacity: 1;
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
   transition-duration: 0.7s;
 }
 
 .comment-btns:hover {
+  cursor: pointer;
   display:flex;
   opacity: 1;
-  height: 50px;
-  align-items: center;
-}
-
-.comment-btns > button {
-  background-color: transparent;
-  border: 0;
-  border-radius: 5px;
-  margin-right: 5px;
-  transition-duration: 0.3s;
-}
-
-.comment-btns > button:hover {
-  color: white;
-  background-color: black;
-  border-radius: 5px;
-  transform: scale(1.2);
+  height: 20px;
+  width: 30px;
+  transform: scale(1.1);
 }
 
 .edit-cmt-field {
   display:none;
+}
+
+.edit-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:20px;
 }
 
 .edit-cmt-save {
@@ -262,4 +272,62 @@
 
 .show-edit {
   display: flex;
+  width:0px;
+}
+
+.show-edit > input {
+  border: 1px solid lightblue;
+  border-radius: 2px;
+  width: 0px;
+  opacity: 0.01;
+  margin-left: 5px;
+}
+
+.show-edit >input:focus {
+  outline: 1px solid lightblue;
+
+}
+
+.show-edit > input:hover {
+  width: 100px;
+  opacity: 1;
+}
+
+.edit-menu > button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+  margin-right: 5px;
+  transition-duration: 0.2s;
+}
+
+.edit-menu > button:hover {
+  transform: scale(1.2);
+}
+
+.comment-btns > label > i {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+}
+
+.comment-btns > label > i:hover {
+  cursor: pointer;
+}
+
+.errors-map {
+  margin-left: 20px;
+  color:red;
+  margin-bottom: -30px;
+}
+
+.num-likes {
+  display: flex;
+  margin-left: 15px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.num-likes > p {
+  margin-left: 5px;
 }

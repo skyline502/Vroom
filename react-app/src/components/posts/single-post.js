@@ -34,7 +34,7 @@ const SinglePost = () => {
     } else {
       setEditField(null);
     }
-  },[showEdit])
+  }, [showEdit])
 
   const nextPic = () => {
     if (idx !== currentPost.images.length - 1) {
@@ -58,28 +58,30 @@ const SinglePost = () => {
     setComment_Id(comment.id);
   }
 
-  const handleEditSubmit = async() => {
+  const handleEditSubmit = async (e) => {
     setErrors([]);
+    if (e.keyCode === 13) {
+      if (currentComment.length < 2) {
+        setErrors(['comments must be between 2 and 200 characters in length.']);
+        return;
+      }
 
-    if (currentComment.length < 2) {
-      setErrors(['comments must be between 2 and 200 characters in length.']);
-      return;
+      let form = new FormData();
+
+      form.append('comment_id', comment_id);
+      form.append('comment', currentComment);
+      form.append('post_id', currentPost.id);
+      form.append('user_id', user.id);
+
+      let data = await dispatch(editAComment(form));
+
+      if (data) {
+        setErrors(data);
+      }
+      dispatch(getAllComments());
+      setShowEdit(false);
     }
 
-    let form = new FormData();
-
-    form.append('comment_id', comment_id);
-    form.append('comment', currentComment);
-    form.append('post_id', currentPost.id);
-    form.append('user_id', user.id);
-
-    let data = await dispatch(editAComment(form));
-
-    if (data) {
-      setErrors(data);
-    }
-    dispatch(getAllComments());
-    setShowEdit(false);
   }
 
   const onSubmit = async (e) => {
@@ -141,22 +143,24 @@ const SinglePost = () => {
                   <p className="updated">Updated on {convertDate(comment.updated_at)}</p>
                 }
                 {comment.user_id.id === user.id &&
-                <div className="edit-menu">
-                  <i className="fas fa-caret-square-down" style={{marginLeft:35}}></i>
-                  <div className="comment-btns" onMouseLeave={() => setShowEdit(!showEdit)}>
+                  <div className="edit-menu">
                     <button onMouseEnter={() => setShowEdit(false)} onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
-                    <button onMouseEnter={() => handleEdit(comment)}><i className="fas fa-edit"></i></button>
-                    <div className={`edit-cmt-field ${editField}`}>
-                      <input
-                        type='text'
-                        value={currentComment}
-                        onChange={e => setCurrentComment(e.target.value)}
-                      />
-                      <button className="edit-cmt-save" onClick={() => handleEditSubmit()}><i className="fas fa-check-circle"></i></button>
-                      <button className="edit-cmt-cancel" onClick={() => setShowEdit(false)}><i className="fas fa-times-circle"></i></button>
+                    <div className="comment-btns">
+                      <label htmlFor={`edit-${comment.id}`}>
+                        <i className="fas fa-edit"  onMouseEnter={() => handleEdit(comment)} />
+                      </label>
+                      <div className={`edit-cmt-field ${editField}`}>
+                        <input
+                          type='text'
+                          id={`edit-${comment.id}`}
+                          value={currentComment}
+                          onChange={e => setCurrentComment(e.target.value)}
+                          onKeyDown={handleEditSubmit}
+                          onMouseLeave={() => setShowEdit(false)}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
                 }
               </div>
             </div>
@@ -169,8 +173,9 @@ const SinglePost = () => {
             <i className="far fa-comment" />
           </label>
         </div>
+        <div className="num-likes">{currentPost.likes.length}<p>likes</p></div>
         {errors?.map(error => (
-          <div key={error}>{error}</div>
+          <div key={error} className='errors-map'>{error}</div>
         ))}
         <div className="create-comment">
           <input
