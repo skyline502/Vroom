@@ -59,6 +59,13 @@ const SinglePost = () => {
   }
 
   const handleEditSubmit = async() => {
+    setErrors([]);
+
+    if (currentComment.length < 2) {
+      setErrors(['comments must be between 2 and 200 characters in length.']);
+      return;
+    }
+
     let form = new FormData();
 
     console.log('this is the new comment!', currentComment)
@@ -136,7 +143,10 @@ const SinglePost = () => {
               </div>
               <div className="comment-content">
                 <p className="the-comment">{comment.comment}</p>
-                <p className="date">Posted on {convertDate(comment.updated_at)}</p>
+                <p className="date">Posted on {convertDate(comment.created_at)}</p>
+                {comment.created_at !== comment.updated_at &&
+                  <p className="updated">Updated on {convertDate(comment.updated_at)}</p>
+                }
                 {comment.user_id.id === user.id &&
                 <div className="edit-menu">
                   <i className="fas fa-caret-square-down" style={{marginLeft:35}}></i>
@@ -149,8 +159,8 @@ const SinglePost = () => {
                         value={currentComment}
                         onChange={e => setCurrentComment(e.target.value)}
                       />
-                      <button onClick={() => handleEditSubmit()}>Save</button>
-                      <button>Cancel</button>
+                      <button className="edit-cmt-save" onClick={() => handleEditSubmit()}><i className="fas fa-check-circle"></i></button>
+                      <button className="edit-cmt-cancel" onClick={() => setShowEdit(false)}><i class="fas fa-times-circle"></i></button>
                     </div>
                   </div>
                 </div>
