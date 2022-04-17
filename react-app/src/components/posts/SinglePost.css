@@ -103,6 +103,7 @@
   padding:20px;
   max-width: 37vw;
   min-width:37vw;
+  font-size: 12px;
 }
 
 .poster-content {
@@ -121,12 +122,14 @@
 
 .post-contents {
   display: flex;
-  min-height: 100px;
+  min-height: 50px;
+  max-height: 100px;
   margin-bottom: 15px;
   border-bottom: 1px solid rgb(211, 211, 211, 0.1);
   padding: 20px;
   max-width: 37vw;
   min-width:37vw;
+  font-size: 12px;
 }
 
 .comment-box {

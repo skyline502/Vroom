@@ -4,9 +4,10 @@ import { getAllPosts, deleteAPost } from '../../store/posts';
 import { useEffect, useState } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import EditPostForm from './edit-post-modal/edit-post';
-import { setPost } from '../../store/posts';
+import { setPost, getOnePost } from '../../store/posts';
 import { getAllComments } from '../../store/comments';
-import SinglePost from './single-post';
+import { useHistory } from 'react-router-dom';
+
 
 const Posts = () => {
   // const [loaded, setLoaded] = useState(false);
@@ -18,6 +19,7 @@ const Posts = () => {
     let converted = new Date(date);
     return converted.toLocaleString();
   }
+  let history = useHistory();
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -38,10 +40,13 @@ const Posts = () => {
     dispatch(setPost(post));
   }
 
-  const showSinglePost = (post) => {
-    dispatch(setCurrentModal(SinglePost));
-    dispatch(showModal());
-    dispatch(setPost(post));
+  const showSinglePost = async (post) => {
+    let onePost = await dispatch(getOnePost(post.id));
+    dispatch(setPost(onePost));
+    console.log(onePost, 'post has been gotten...')
+    if (onePost) {
+      history.push(`/posts/${onePost.post.id}`);
+    }
   }
 
   return (

@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import Posts from './components/posts/posts';
 import CreatePostForm from './components/posts/create-post';
 import Modal from './components/modal/modal';
+import SinglePost from './components/posts/single-post';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +54,9 @@ function App() {
         <ProtectedRoute path='/posts' exact={true}>
           <NavBar />
           <Posts />
+        </ProtectedRoute>
+        <ProtectedRoute path='/posts/:postId' exact={true}>
+          <SinglePost />
         </ProtectedRoute>
         <ProtectedRoute>
           <NavBar />
