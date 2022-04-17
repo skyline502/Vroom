@@ -45,7 +45,7 @@ const NavBar = () => {
             <img src={user.profile_url} alt='profile' className='profile-pic' onClick={() => setDrop(!drop)} />
           </div>
         </div>
-        <div className={`drop-down ${dropdown}`}>
+        <div onMouseLeave={() => setDrop(!drop)} className={`drop-down ${dropdown}`}>
           <div style={{ paddingLeft: 15 }} onClick={() => history.push(`/users/${user.id}`)} className='profile-link'>Profile</div>
           <div>
             <LogoutButton />

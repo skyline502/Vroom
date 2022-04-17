@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './NavBar.css'
+import './User.css'
 
 function User() {
   const [user, setUser] = useState({});
-  const { userId }  = useParams();
+  const { userId } = useParams();
+
+  const posts = user.posts
 
   useEffect(() => {
     if (!userId) {
@@ -21,14 +23,32 @@ function User() {
     return null;
   }
 
+  console.log(user, 'user........')
+  console.log(posts, 'user posts.......')
+
   return (
     <div className='profile-container'>
-      <div>
-        <img src={user.profile_url} className='profile-user' alt='profile'/>
+      <div className='profile-header'>
+        <img src={user.profile_url} className='profile-user' alt='profile' />
+        <div className='profile-details'>
+          <strong>{user.username}</strong>
+          <div className='posts-info'>
+            <strong>{user.posts?.length}</strong>
+            <p>posts</p>
+          </div>
+          <strong> {user.name}</strong>
+        </div>
       </div>
-      <div className='profile-details'>
-        <strong>{user.username}</strong>
-        <strong> {user.name}</strong>
+      <div className='users-posts'>
+        {posts?.map(post => (
+          <div key={post.id} className='user-tiles' >
+            <img src={post.images[0].url} alt='tile' />
+            <div className='comments-tiles'>
+              <i className="fas fa-comment"></i>
+              <p>{post.comments?.length}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
