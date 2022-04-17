@@ -44,7 +44,6 @@ const Posts = () => {
   const showSinglePost = async (post) => {
     let onePost = await dispatch(getOnePost(post.id));
     dispatch(setPost(onePost));
-    console.log(onePost, 'post has been gotten...')
     if (onePost) {
       history.push(`/posts/${onePost.post.id}`);
       dispatch(setCurrentModal(SinglePost));

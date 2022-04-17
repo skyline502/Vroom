@@ -133,8 +133,10 @@
 }
 
 .comment-box {
-  display: block;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
+  overflow-y: scroll;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   height:100vh;
   max-width: 41vw;

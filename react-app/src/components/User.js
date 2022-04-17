@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './User.css'
+import { useDispatch } from 'react-redux';
+import { getOnePost, setPost } from '../store/posts';
+import { useHistory } from 'react-router-dom';
+import SinglePost from './posts/single-post';
+import { setCurrentModal, showModal } from '../store/modal';
 
 function User() {
   const [user, setUser] = useState({});
   const { userId } = useParams();
+  const dispatch = useDispatch();
+  let history = useHistory();
 
-  const posts = user.posts
+  const posts = user.posts;
 
   useEffect(() => {
     if (!userId) {
@@ -21,6 +28,17 @@ function User() {
 
   if (!user) {
     return null;
+  }
+
+  const showSinglePost = async (post) => {
+    let onePost = await dispatch(getOnePost(post.id));
+    dispatch(setPost(onePost));
+    if (onePost) {
+      console.log(onePost, 'one post in /users')
+      history.push(`/posts/${onePost.post.id}`);
+      dispatch(setCurrentModal(SinglePost));
+      dispatch(showModal());
+    }
   }
 
   console.log(user, 'user........')
@@ -43,7 +61,7 @@ function User() {
         {posts?.map(post => (
           <div key={post.id} className='user-tiles' >
             <img src={post.images[0].url} alt='tile' />
-            <div className='comments-tiles'>
+            <div className='comments-tiles' onClick={() => showSinglePost(post)}>
               <i className="fas fa-comment"></i>
               <p>{post.comments?.length}</p>
             </div>

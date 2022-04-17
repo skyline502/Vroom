@@ -140,7 +140,7 @@ const SinglePost = () => {
           </div>
         </div>
         <div className="comment-box">
-          {post_comments?.map(comment => (
+          {post_comments.map(comment => (
             <div key={comment.id} className='post-contents'>
               <div className="poster-img">
                 <img src={comment.user_id.profile_url} alt='profile' />
