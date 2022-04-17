@@ -57,6 +57,9 @@ function User() {
           <strong> {user.name}</strong>
         </div>
       </div>
+      <div className='user-posts-heading'>
+        <h4>{user.name}'s Posts</h4>
+      </div>
       <div className='users-posts'>
         {posts?.map(post => (
           <div key={post.id} className='user-tiles' >
