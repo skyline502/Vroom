@@ -55,13 +55,27 @@
   object-fit: contain;
 }
 
-.user-tiles > p {
+.comments-tiles {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(0, 0, 0, 0.5);
   position: absolute;
-  color: greenyellow;
+  color: white;
   min-height: 200px;
   min-width: 300px;
+  opacity: 0;
+  transition-duration: 0.5s;
+}
+
+
+.comments-tiles:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+
+.comments-tiles > p {
+  margin-left: 10px;
 }

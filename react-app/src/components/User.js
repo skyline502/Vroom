@@ -43,7 +43,10 @@ function User() {
         {posts?.map(post => (
           <div key={post.id} className='user-tiles' >
             <img src={post.images[0].url} alt='tile' />
-            <p>{post.comments?.length}</p>
+            <div className='comments-tiles'>
+              <i className="fas fa-comment"></i>
+              <p>{post.comments?.length}</p>
+            </div>
           </div>
         ))}
       </div>
