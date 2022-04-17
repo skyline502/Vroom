@@ -1,0 +1,67 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+}
+
+.profile-header {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+
+.profile-user {
+  border-radius: 5px;
+  height: 100px;
+  margin-left: 30px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 70px;
+}
+
+.users-posts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 65vw;
+  padding: 30px;
+}
+
+.posts-info {
+  display:flex;
+  align-items: center;
+}
+
+.posts-info > p {
+  margin-left: 10px;
+}
+
+.user-tiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 200px;
+  max-width: 300px;
+  margin: 10px 25px;
+  contain: content;
+}
+
+.user-tiles > img {
+  height: 200px;
+  object-fit: contain;
+}
+
+.user-tiles > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.5);
+  position: absolute;
+  color: greenyellow;
+  min-height: 200px;
+  min-width: 300px;
+}

@@ -27,6 +27,7 @@
   height: 100%;
   width: 100%;
   border-radius: 5px;
+  transition-duration: 0.5s;
 }
 
 .profile-box {
@@ -35,6 +36,7 @@
 
 .profile-pic:hover {
   cursor: pointer;
+  transform: scale(1.2);
 }
 
 .gallery {
@@ -71,7 +73,7 @@
   flex-direction: column;
   justify-content: space-between;
   position: fixed;
-  right: 200px;
+  right: 10%;
   top: 56px;
   width: 200px;
   height:100px;
@@ -81,11 +83,12 @@
   align-items: flex-start;
 }
 
-.profile-container {
-  display: flex;
-  width: 60vw;
-  border-bottom: 1px solid lightgray;
-  padding: 20px;
+@media (min-width: 2000px) {
+  .drop {
+    position: fixed;
+    top: 56px;
+    right: 20%;
+  }
 }
 
 .profile-user {
@@ -94,14 +97,15 @@
   margin-left: 30px;
 }
 
-.profile-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 70px;
-}
-
 .create-post {
   height: 22px;
   margin-top: 2px;
+}
+
+a > img {
+  transition-duration: 0.5s;
+}
+
+a > img:hover {
+  transform: scale(1.2);
 }
