@@ -55,10 +55,10 @@ function App() {
           <NavBar />
           <Posts />
         </ProtectedRoute>
-        <ProtectedRoute path='/posts/:postId' exact={true}>
+        {/* <ProtectedRoute path='/posts/:postId' exact={true}>
           <SinglePost />
-        </ProtectedRoute>
-        <ProtectedRoute>
+        </ProtectedRoute> */}
+        <ProtectedRoute path='/posts/create' exact={true}>
           <NavBar />
           <CreatePostForm />
         </ProtectedRoute>

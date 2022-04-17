@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { createAComment, getAllComments } from "../../store/comments";
-import { getAllPosts, getOnePost } from "../../store/posts";
 import { deleteAComment, editAComment } from "../../store/comments";
 import './SinglePost.css';
 import { useParams } from "react-router-dom";
@@ -23,6 +22,7 @@ const SinglePost = () => {
 
   console.log(postId, 'post id....');
   console.log(currentPost, 'current post.......')
+  console.log(post_comments, 'posts....comments')
 
   const convertDate = (date) => {
     let converted = new Date(date);

@@ -7,6 +7,7 @@ import EditPostForm from './edit-post-modal/edit-post';
 import { setPost, getOnePost } from '../../store/posts';
 import { getAllComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
+import SinglePost from './single-post';
 
 
 const Posts = () => {
@@ -46,6 +47,8 @@ const Posts = () => {
     console.log(onePost, 'post has been gotten...')
     if (onePost) {
       history.push(`/posts/${onePost.post.id}`);
+      dispatch(setCurrentModal(SinglePost));
+      dispatch(showModal());
     }
   }
 
