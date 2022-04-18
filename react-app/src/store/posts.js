@@ -3,10 +3,16 @@ const CREATE_POST = 'posts/CREATE_POST';
 const DELETE_POST = 'posts/DELETE_POST';
 const SET_POST = 'posts/SET_POST';
 const EDIT_POST = 'posts/EDIT_POST';
+const GET_ONE_POST = 'posts/GET_ONE_POST';
 
 const getPosts = (posts) => ({
   type: GET_POSTS,
   posts
+});
+
+const getAPost = (post_id) => ({
+  type: GET_ONE_POST,
+  post_id
 });
 
 const createPost = (post) => ({
@@ -37,6 +43,19 @@ export const getAllPosts = () => async dispatch => {
     const posts = await response.json();
     dispatch(getPosts(posts));
     return posts;
+  }
+
+  return response;
+}
+
+export const getOnePost = (post_id) => async dispatch => {
+  console.log('get one post in store..', post_id)
+  const response = await fetch(`/api/posts/${post_id}`);
+  if (response.ok) {
+    const post = await response.json();
+    console.log(post, '....got response from get one post!')
+    dispatch(getAPost(post));
+    return post;
   }
 
   return response;
@@ -124,8 +143,12 @@ const postReducer = (state = {posts: [], current: {}}, action) => {
       return newState
     }
     case SET_POST: {
+      newState.current = {...action.post};
+      return newState;
+    }
+    case GET_ONE_POST: {
       newState = {...state};
-      newState.current = action.post;
+      newState.current = {...action.post};
       return newState;
     }
     default:

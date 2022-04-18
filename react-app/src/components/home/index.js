@@ -1,16 +1,16 @@
-import './Posts.css'
+import './Home.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts, deleteAPost } from '../../store/posts';
 import { useEffect, useState } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
-import EditPostForm from './edit-post-modal/edit-post';
+import EditPostForm from '../posts/edit-post-modal/edit-post';
 import { setPost, getOnePost } from '../../store/posts';
 import { getAllComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
-import SinglePost from './single-post';
+import SinglePost from '../posts/single-post';
 
 
-const Posts = () => {
+const Home = () => {
   // const [loaded, setLoaded] = useState(false);
   const user = useSelector(state => state.session.user);
   const posts = useSelector(state => state.posts.posts);
@@ -53,7 +53,7 @@ const Posts = () => {
 
   return (
     <div className='posts-container'>
-      <h1>Posts Page</h1>
+      <h1>{user.username}'s Feed</h1>
       {errors?.map(error => (
         <div key={error}>{error}</div>
       ))}
@@ -93,4 +93,4 @@ const Posts = () => {
   )
 }
 
-export default Posts;
+export default Home;

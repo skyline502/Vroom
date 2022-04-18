@@ -25,6 +25,18 @@ def posts():
     post['user_id'] = User.query.get(post['user_id']).to_dict()
   return { 'posts': post_array}
 
+
+
+@post_routes.route('/<int:post_id>')
+@login_required
+def getOnePost(post_id):
+  post = Post.query.get(post_id)
+  post = post.to_dict();
+  post['user_id'] = User.query.get(post['user_id']).to_dict()
+  print(post, dir(post), 'post in back end...')
+
+  return {'post': post}
+
 @post_routes.route('/', methods=['POST'])
 @login_required
 def createPost():

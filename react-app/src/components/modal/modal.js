@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
 
 import { hideModal } from "../../store/modal";
@@ -8,6 +9,7 @@ import './Modal.css'
 
 const Modal = () => {
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const mount = useSelector(state => state.modals.modalMount);
   const display = useSelector(state => state.modals.display);
@@ -15,6 +17,7 @@ const Modal = () => {
 
   const closeModal = () => {
     dispatch(hideModal());
+    history.goBack();
   }
 
   return display && mount && ReactDOM.createPortal (
