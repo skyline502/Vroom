@@ -13,7 +13,20 @@ comments_routes = Blueprint('comments', __name__)
 @comments_routes.route('/')
 @login_required
 def getComments():
-  comments = Comment.query.order_by(Comment.created_at).all();
+  comments = Comment.query.order_by(Comment.created_at).all()
+  comments_array = []
+  for comment in comments:
+    comments_array.append(comment.to_dict())
+  for comment in comments_array:
+    comment['user_id'] = User.query.get(comment['user_id']).to_dict()
+  return { 'comments': comments_array}
+
+@comments_routes.route('/<int:post_id>')
+@login_required
+def getPostComments(post_id):
+  comments = Comment.query.order_by(Comment.created_at).filter(Comment.post_id == post_id).all()
+  print(comments, 'coments found in backend........')
+
   comments_array = []
   for comment in comments:
     comments_array.append(comment.to_dict())
