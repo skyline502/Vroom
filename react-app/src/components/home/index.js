@@ -73,9 +73,12 @@ const Home = () => {
           </div>
           <div className='image-box'>
             <div className='images'>
-              {post.images?.map(image => (
-                <img key={image.id} src={image.url} alt='post-img' className='post-images' />
-              ))}
+              <img src={post.images[0].url} alt='post-img' className='post-images' />
+              {post?.images?.length > 1 ?
+                <div className='home-test'>
+                  <i className="fas fa-clone" onClick={() => showSinglePost(post)}></i>
+                </div> : <></>
+              }
             </div>
           </div>
           <div className='post-content'>
