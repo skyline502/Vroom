@@ -14,7 +14,6 @@ const EditPostForm = () => {
   const dispatch = useDispatch();
   const allowedExt = ["png", "jpg", "jpeg", "gif"];
   const curentImages = currentPost?.images;
-  let history = useHistory();
 
   const addImage = e => {
     const image = e.target.files[0]
