@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
-import { createAComment, getAllComments } from "../../store/comments";
+import { createAComment } from "../../store/comments";
 import { deleteAComment, editAComment } from "../../store/comments";
+import { getPostComments } from "../../store/comments";
 import './SinglePost.css';
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
-  const comments = useSelector(state => state.comments.comments);
+  const post_comments = useSelector(state => state.comments.current);
   const user = useSelector(state => state.session.user);
-  const post_comments = comments.filter(comment => comment.post_id === currentPost.id);
   const [newComment, setNewComment] = useState('');
   const [comment_id, setComment_Id] = useState(null);
   const [errors, setErrors] = useState([]);
@@ -24,13 +24,15 @@ const SinglePost = () => {
   }
   const commentsEnd = useRef(null);
 
+  console.log(currentPost.id, 'current post id...')
+
   useEffect(() => {
-    dispatch(getAllComments());
-  }, [dispatch])
+    dispatch(getPostComments(currentPost.id));
+  }, [dispatch, currentPost.id])
 
   useEffect(() => {
     commentsEnd.current?.scrollIntoView();
-  }, [comments])
+  }, [post_comments])
 
   useEffect(() => {
     if (showEdit) {
@@ -82,10 +84,14 @@ const SinglePost = () => {
       if (data) {
         setErrors(data);
       }
-      dispatch(getAllComments());
+      dispatch(getPostComments(currentPost.id));
       setShowEdit(false);
     }
+  }
 
+  const handleDelete = async (id) => {
+    await dispatch(deleteAComment(id));
+    dispatch(getPostComments(currentPost.id));
   }
 
   const onSubmit = async (e) => {
@@ -101,7 +107,7 @@ const SinglePost = () => {
         comment.append('comment', newComment);
         await dispatch(createAComment(comment));
 
-        dispatch(getAllComments());
+        dispatch(getPostComments(currentPost.id));
         setNewComment('');
       }
     }
@@ -148,7 +154,7 @@ const SinglePost = () => {
                 }
                 {comment.user_id.id === user.id &&
                   <div className="edit-menu">
-                    <button onMouseEnter={() => setShowEdit(false)} onClick={() => dispatch(deleteAComment(comment.id))}><i className="fas fa-trash-alt"></i></button>
+                    <button className ='deletecomment' onMouseEnter={() => setShowEdit(false)} onClick={() => handleDelete(comment.id)}><i className="fas fa-trash-alt"></i></button>
                     <div className="comment-btns">
                       <label htmlFor={`edit-${comment.id}`}>
                         <i className="fas fa-edit"  onMouseEnter={() => handleEdit(comment)} />

@@ -20,6 +20,10 @@
   bottom: 200px;
 }
 
+.deletecomment:hover {
+  cursor: pointer;
+}
+
 .image-btns > button {
   background-color: transparent;
   margin: 1px;
