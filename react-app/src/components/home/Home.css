@@ -77,6 +77,8 @@
   border-bottom: 1px solid lightgray;
 }
 
+
+
 .post-user {
   display: flex;
   align-items: center;
@@ -99,11 +101,19 @@
   border: 0;
   border-radius: 5px;
   height: 20px;
+  transition-duration: 0.5s;
+  margin-left: 5px;
 }
 
 .owner-buttons > button:hover {
+  cursor: pointer;
   color: white;
   background-color: black;
+  transform: scale(1.2);
+}
+
+.home-username:hover {
+  cursor: pointer;
 }
 
 .post-profile {
