@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editAPost, getAllPosts } from '../../../store/posts';
 import { hideModal } from '../../../store/modal';
-import { useHistory } from 'react-router-dom';
 
 const EditPostForm = () => {
   const currentPost = useSelector(state => state.posts.current);
