@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import EditPostForm from '../posts/edit-post-modal/edit-post';
 import { setPost, getOnePost } from '../../store/posts';
-import { getAllComments } from '../../store/comments';
+import { getPostComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
 
@@ -24,7 +24,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
-    dispatch(getAllComments());
   }, [dispatch]);
 
   const deletePost = async (post_id) => {
@@ -45,7 +44,7 @@ const Home = () => {
     let onePost = await dispatch(getOnePost(post.id));
     dispatch(setPost(onePost));
     if (onePost) {
-      history.push(`/posts/${onePost.post.id}`);
+      await getPostComments(onePost.post.id);
       dispatch(setCurrentModal(SinglePost));
       dispatch(showModal());
     }

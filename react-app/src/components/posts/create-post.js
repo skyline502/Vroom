@@ -129,7 +129,7 @@ const CreatePostForm = () => {
               className='aws-upload'
             />
           </label>
-            <button type='submit'>create post</button>
+            <button className='create-post' type='submit'>create post</button>
         </form>
         <button className='cancel-btn' onClick={() => cancel()}>cancel</button>
       </div>

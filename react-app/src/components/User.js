@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './User.css'
-import { useDispatch } from 'react-redux';
-import { getOnePost, setPost } from '../store/posts';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOnePost, setPost, getAllPosts } from '../store/posts';
 import SinglePost from './posts/single-post';
 import { setCurrentModal, showModal } from '../store/modal';
+import { getPostComments } from '../store/comments';
 
 function User() {
   const [user, setUser] = useState({});
   const { userId } = useParams();
   const dispatch = useDispatch();
-  let history = useHistory();
+  const allPosts = useSelector(state => state.posts.posts);
 
-  const posts = user.posts;
+  const posts = allPosts.filter(post => post.user_id.id === user.id);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  },[dispatch])
 
   useEffect(() => {
     if (!userId) {
@@ -30,19 +34,16 @@ function User() {
     return null;
   }
 
+
   const showSinglePost = async (post) => {
     let onePost = await dispatch(getOnePost(post.id));
     dispatch(setPost(onePost));
     if (onePost) {
-      console.log(onePost, 'one post in /users')
-      history.push(`/posts/${onePost.post.id}`);
+      await getPostComments(onePost.post.id);
       dispatch(setCurrentModal(SinglePost));
       dispatch(showModal());
     }
   }
-
-  console.log(user, 'user........')
-  console.log(posts, 'user posts.......')
 
   return (
     <div className='profile-container'>
