@@ -49,11 +49,10 @@ export const getAllPosts = () => async dispatch => {
 }
 
 export const getOnePost = (post_id) => async dispatch => {
-  console.log('get one post in store..', post_id)
+
   const response = await fetch(`/api/posts/${post_id}`);
   if (response.ok) {
     const post = await response.json();
-    console.log(post, '....got response from get one post!')
     dispatch(getAPost(post));
     return post;
   }

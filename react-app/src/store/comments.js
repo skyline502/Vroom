@@ -41,7 +41,7 @@ export const getAllComments = () => async dispatch => {
 }
 
 export const getPostComments = (post_id) => async dispatch => {
-  console.log(post_id, 'get one post comments in store...')
+
   const response = await fetch(`/api/comments/${post_id}`);
   if (response.ok) {
     const comments = await response.json();
@@ -128,6 +128,7 @@ const commentsReducer = (state = {comments: [], current: []}, action) => {
     case CREATE_COMMENT:
     return {
       ...state,
+      ...state[action.comment.id] = action.comment,
       comments: [action.comment, ...state.comments]
     }
     case DELETE_COMMENT:

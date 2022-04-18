@@ -4,6 +4,7 @@ import { createAComment } from "../../store/comments";
 import { deleteAComment, editAComment } from "../../store/comments";
 import { getPostComments } from "../../store/comments";
 import './SinglePost.css';
+import { getAllPosts } from "../../store/posts";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -23,8 +24,6 @@ const SinglePost = () => {
     return converted.toLocaleString();
   }
   const commentsEnd = useRef(null);
-
-  console.log(currentPost.id, 'current post id...')
 
   useEffect(() => {
     dispatch(getPostComments(currentPost.id));
@@ -106,7 +105,7 @@ const SinglePost = () => {
         comment.append('user_id', user.id);
         comment.append('comment', newComment);
         await dispatch(createAComment(comment));
-
+        await dispatch(getAllPosts());
         dispatch(getPostComments(currentPost.id));
         setNewComment('');
       }
