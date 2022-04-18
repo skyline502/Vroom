@@ -12,6 +12,7 @@ import Posts from './components/posts/posts';
 import CreatePostForm from './components/posts/create-post';
 import Modal from './components/modal/modal';
 import Home from './components/home';
+import Footer from './components/footer';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
           <CreatePostForm />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
