@@ -62,7 +62,12 @@ const Home = () => {
           <div className='user-info'>
             <div className='post-user'>
               <img src={post.user_id.profile_url} alt='profile-img' className='post-profile' />
-              <div>{post.user_id.username}</div>
+              <div
+                className='home-username'
+                onClick={() => history.push(`/users/${post.user_id.id}`)}
+                >
+                  {post.user_id.username}
+              </div>
             </div>
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Whisper&display=swap');
+
 .splash-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -168,10 +170,20 @@
   border-radius: 5px;
   font-size: 20px;
   font-family: 'Bebas Neue';
+  transition-duration: 0.5s;
+}
+
+.sign-up-container > form > button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  transform: scale(1.1);
+  border: 1px solid lightgray;
 }
 
 .login-container > form > button:hover {
   cursor: pointer;
+  color: black;
 }
 
 .aws:hover {
@@ -186,5 +198,72 @@
   text-decoration: none;
   color: red;
   margin-top: 5px;
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  transition-duration: 0.5s;
+}
+
+.cancel-sign-up:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.user-license {
+  position :absolute;
+  right: 20px;
+  background-color: whitesmoke;
+  width: 300px;
+  height:200px;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.user-license > h2 {
+  margin-bottom: 0;
+}
+
+.user-license-info {
+  display: flex;
+}
+
+.license-photo {
+  display: flex;
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.license-photo > img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 150px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.license-info {
+  font-size: 12px;
+  height: 100px;
+  line-height: 5px;
+  margin-left: 10px;
+}
+
+.license-header {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.license-header > div> h4 {
+  color: red;
+}
+
+.signature {
+  font-family: 'Whisper';
+  font-size: 12px;
+  margin-top: 0;
 }

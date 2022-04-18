@@ -1,12 +1,15 @@
 .profile-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 60vw;
 }
 
 .profile-header {
   display: flex;
   padding: 20px;
+  min-width: 600px;
   border-bottom: 1px solid lightgray;
 }
 

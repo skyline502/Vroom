@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editAPost, getAllPosts } from '../../../store/posts';
 import { hideModal } from '../../../store/modal';
+import { useHistory } from 'react-router-dom';
 
 const EditPostForm = () => {
   const currentPost = useSelector(state => state.posts.current);
@@ -13,6 +14,7 @@ const EditPostForm = () => {
   const dispatch = useDispatch();
   const allowedExt = ["png", "jpg", "jpeg", "gif"];
   const curentImages = currentPost?.images;
+  let history = useHistory();
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -71,8 +73,9 @@ const EditPostForm = () => {
       if (data) {
         setErrors(data);
       }
-      dispatch(getAllPosts())
-      dispatch(hideModal())
+      dispatch(getAllPosts());
+      history.goBack();
+      dispatch(hideModal());
     }
   }
 
@@ -107,7 +110,7 @@ const EditPostForm = () => {
             onChange={addImage}
             placeholder='add an image'
           />
-          <button type='submit'>edit post</button>
+          <button className='edit-post-btn' type='submit'>edit post</button>
         </form>
       </div>
       <div className='image-preview'>

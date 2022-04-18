@@ -113,7 +113,6 @@ def sign_up():
     if len(errors):
         return {'errors': errors}, 401
 
-
     if 'profile_pic' in request.files:
         pic = request.files['profile_pic']
         print(pic, 'pic......................')

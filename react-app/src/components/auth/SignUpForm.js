@@ -16,6 +16,11 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const convertDate = (date) => {
+    let converted = new Date(date);
+    return converted.toLocaleString();
+  }
+
   const onSignUp = async (e) => {
     setErrors([]);
     e.preventDefault();
@@ -43,8 +48,8 @@ const SignUpForm = () => {
       validationErrors.push('Passwords do not match.')
     }
 
-    if (!allowedExt.includes(profile_pic.name.split('.')[1])) {
-      validationErrors.push(`${profile_pic.name}'s is not an image file!`)
+    if (profile_pic && !allowedExt?.includes(profile_pic?.name.split('.')[1])) {
+      validationErrors.push(`${profile_pic?.name}'s is not an image file!`)
     }
 
     if (errors) {
@@ -97,7 +102,7 @@ const SignUpForm = () => {
       <form onSubmit={onSignUp}>
         <div>
           {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+            <div key={ind} className='errors'>{error}</div>
           ))}
         </div>
         <div>
@@ -107,6 +112,7 @@ const SignUpForm = () => {
             onChange={e => setName(e.target.value)}
             value={name}
             placeholder='name'
+            required={true}
           />
         </div>
         <div>
@@ -116,6 +122,7 @@ const SignUpForm = () => {
             onChange={updateUsername}
             value={username}
             placeholder='username'
+            required={true}
           ></input>
         </div>
         <div>
@@ -125,6 +132,7 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             placeholder='email'
+            required={true}
           ></input>
         </div>
         <div>
@@ -134,6 +142,7 @@ const SignUpForm = () => {
             onChange={updatePassword}
             value={password}
             placeholder='password'
+            required={true}
           ></input>
         </div>
         <div>
@@ -160,12 +169,34 @@ const SignUpForm = () => {
               defaultValue={profile_pic}
               placeholder='profile picture'
               className='aws-upload'
+              required={true}
             />
           </label>
         </div>
-        <button type='submit'>Sign Up</button>
+        <button className='sign-up-btn' type='submit'>Sign Up</button>
       </form>
       <button className='cancel-sign-up' onClick={() => dispatch(hideModal())}>Cancel</button>
+      {profile_pic &&
+        <div className='user-license'>
+          <div className='license-header'>
+            <div><h2>Vroom member</h2></div>
+            <div><h4>license</h4></div>
+          </div>
+          <div className='user-license-info'>
+            <div className='license-photo'>
+              <img src={URL.createObjectURL(profile_pic)} alt='img preview' />
+            </div>
+            <div className='license-info'>
+              <h2>{name}</h2>
+              <h2>{username}</h2>
+              <h2>{email}</h2>
+              <h2>DOB:{convertDate(new Date()).split(',')[0]}</h2>
+              <h5>signature</h5>
+              <h6 className='signature'>{name}</h6>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   );
 };
