@@ -16,6 +16,11 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const convertDate = (date) => {
+    let converted = new Date(date);
+    return converted.toLocaleString();
+  }
+
   const onSignUp = async (e) => {
     setErrors([]);
     e.preventDefault();
@@ -171,6 +176,27 @@ const SignUpForm = () => {
         <button className='sign-up-btn' type='submit'>Sign Up</button>
       </form>
       <button className='cancel-sign-up' onClick={() => dispatch(hideModal())}>Cancel</button>
+      {profile_pic &&
+        <div className='user-license'>
+          <div className='license-header'>
+            <div><h2>Vroom member</h2></div>
+            <div><h4>license</h4></div>
+          </div>
+          <div className='user-license-info'>
+            <div className='license-photo'>
+              <img src={URL.createObjectURL(profile_pic)} alt='img preview' />
+            </div>
+            <div className='license-info'>
+              <h2>{name}</h2>
+              <h2>{username}</h2>
+              <h2>{email}</h2>
+              <h2>DOB:{convertDate(new Date()).split(',')[0]}</h2>
+              <h5>signature</h5>
+              <h6 className='signature'>{name}</h6>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   );
 };
