@@ -76,7 +76,7 @@ const Home = () => {
               <img src={post.images[0].url} alt='post-img' className='post-images' />
               {post?.images?.length > 1 ?
                 <div className='home-test'>
-                  <i className="fas fa-clone"></i>
+                  <i className="fas fa-clone" onClick={() => showSinglePost(post)}></i>
                 </div> : <></>
               }
             </div>

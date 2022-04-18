@@ -30,6 +30,11 @@
   transition-duration: 0.5s;
 }
 
+.home-test > i:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
 .image-box::-webkit-scrollbar {
   display:none;
 }
