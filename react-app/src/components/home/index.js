@@ -63,7 +63,6 @@ const Home = () => {
             <div className='post-user'>
               <img src={post.user_id.profile_url} alt='profile-img' className='post-profile' />
               <div>{post.user_id.username}</div>
-              <button onClick={() => showSinglePost(post)}><i className="fas fa-warehouse"></i></button>
             </div>
             {user.id === post.user_id.id ? (
               <div className='owner-buttons'>
@@ -80,6 +79,7 @@ const Home = () => {
             </div>
           </div>
           <div className='post-content'>
+            <button onClick={() => showSinglePost(post)}><i className="far fa-comment"></i></button>
             <div className='post-title'>
               <div className='username'>{post.user_id.username}</div>
               <div>{post.title}</div>
