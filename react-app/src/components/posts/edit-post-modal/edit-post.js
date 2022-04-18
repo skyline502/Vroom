@@ -74,7 +74,6 @@ const EditPostForm = () => {
         setErrors(data);
       }
       dispatch(getAllPosts());
-      history.goBack();
       dispatch(hideModal());
     }
   }

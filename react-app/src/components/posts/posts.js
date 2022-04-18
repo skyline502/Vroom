@@ -8,7 +8,6 @@ import { getAllComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from './single-post';
 
-
 const Posts = () => {
   const posts = useSelector(state => state.posts.posts);
   const dispatch = useDispatch();
