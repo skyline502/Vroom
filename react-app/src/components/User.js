@@ -57,13 +57,18 @@ function User() {
           <strong> {user.name}</strong>
         </div>
       </div>
-      <div className='user-posts-heading'>
+      {/* <div className='user-posts-heading'>
         <h4><i className="fas fa-th"/>Posts</h4>
-      </div>
+      </div> */}
       <div className='users-posts'>
         {posts?.map(post => (
           <div key={post.id} className='user-tiles' >
-            <img src={post.images[0].url} alt='tile' />
+            <img src={post?.images[0].url} alt='tile' />
+            {post.images?.length > 1 ?
+              <div className='test'>
+                <i className="fas fa-clone"></i>
+              </div>:<></>
+            }
             <div className='comments-tiles' onClick={() => showSinglePost(post)}>
               <i className="fas fa-comment"></i>
               <p>{post.comments?.length}</p>

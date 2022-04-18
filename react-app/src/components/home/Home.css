@@ -4,10 +4,30 @@
 }
 
 .image-box {
+  display: flex;
   justify-content: center;
   background-color: black;
   width: 600px;
   overflow-x: scroll;
+  object-fit: contain;
+}
+
+.home-test {
+  display: flex;
+  align-items: baseline;
+  color: whitesmoke;
+  position: absolute;
+  justify-content: flex-end;
+  width: 300px;
+  height: 50px;
+  margin-right: 30px;
+  padding: 20px;
+  font-size: 30px;
+  margin-bottom: 100px;
+}
+
+.home-test > i {
+  transition-duration: 0.5s;
 }
 
 .image-box::-webkit-scrollbar {
@@ -16,6 +36,7 @@
 
 .images {
   display: flex;
+  justify-content: flex-end;
   column-count: 5;
   width: 600px;
   height: 300px;
@@ -24,8 +45,10 @@
 }
 
 .post-images {
-  object-fit: contain;
+  max-height: auto;
   max-width: 600px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .post-content > button {

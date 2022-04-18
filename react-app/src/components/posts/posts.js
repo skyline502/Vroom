@@ -35,6 +35,11 @@ const Posts = () => {
         {posts?.map(post => (
           <div key={post.id} className='post-preview'>
             <img src={post.images[0].url} alt='preview-pic' />
+            {post?.images?.length > 1 ?
+              <div className='posts-test'>
+                <i className="fas fa-clone"></i>
+              </div>:<></>
+            }
             <div className='comments-tiles' onClick={() => showSinglePost(post)}>
               <i className="fas fa-comment"></i>
               <p>{post.comments?.length}</p>

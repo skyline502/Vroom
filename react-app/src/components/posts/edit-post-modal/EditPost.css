@@ -9,3 +9,8 @@
   height: 40px;
   margin: 10px;
 }
+
+.img-prev {
+  height: 40px;
+  object-fit: contain;
+}
