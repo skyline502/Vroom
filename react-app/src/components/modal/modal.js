@@ -14,10 +14,16 @@ const Modal = () => {
   const mount = useSelector(state => state.modals.modalMount);
   const display = useSelector(state => state.modals.display);
   const Current = useSelector(state => state.modals.currentModal);
+  const currentUrl = window.location.href;
 
   const closeModal = () => {
     dispatch(hideModal());
-    history.goBack();
+    console.log('current url', currentUrl)
+    if (currentUrl === 'http://localhost:3000/' || currentUrl === 'https://vroom-pssh.herokuapp.com/') {
+      history.push('/');
+    } else {
+      history.goBack();
+    }
   }
 
   return display && mount && ReactDOM.createPortal (
