@@ -82,9 +82,13 @@ const CreatePostForm = () => {
       dispatch(showModal());
       audio.onended = () => {
         dispatch(hideModal());
-        history.push('/posts');
+        history.push('/');
       }
     }
+  }
+
+  const cancel = () => {
+    history.goBack();
   }
 
   return (
@@ -93,7 +97,7 @@ const CreatePostForm = () => {
         <img src={'/vroom-login.png'} alt='login' className='login-logo' />
         <form onSubmit={onSubmit}>
           {errors?.map(error => (
-            <div key={error}>{error}</div>
+            <div key={error} className='errors'>{error}</div>
           ))}
           <input
             type='text'
@@ -127,6 +131,7 @@ const CreatePostForm = () => {
           </label>
             <button type='submit'>create post</button>
         </form>
+        <button className='cancel-btn' onClick={() => cancel()}>cancel</button>
       </div>
       <div className='image-preview'>
         <div className='image-preview-header'>

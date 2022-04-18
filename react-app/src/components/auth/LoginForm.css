@@ -1,8 +1,41 @@
+.splash-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid lightgray;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
+  width: 35vw;
+  height: 65vh;
+  color: white;
+}
+
+.about-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+}
+
+.about-message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  font-family: 'Helvetica';
+  font-size: 16px;
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid lightgray;
+  /* border: 1px solid lightgray; */
   width: 35vw;
   height: 65vh;
   background-color: white;
@@ -41,10 +74,15 @@
   border-radius: 5px;
   font-size: 20px;
   font-family: 'Bebas Neue';
+  transition-duration: 0.5s;
 }
 
 .login-container > form > button:hover {
   cursor: pointer;
+  background-color: white;
+  color: black;
+  border: 1px solid lightgray;
+  transform: scale(0.95);
 }
 
 .login-sign-up {
@@ -61,10 +99,12 @@
   color: red;
   font-family: "Bebas Neue";
   font-size:16px;
+  transition-duration: 0.5s;
 }
 
-button:hover {
+.login-sign-up> button:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 .demo-btn {
@@ -79,10 +119,12 @@ button:hover {
   font-size: 16px;
   color: red;
   height: 16px;
+  transition-duration: 0.5s;
 }
 
 .demo:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 .sign-up-container {
