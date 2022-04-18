@@ -3,11 +3,9 @@ import { useState, useRef, useEffect } from "react";
 import { createAComment, getAllComments } from "../../store/comments";
 import { deleteAComment, editAComment } from "../../store/comments";
 import './SinglePost.css';
-import { useParams } from "react-router-dom";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
-  const {postId} = useParams();
   const comments = useSelector(state => state.comments.comments);
   const user = useSelector(state => state.session.user);
   const post_comments = comments.filter(comment => comment.post_id === currentPost.id);
@@ -19,10 +17,6 @@ const SinglePost = () => {
   const [editField, setEditField] = useState(null);
   const [currentComment, setCurrentComment] = useState('');
   const dispatch = useDispatch();
-
-  console.log(postId, 'post id....');
-  console.log(currentPost, 'current post.......')
-  console.log(post_comments, 'posts....comments')
 
   const convertDate = (date) => {
     let converted = new Date(date);
