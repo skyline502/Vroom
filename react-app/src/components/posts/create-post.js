@@ -82,7 +82,7 @@ const CreatePostForm = () => {
       dispatch(showModal());
       audio.onended = () => {
         dispatch(hideModal());
-        history.push('/');
+        history.goBack();
       }
     }
   }
