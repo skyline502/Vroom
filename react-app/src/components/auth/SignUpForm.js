@@ -43,8 +43,8 @@ const SignUpForm = () => {
       validationErrors.push('Passwords do not match.')
     }
 
-    if (!allowedExt.includes(profile_pic.name.split('.')[1])) {
-      validationErrors.push(`${profile_pic.name}'s is not an image file!`)
+    if (profile_pic && !allowedExt?.includes(profile_pic?.name.split('.')[1])) {
+      validationErrors.push(`${profile_pic?.name}'s is not an image file!`)
     }
 
     if (errors) {
@@ -107,6 +107,7 @@ const SignUpForm = () => {
             onChange={e => setName(e.target.value)}
             value={name}
             placeholder='name'
+            required={true}
           />
         </div>
         <div>
@@ -116,6 +117,7 @@ const SignUpForm = () => {
             onChange={updateUsername}
             value={username}
             placeholder='username'
+            required={true}
           ></input>
         </div>
         <div>
@@ -125,6 +127,7 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             placeholder='email'
+            required={true}
           ></input>
         </div>
         <div>
@@ -134,6 +137,7 @@ const SignUpForm = () => {
             onChange={updatePassword}
             value={password}
             placeholder='password'
+            required={true}
           ></input>
         </div>
         <div>
@@ -160,10 +164,11 @@ const SignUpForm = () => {
               defaultValue={profile_pic}
               placeholder='profile picture'
               className='aws-upload'
+              required={true}
             />
           </label>
         </div>
-        <button type='submit'>Sign Up</button>
+        <button className='sign-up-btn' type='submit'>Sign Up</button>
       </form>
       <button className='cancel-sign-up' onClick={() => dispatch(hideModal())}>Cancel</button>
     </div>
