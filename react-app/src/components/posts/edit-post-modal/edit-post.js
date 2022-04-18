@@ -17,23 +17,23 @@ const EditPostForm = () => {
   const addImage = e => {
     const image = e.target.files[0]
     setErrors([]);
-    if (image.size > 1000000) {
+    if (image?.size > 1000000) {
       setErrors(['File size too large, image must be less than 1MB in size'])
       return;
     }
-    if (images.length + curentImages.length === 5) {
+    if (images?.length + curentImages.length === 5) {
       setErrors(['You already have 5 images!'])
       return;
     }
 
-    if (!allowedExt.includes(image.name.split('.')[1])) {
+    if (!allowedExt.includes(image?.name.split('.')[1])) {
       setErrors(['That is not a supported image type!']);
       return;
     }
 
-    if (!images.length) {
+    if (!images?.length) {
       setImages([image]);
-    } else if (images.length && images.length < 6) {
+    } else if (images?.length && images?.length < 6) {
       setImages([...images, image]);
     }
   }
@@ -123,8 +123,8 @@ const EditPostForm = () => {
           <h2>limit of 5 images</h2>
         </div>
         <div className='img-box'>
-          {images?.map(image => (
-            <div key={image.name}>
+          {images?.map((image, idx) => (
+            <div key={`${idx}${image.name}`}>
               <img src={URL.createObjectURL(image)} className='img-prev' alt='img preview' />
             </div>
           ))}

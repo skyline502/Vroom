@@ -3,126 +3,50 @@
   max-width: 600px;
 }
 
-.image-box {
+.tile-posts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 65vw;
+  padding: 30px;
+}
+
+.post-preview {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  max-height: 200px;
+  max-width: 300px;
+  margin: 10px 25px;
+  contain: content;
   background-color: black;
-  width: 600px;
-  overflow-x: scroll;
 }
 
-.image-box::-webkit-scrollbar {
-  display:none;
+.post-preview > img {
+  max-height: 200px;
+  width: 100%;
 }
 
-.images {
+.comments-tiles {
   display: flex;
-  column-count: 5;
-  width: 600px;
-  height: 300px;
-  -webkit-column-width: 600px;
-  column-width: 600px;
-}
-
-.post-images {
-  object-fit: contain;
-  max-width: 600px;
-}
-
-.user-info {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  height: 25px;
-  background-color: white;
-  padding: 20px;
-  border-bottom: 1px solid lightgray;
-}
-
-.post-user {
-  display: flex;
-  align-items: center;
-}
-
-.post-user > button {
-  background-color: transparent;
-  border: 0;
-  border-radius: 5px;
-  height: 20px;
-}
-
-.post-user > button:hover {
+  background-color: rgb(0, 0, 0, 0.5);
+  position: absolute;
   color: white;
-  background-color: black;
+  min-height: 200px;
+  min-width: 300px;
+  opacity: 0;
+  transition-duration: 0.5s;
 }
 
-.owner-buttons > button {
-  background-color: transparent;
-  border: 0;
-  border-radius: 5px;
-  height: 20px;
+
+.comments-tiles:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.2);
 }
 
-.owner-buttons > button:hover {
-  color: white;
-  background-color: black;
-}
 
-.post-profile {
-  height: 40px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.post-content {
-  background-color: white;
-  margin-top: 0;
-  border-top: 1px solid lightgray;
-  padding: 20px;
-  overflow-wrap: break-word;
-  overflow-y: scroll;
-}
-
-.post-content::-webkit-scrollbar {
-  display: none;
-}
-
-.post-content > p {
-  font-family: 'Helvetica';
-  font-size: 12px;
-}
-
-.post-title {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.username {
-  margin-right: 5px;
-}
-
-.comments-for-post {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: 20px;
-}
-
-.comment-box {
-  display:flex;
-}
-
-.comment-img > img {
-  height: 40px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.comment-text {
-  font-family: 'Helvetica';
-  font-size: 12px;
-}
-
-.comment-date {
-  font-family: 'Helvetica';
-  font-size: 12px;
+.comments-tiles > p {
+  margin-left: 10px;
 }

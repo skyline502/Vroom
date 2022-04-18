@@ -28,6 +28,17 @@
   max-width: 600px;
 }
 
+.post-content > button {
+  background-color: transparent;
+  border:0;
+  transition-duration: 0.5s;
+}
+
+.post-content > button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
 .user-info {
   display: flex;
   justify-content: space-between;
