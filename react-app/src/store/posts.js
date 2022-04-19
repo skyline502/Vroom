@@ -4,6 +4,7 @@ const DELETE_POST = 'posts/DELETE_POST';
 const SET_POST = 'posts/SET_POST';
 const EDIT_POST = 'posts/EDIT_POST';
 const GET_ONE_POST = 'posts/GET_ONE_POST';
+const CREATE_LIKE = 'posts/CREATE_LIKE'
 
 const getPosts = (posts) => ({
   type: GET_POSTS,
@@ -35,6 +36,10 @@ const editPost = (post) => ({
   post
 });
 
+const createLike = (post) => ({
+  type: CREATE_LIKE,
+  post
+});
 //getPosts
 
 export const getAllPosts = () => async dispatch => {
@@ -113,6 +118,28 @@ export const editAPost = (post) => async dispatch => {
 
 }
 
+export const createALike = (like) => async dispatch => {
+  const response = await fetch(`/api/posts/${post.id}/like`, {
+    method: 'POST',
+    body: like
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createLike(data));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.'];
+    }
+}
+
+
+//sorting function
 const sort_posts = array => {
   const posts = {};
   array.forEach(post => {
@@ -120,7 +147,6 @@ const sort_posts = array => {
   });
   return posts;
 }
-
 
 const postReducer = (state = {posts: [], current: {}}, action) => {
   let newState = {...state}
@@ -148,6 +174,10 @@ const postReducer = (state = {posts: [], current: {}}, action) => {
     case GET_ONE_POST: {
       newState = {...state};
       newState.current = {...action.post};
+      return newState;
+    }
+    case CREATE_LIKE: {
+      newState = {...state};
       return newState;
     }
     default:

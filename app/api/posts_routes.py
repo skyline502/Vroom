@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Post, User, Image, db
+from app.models import Post, User, Image, db, Like
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
 from sqlalchemy import desc
 import json
@@ -31,7 +31,7 @@ def posts():
 @login_required
 def getOnePost(post_id):
   post = Post.query.get(post_id)
-  post = post.to_dict();
+  post = post.to_dict()
   post['user_id'] = User.query.get(post['user_id']).to_dict()
   print(post, dir(post), 'post in back end...')
 
@@ -158,3 +158,36 @@ def edit_post(post_id):
       db.session.add(newImage)
       db.session.commit()
   return post.to_dict();
+
+@post_routes.route('/<int:post_id>/like', methods=['POST'])
+@login_required
+def likePost(post_id):
+  post = Post.query.get(post_id)
+  post = post.to_dict()
+
+  if len(post.likes == 0):
+    like = Like(
+      post_id=post_id,
+      user_id=request.form['user_id']
+    )
+
+    db.session.add(like)
+    db.session.commit()
+    return {'post': post}
+
+  likes = post.likes
+
+  for like in likes:
+    if like.user_id == request.form['user_id']:
+      unlike = Like.query.get(like.id)
+      db.session.delete(unlike)
+      db.session.commit()
+      return {'post': post }
+    else:
+      newLike = Like(
+         post_id=post_id,
+         user_id=request.form['user_id']
+      )
+      db.session.add(like)
+      db.session.commit()
+      return {'post': post }
