@@ -180,6 +180,7 @@ const postReducer = (state = {posts: [], current: {}}, action) => {
     }
     case CREATE_LIKE: {
       newState = {...state};
+      newState.current = {...action.post}
       return newState;
     }
     default:

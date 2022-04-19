@@ -163,8 +163,6 @@ def edit_post(post_id):
 @login_required
 def likePost(post_id):
   post = Post.query.get(post_id)
-
-
   print(post.likes, 'likes are in teh store......')
 
   if len(post.likes) == 0:
@@ -175,7 +173,10 @@ def likePost(post_id):
 
     db.session.add(like)
     db.session.commit()
-    return {'post': post.to_dict()}
+    post = post.to_dict()
+    post['user_id'] = User.query.get(post['user_id']).to_dict()
+
+    return {'post': post }
 
   likes = post.likes
   found = False
@@ -191,7 +192,10 @@ def likePost(post_id):
     unlike = Like.query.get(found.id)
     db.session.delete(unlike)
     db.session.commit()
-    return {'post': post.to_dict()}
+    post = post.to_dict()
+    post['user_id'] = User.query.get(post['user_id']).to_dict()
+
+    return {'post': post }
   else:
     print('does it reach here......., not liked yet!')
     newLike = Like(
@@ -200,4 +204,7 @@ def likePost(post_id):
     )
     db.session.add(newLike)
     db.session.commit()
-    return {'post': post.to_dict()}
+    post = post.to_dict()
+    post['user_id'] = User.query.get(post['user_id']).to_dict()
+
+    return {'post': post }
