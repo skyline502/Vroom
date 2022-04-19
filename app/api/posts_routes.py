@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Post, User, Image, db
+from app.models import Post, User, Image, db, Like
 from app.aws import upload_file_to_s3, allowed_file, get_unique_filename
 from sqlalchemy import desc
 import json
@@ -31,7 +31,7 @@ def posts():
 @login_required
 def getOnePost(post_id):
   post = Post.query.get(post_id)
-  post = post.to_dict();
+  post = post.to_dict()
   post['user_id'] = User.query.get(post['user_id']).to_dict()
   print(post, dir(post), 'post in back end...')
 
@@ -158,3 +158,46 @@ def edit_post(post_id):
       db.session.add(newImage)
       db.session.commit()
   return post.to_dict();
+
+@post_routes.route('/<int:post_id>/like', methods=['POST'])
+@login_required
+def likePost(post_id):
+  post = Post.query.get(post_id)
+
+
+  print(post.likes, 'likes are in teh store......')
+
+  if len(post.likes) == 0:
+    like = Like(
+      post_id=post_id,
+      user_id=request.form['user_id']
+    )
+
+    db.session.add(like)
+    db.session.commit()
+    return {'post': post.to_dict()}
+
+  likes = post.likes
+  found = False
+  unlike = False
+  for like in likes:
+    print(like.user_id, 'likes......', int(request.form['user_id']), ':request user id')
+    print(like.user_id == int(request.form['user_id']))
+    if like.user_id == int(request.form['user_id']):
+      found = like
+      print('already liked....')
+  if found:
+    print('already liked......, need to delete!')
+    unlike = Like.query.get(found.id)
+    db.session.delete(unlike)
+    db.session.commit()
+    return {'post': post.to_dict()}
+  else:
+    print('does it reach here......., not liked yet!')
+    newLike = Like(
+       post_id=post_id,
+       user_id=request.form['user_id']
+    )
+    db.session.add(newLike)
+    db.session.commit()
+    return {'post': post.to_dict()}

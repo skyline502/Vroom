@@ -103,6 +103,7 @@
 }
 .poster-info {
   display: flex;
+  justify-content: space-around;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   padding:20px;
   max-width: 37vw;
@@ -339,4 +340,25 @@
 
 .num-likes > p {
   margin-left: 5px;
+}
+
+
+.owner-buttons {
+  margin-left: 30px;
+}
+
+.owner-buttons > button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 5px;
+  height: 20px;
+  transition-duration: 0.5s;
+  margin-left: 5px;
+}
+
+.owner-buttons > button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  transform: scale(1.2);
 }

@@ -2,9 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { createAComment } from "../../store/comments";
 import { deleteAComment, editAComment } from "../../store/comments";
+import { setCurrentModal, showModal, hideModal } from "../../store/modal";
 import { getPostComments } from "../../store/comments";
 import './SinglePost.css';
-import { getAllPosts } from "../../store/posts";
+import { getAllPosts, setPost } from "../../store/posts";
+import { deleteAPost } from "../../store/posts";
+import EditPostForm from "./edit-post-modal/edit-post";
+import { createALike } from "../../store/posts";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -113,6 +117,30 @@ const SinglePost = () => {
     }
   }
 
+  const deletePost = async (post_id) => {
+    let data = await dispatch(deleteAPost(post_id));
+    if (data) {
+      setErrors(data);
+    }
+    dispatch(getAllPosts())
+    dispatch(hideModal());
+  }
+
+  const showEditForm = (post) => {
+    dispatch(setCurrentModal(EditPostForm));
+    dispatch(showModal());
+    dispatch(setPost(post));
+  }
+
+  const like = async() => {
+    let newLike = new FormData();
+    newLike.append('post_id', currentPost.id);
+    newLike.append('user_id', user.id);
+
+    await dispatch(createALike(newLike));
+    dispatch(getAllPosts());
+  }
+
   return (
     <div className="single-post-container">
       <div className="single-post-img-box">
@@ -138,6 +166,12 @@ const SinglePost = () => {
             <p className="current-post-desc">{currentPost.description}</p>
             <p className="date">Posted on {convertDate(currentPost.updated_at)}</p>
           </div>
+          {user.id === currentPost.user_id.id ? (
+            <div className='owner-buttons'>
+              <button onClick={() => deletePost(currentPost.id)}><i className="fas fa-trash-alt"></i></button>
+              <button onClick={() => showEditForm(currentPost)}><i className="fas fa-wrench"></i></button>
+            </div>
+          ) : <></>}
         </div>
         <div className="comment-box">
           {post_comments.map(comment => (
@@ -154,10 +188,10 @@ const SinglePost = () => {
                 }
                 {comment.user_id.id === user.id &&
                   <div className="edit-menu">
-                    <button className ='deletecomment' onMouseEnter={() => setShowEdit(false)} onClick={() => handleDelete(comment.id)}><i className="fas fa-trash-alt"></i></button>
+                    <button className='deletecomment' onMouseEnter={() => setShowEdit(false)} onClick={() => handleDelete(comment.id)}><i className="fas fa-trash-alt"></i></button>
                     <div className="comment-btns">
                       <label htmlFor={`edit-${comment.id}`}>
-                        <i className="fas fa-edit"  onMouseEnter={() => handleEdit(comment)} />
+                        <i className="fas fa-edit" onMouseEnter={() => handleEdit(comment)} />
                       </label>
                       <div className={`edit-cmt-field ${editField}`}>
                         <input
@@ -178,7 +212,7 @@ const SinglePost = () => {
           <div ref={commentsEnd}></div>
         </div>
         <div className="likes">
-          <i className="fas fa-fire" />
+          <i className="fas fa-fire" onClick={() => like()}/>
           <label htmlFor="newComment" className="chat">
             <i className="far fa-comment" />
           </label>
