@@ -110,3 +110,67 @@ a > img {
 a > img:hover {
   transform: scale(1.2);
 }
+
+.search-bar {
+  position: fixed;
+  top: 16px;
+}
+
+.search-bar > input {
+  border: 0;
+  background-color: rgb(243, 236, 236);
+  height: 30px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.search-bar > input:focus {
+  outline-color: rgb(243, 236, 236);
+}
+
+.results-box {
+  display: none;
+  background-color: white;
+  position: fixed;
+  top: 10px;
+  width: 170px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px lightgray ;
+}
+
+.show-results {
+  display: block;
+  background-color: white;
+  position: fixed;
+  top: 55px;
+  width: 170px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px lightgray ;
+}
+
+
+.result-user-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.result-user-info:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+  width: 100%;
+}
+
+.result-user-info > img {
+  min-width: 30px;
+  max-width: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 10px;
+}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import { useSelector } from 'react-redux';
+import UsersList from './UsersList';
 
 
 const NavBar = () => {
@@ -28,12 +29,12 @@ const NavBar = () => {
             <img src={'/vroom.png'} alt='logo' className='logo' />
           </NavLink>
         </div>
+        <div>
+          <UsersList />
+        </div>
         <div className='nav-buttons'>
           <NavLink to='/' exact={true} activeClassName='active'>
             <img src='/garage.png' alt='home' className='home-btn' />
-          </NavLink>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            <img src={'/users.png'} alt='users' className='users' />
           </NavLink>
           <NavLink to='/posts/create' exact={true} activeClassName='active'>
             <img src={'/add-post.png'} alt='post' className='create-post' />
