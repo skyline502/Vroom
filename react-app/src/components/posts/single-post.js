@@ -8,6 +8,7 @@ import './SinglePost.css';
 import { getAllPosts, setPost } from "../../store/posts";
 import { deleteAPost } from "../../store/posts";
 import EditPostForm from "./edit-post-modal/edit-post";
+import { createALike } from "../../store/posts";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -131,6 +132,16 @@ const SinglePost = () => {
     dispatch(setPost(post));
   }
 
+  const like = () => {
+    console.log('I have liked!')
+    const newLike = {
+      'post_id': currentPost.id,
+      'user_id': user.id
+    }
+
+    dispatch(createALike(newLike))
+  }
+
   return (
     <div className="single-post-container">
       <div className="single-post-img-box">
@@ -202,7 +213,7 @@ const SinglePost = () => {
           <div ref={commentsEnd}></div>
         </div>
         <div className="likes">
-          <i className="fas fa-fire" />
+          <i className="fas fa-fire" onClick={() => like()}/>
           <label htmlFor="newComment" className="chat">
             <i className="far fa-comment" />
           </label>

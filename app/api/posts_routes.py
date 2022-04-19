@@ -163,9 +163,11 @@ def edit_post(post_id):
 @login_required
 def likePost(post_id):
   post = Post.query.get(post_id)
-  post = post.to_dict()
 
-  if len(post.likes == 0):
+
+  print(post.likes, 'likes are in teh store......')
+
+  if len(post.likes) == 0:
     like = Like(
       post_id=post_id,
       user_id=request.form['user_id']
