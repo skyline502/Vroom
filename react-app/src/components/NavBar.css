@@ -122,6 +122,29 @@ a > img:hover {
   height: 30px;
   width: 200px;
   border-radius: 10px;
+  margin-right: 10px;
+}
+
+.search-cancel {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -25px;
+  margin-right: -10px;
+}
+
+.search-cancel > i:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.search-cancel > label > i:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.search-bar > i:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 .search-bar > input:focus {

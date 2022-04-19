@@ -26,7 +26,7 @@ function UsersList() {
     }
   },[showResult])
 
-  let results = users.filter(user => user.username.toLowerCase().startsWith(query.toLowerCase()));
+  let results = users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()));
 
   const goToResult = (id) => {
     setQuery('');
@@ -34,15 +34,30 @@ function UsersList() {
     setShowResult(!showResult);
   }
 
+  const onSubmit = (e) => {
+    if (e.keyCode === 13) {
+      setShowResult(true);
+    } else {
+      setShowResult(false);
+    }
+  }
+
+  const cancelSearch = () => {
+    setShowResult(false);
+    setQuery('');
+  }
+
   return (
     <div className='search-bar'>
       <input
         type='text'
+        id='search'
         value={query}
         onChange={e => setQuery(e.target.value)}
         placeholder='...search'
-        onClick={() => setShowResult(!showResult)}
+        onKeyDown={onSubmit}
       />
+      <div className='search-cancel'>{!showResult? <label htmlFor='search'><i className="fas fa-search"></i></label>:<i onClick={cancelSearch} className="fas fa-window-close"></i>}</div>
       <div className={`results-box ${display}`}>
         {results?.map(result => (
           <div key={result.id}>
