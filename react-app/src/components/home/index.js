@@ -60,7 +60,7 @@ const Home = () => {
             </div>
           </div>
           <div className='post-content'>
-            <button onClick={() => showSinglePost(post)}><i className="far fa-comment"></i></button>
+            <button onClick={() => showSinglePost(post)}><i className="far fa-comment" id='comment-home'></i></button>
             <div className='post-title'>
               <div>{post.title}</div>
             </div>

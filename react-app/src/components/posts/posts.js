@@ -37,6 +37,8 @@ const Posts = () => {
               </div>:<></>
             }
             <div className='comments-tiles' onClick={() => showSinglePost(post)}>
+              <i className="fas fa-heart" />
+              <p>{post.likes?.length}</p>
               <i className="fas fa-comment"></i>
               <p>{post.comments?.length}</p>
             </div>
