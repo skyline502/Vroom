@@ -90,6 +90,7 @@ const SinglePost = () => {
 
   const handleDelete = async (id) => {
     await dispatch(deleteAComment(id));
+    await dispatch(getAllPosts());
     dispatch(getPostComments(currentPost.id));
   }
 
