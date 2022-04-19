@@ -21,13 +21,26 @@ Postgres was used for my database
 SQLAlchemy was used in conjunction with Flask to manage the backend of my application.  I found querying much more simple using SQLAlchemy than using Sequelize.
 
 ## AWS S3
-Amazon Web Services S3 was used to handle all user image uploads to Vroom.  
+Amazon Web Services S3 was used to handle all user image uploads to Vroom.
 
+# Key Functionality Implemented
+## Sign up/Log in
+- Users can log in or sign up
+- ![sign](/react-app/public/screen5.png)
 
+## Posts
+- Users can create, edit, read, and delete posts
+- ![read](/react-app/public/screen1.png)
+- Users can add up to 5 images per post
+- ![create](/react-app/public/screen3.png)
+## Comments
+- Users can create, edit, read, and delete comments
+- ![comments](/react-app/public/screen6.png)
+## Likes
+- Users can like and unlike posts
+## Search
+- Users can search for other users using the search bar
+- ![search](/react-app/public/screen2.png)
 
-
-
-* Create user in psql
-  - create user vroom_app_user with password 'password' createdb login;
-* Create database in psql
-  - create database vroom_app_dev with owner vroom_app_user;
+# Future implementation Ideas
+I am happy with how the app looks right now, but in the future I would like to implement socket.io for instant messaging, and somehow incorporate posts with videos.
