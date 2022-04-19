@@ -120,8 +120,8 @@ export const editAPost = (post) => async dispatch => {
 
 export const createALike = (like) => async dispatch => {
   console.log('create like in store...', like)
-
-  const response = await fetch(`/api/posts/${like.post_id}/like`, {
+  let post_id = like.get('post_id');
+  const response = await fetch(`/api/posts/${post_id}/like`, {
     method: 'POST',
     body: like
   });

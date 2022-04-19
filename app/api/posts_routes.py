@@ -175,21 +175,29 @@ def likePost(post_id):
 
     db.session.add(like)
     db.session.commit()
-    return {'post': post}
+    return {'post': post.to_dict()}
 
   likes = post.likes
-
+  found = False
+  unlike = False
   for like in likes:
-    if like.user_id == request.form['user_id']:
-      unlike = Like.query.get(like.id)
-      db.session.delete(unlike)
-      db.session.commit()
-      return {'post': post }
-    else:
-      newLike = Like(
-         post_id=post_id,
-         user_id=request.form['user_id']
-      )
-      db.session.add(like)
-      db.session.commit()
-      return {'post': post }
+    print(like.user_id, 'likes......', int(request.form['user_id']), ':request user id')
+    print(like.user_id == int(request.form['user_id']))
+    if like.user_id == int(request.form['user_id']):
+      found = like
+      print('already liked....')
+  if found:
+    print('already liked......, need to delete!')
+    unlike = Like.query.get(found.id)
+    db.session.delete(unlike)
+    db.session.commit()
+    return {'post': post.to_dict()}
+  else:
+    print('does it reach here......., not liked yet!')
+    newLike = Like(
+       post_id=post_id,
+       user_id=request.form['user_id']
+    )
+    db.session.add(newLike)
+    db.session.commit()
+    return {'post': post.to_dict()}

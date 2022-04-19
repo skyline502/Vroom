@@ -132,14 +132,13 @@ const SinglePost = () => {
     dispatch(setPost(post));
   }
 
-  const like = () => {
-    console.log('I have liked!')
-    const newLike = {
-      'post_id': currentPost.id,
-      'user_id': user.id
-    }
+  const like = async() => {
+    let newLike = new FormData();
+    newLike.append('post_id', currentPost.id);
+    newLike.append('user_id', user.id);
 
-    dispatch(createALike(newLike))
+    await dispatch(createALike(newLike));
+    dispatch(getAllPosts());
   }
 
   return (
