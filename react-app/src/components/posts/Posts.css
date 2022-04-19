@@ -63,3 +63,7 @@
   font-size: 30px;
   margin-bottom: 100px;
 }
+
+.comments-tiles > p {
+  margin-right: 10px;
+}

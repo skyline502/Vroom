@@ -77,6 +77,10 @@
   border-bottom: 1px solid lightgray;
 }
 
+#comment-home:hover {
+  color: lightgray;
+}
+
 
 
 .post-user {

@@ -17,7 +17,7 @@ function User() {
 
   useEffect(() => {
     dispatch(getAllPosts());
-  },[dispatch])
+  }, [dispatch])
 
   useEffect(() => {
     if (!userId) {
@@ -68,9 +68,11 @@ function User() {
             {post.images?.length > 1 ?
               <div className='test'>
                 <i className="fas fa-clone"></i>
-              </div>:<></>
+              </div> : <></>
             }
             <div className='comments-tiles' onClick={() => showSinglePost(post)}>
+              <i className="fas fa-heart" />
+              <p>{post.likes?.length}</p>
               <i className="fas fa-comment"></i>
               <p>{post.comments?.length}</p>
             </div>

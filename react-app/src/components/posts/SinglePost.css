@@ -97,6 +97,19 @@
   min-width: 100px;
 }
 
+#liked {
+  transition-duration: 0.1s;
+}
+
+#comment:hover {
+  color: lightgray;
+}
+
+#liked:active {
+  color:'red';
+  transform: scale(1.5);
+}
+
 .date {
   margin-top: -5px;
   max-height: 5px;

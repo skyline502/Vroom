@@ -100,13 +100,20 @@ const EditPostForm = () => {
             placeholder='enter a description'
             required={true}
           />
-          <input
-            type='file'
-            name='image'
-            accept='image/*'
-            onChange={addImage}
-            placeholder='add an image'
-          />
+          <label className='aws-image-box'>
+            <div className='aws'>
+              <i className='fas fa-image'></i>
+              add more images
+            </div>
+            <input
+              type='file'
+              name='image'
+              accept='image/*'
+              onChange={addImage}
+              placeholder='add an image'
+              className='aws-upload'
+            />
+          </label>
           <button className='edit-post-btn' type='submit'>edit post</button>
         </form>
       </div>

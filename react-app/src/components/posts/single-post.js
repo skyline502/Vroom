@@ -22,6 +22,7 @@ const SinglePost = () => {
   const [editField, setEditField] = useState(null);
   const [currentComment, setCurrentComment] = useState('');
   const dispatch = useDispatch();
+  const hasLiked = currentPost?.likes?.filter(like => like.user_id === user.id);
 
   const convertDate = (date) => {
     let converted = new Date(date);
@@ -212,9 +213,9 @@ const SinglePost = () => {
           <div ref={commentsEnd}></div>
         </div>
         <div className="likes">
-          <i className="fas fa-fire" onClick={() => like()}/>
+          {hasLiked.length > 0? <i style={{color: 'red'}} className="fas fa-heart" onClick={() => like()}/>:<i className="far fa-heart" id='liked' onClick={() => like()}/>}
           <label htmlFor="newComment" className="chat">
-            <i className="far fa-comment" />
+            <i className="far fa-comment" id='comment'/>
           </label>
         </div>
         <div className="num-likes">{currentPost.likes.length}<p>likes</p></div>
