@@ -47,7 +47,10 @@ const NavBar = () => {
           </div>
         </div>
         <div onMouseLeave={() => setDrop(!drop)} className={`drop-down ${dropdown}`}>
-          <div style={{ paddingLeft: 15 }} onClick={() => history.push(`/users/${user.id}`)} className='profile-link'>Profile</div>
+          <div className='drop-profile' onClick={() => history.push(`/users/${user.id}`)}>
+            <i className="fas fa-user"></i>
+            <div style={{ paddingLeft: 15 }} className='profile-link'>Profile</div>
+          </div>
           <div>
             <LogoutButton />
           </div>
