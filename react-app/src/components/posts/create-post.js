@@ -139,7 +139,7 @@ const CreatePostForm = () => {
         </div>
         <div className='img-box'>
           {images?.map(image => (
-            <div key={image.name}>
+            <div key={image.name} className='create-img-tile'>
               <img src={URL.createObjectURL(image)} className='img-prev' alt='img preview' />
             </div>
           ))}
