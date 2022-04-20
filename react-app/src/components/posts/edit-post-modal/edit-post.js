@@ -66,7 +66,7 @@ const EditPostForm = () => {
       form.append('id', currentPost.id);
       form.append('user_id', currentPost.user_id.id);
 
-      let data = await dispatch(editAPost(form));
+      let data = dispatch(editAPost(form));
 
       if (data) {
         setErrors(data);
