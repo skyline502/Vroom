@@ -53,12 +53,6 @@
   border-top-right-radius: 5px;
 }
 
-.profile-link:hover {
-  cursor: pointer;
-  background-color: black;
-  color: white;
-}
-
 .users {
   height: 32px;
 }
@@ -79,11 +73,29 @@
   right: 10%;
   top: 56px;
   width: 200px;
-  height:100px;
+  height:70px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 1px 1px 10px lightgray;
   align-items: flex-start;
+}
+
+.drop-profile {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.drop-profile > i {
+  margin-left: 15px;
+}
+
+.drop-profile:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
 }
 
 @media (min-width: 2000px) {
