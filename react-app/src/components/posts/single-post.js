@@ -133,7 +133,7 @@ const SinglePost = () => {
     dispatch(setPost(post));
   }
 
-  const like = async() => {
+  const like = async () => {
     let newLike = new FormData();
     newLike.append('post_id', currentPost.id);
     newLike.append('user_id', user.id);
@@ -162,17 +162,17 @@ const SinglePost = () => {
           <div className="poster-img">
             <img src={currentPost.user_id.profile_url} alt='profile' />
             <div className="post-name"> {currentPost.user_id.username}</div>
+            {user.id === currentPost.user_id.id ? (
+              <div className='owner-buttons'>
+                <button onClick={() => deletePost(currentPost.id)}><i className="fas fa-trash-alt"></i></button>
+                <button onClick={() => showEditForm(currentPost)}><i className="fas fa-wrench"></i></button>
+              </div>
+            ) : <></>}
           </div>
           <div className="poster-content">
             <p className="current-post-desc">{currentPost.description}</p>
             <p className="date">Posted on {convertDate(currentPost.updated_at)}</p>
           </div>
-          {user.id === currentPost.user_id.id ? (
-            <div className='owner-buttons'>
-              <button onClick={() => deletePost(currentPost.id)}><i className="fas fa-trash-alt"></i></button>
-              <button onClick={() => showEditForm(currentPost)}><i className="fas fa-wrench"></i></button>
-            </div>
-          ) : <></>}
         </div>
         <div className="comment-box">
           {post_comments.map(comment => (
@@ -213,9 +213,9 @@ const SinglePost = () => {
           <div ref={commentsEnd}></div>
         </div>
         <div className="likes">
-          {hasLiked.length > 0? <i style={{color: 'red'}} className="fas fa-heart" onClick={() => like()}/>:<i className="far fa-heart" id='liked' onClick={() => like()}/>}
+          {hasLiked.length > 0 ? <i style={{ color: 'red' }} className="fas fa-heart" onClick={() => like()} /> : <i className="far fa-heart" id='liked' onClick={() => like()} />}
           <label htmlFor="newComment" className="chat">
-            <i className="far fa-comment" id='comment'/>
+            <i className="far fa-comment" id='comment' />
           </label>
         </div>
         <div className="num-likes">{currentPost.likes.length}<p>likes</p></div>

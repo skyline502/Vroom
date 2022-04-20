@@ -1,7 +1,7 @@
 .single-post-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 80vw;
+  grid-template-columns: 60vw 30vw;
+  width: 90vw;
   height: 60vh;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -80,8 +80,10 @@
   align-items: flex-start;
   background-color: white;
   height: 60vh;
+  max-width: 30vw;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  contain: content;
 }
 
 .poster-img > img {
@@ -116,11 +118,11 @@
 }
 .poster-info {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  padding:10px;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
-  padding:20px;
-  max-width: 37vw;
-  min-width:37vw;
+  max-width: 29vw;
+  min-width:29vw;
   font-size: 12px;
 }
 
@@ -129,7 +131,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 15px;
+  margin-left: 10px;
   margin-top: -10px;
 }
 
@@ -170,7 +172,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 15px;
+  margin-left: 10px;
   max-width: 37vw;
 }
 
@@ -219,7 +221,7 @@
   justify-content: space-around;
   align-items: center;
   bottom: 240px;
-  margin-left: 15px;
+  margin-left: 20px;
   margin-top: 10px;
 }
 
@@ -228,7 +230,7 @@
 }
 
 .chat {
-  margin-left : 15px;
+  margin-left : 10px;
   transition-duration: 0.5s;
 }
 
@@ -341,12 +343,12 @@
 .errors-map {
   margin-left: 20px;
   color:red;
-  margin-bottom: -30px;
+  margin-bottom: -10px;
 }
 
 .num-likes {
   display: flex;
-  margin-left: 15px;
+  margin-left: 20px;
   align-items: center;
   margin-top: 10px;
 }
@@ -357,7 +359,7 @@
 
 
 .owner-buttons {
-  margin-left: 30px;
+  margin-top: 10px;
 }
 
 .owner-buttons > button {
@@ -374,4 +376,9 @@
   color: white;
   background-color: black;
   transform: scale(1.2);
+}
+
+.crt-cmt-input {
+  margin-bottom: -150px;
+  max-width: 25vw;
 }
