@@ -49,6 +49,8 @@
   align-items: center;
   height: 30px;
   width: 185px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .profile-link:hover {
