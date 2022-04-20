@@ -13,7 +13,7 @@ import CreatePostForm from './components/posts/create-post';
 import Modal from './components/modal/modal';
 import Home from './components/home';
 import Footer from './components/footer';
-
+import NotFound from './components/error';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -61,6 +61,9 @@ function App() {
           <NavBar />
           <CreatePostForm />
         </ProtectedRoute>
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
       <Footer />
     </BrowserRouter>
