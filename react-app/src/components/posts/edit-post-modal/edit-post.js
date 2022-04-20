@@ -82,7 +82,7 @@ const EditPostForm = () => {
         <img src={'/vroom-login.png'} alt='login' className='login-logo' />
         <form onSubmit={onSubmit}>
           {errors?.map(error => (
-            <div key={error}>{error}</div>
+            <div key={error} className='errors'>{error}</div>
           ))}
           <input
             type='text'
@@ -117,7 +117,7 @@ const EditPostForm = () => {
           <button className='edit-post-btn' type='submit'>edit post</button>
         </form>
       </div>
-      <div className='image-preview'>
+      <div className='edit-image-preview'>
         <div className='previous-images'>
           <h2>previous images</h2>
           <div className='prev-img-box'>
@@ -131,7 +131,7 @@ const EditPostForm = () => {
         </div>
         <div className='img-box'>
           {images?.map((image, idx) => (
-            <div key={`${idx}${image.name}`}>
+            <div key={`${idx}${image.name}`} className='img-box-tile'>
               <img src={URL.createObjectURL(image)} className='img-prev' alt='img preview' />
             </div>
           ))}

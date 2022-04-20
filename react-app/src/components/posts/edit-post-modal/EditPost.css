@@ -12,7 +12,11 @@
 
 .img-prev {
   height: 40px;
-  object-fit: contain;
+  object-fit: cover;
+}
+
+.errors {
+  color: red;
 }
 
 .edit-post-btn:hover {
@@ -21,4 +25,38 @@
   color: black;
   border: 1px solid lightgray;
   transform: scale(1.1);
+}
+
+.img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.img-box-tile {
+  height: 50px;
+  width: 100px;
+  margin: 2px;
+  contain: content;
+}
+
+.img-box-tile > img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.edit-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: auto;
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  width:300px;
+  height: 65vh;
 }
