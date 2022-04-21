@@ -9,6 +9,7 @@ import { getAllPosts, setPost } from "../../store/posts";
 import { deleteAPost } from "../../store/posts";
 import EditPostForm from "./edit-post-modal/edit-post";
 import { createALike } from "../../store/posts";
+import { useHistory } from "react-router-dom";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -23,6 +24,7 @@ const SinglePost = () => {
   const [currentComment, setCurrentComment] = useState('');
   const dispatch = useDispatch();
   const hasLiked = currentPost?.likes?.filter(like => like.user_id === user.id);
+  let history = useHistory();
 
   const convertDate = (date) => {
     let converted = new Date(date);
@@ -142,6 +144,11 @@ const SinglePost = () => {
     dispatch(getAllPosts());
   }
 
+  const goToUserPage = (id) => {
+    history.push(`/users/${id}`);
+    dispatch(hideModal());
+  }
+
   return (
     <div className="single-post-container">
       <div className="single-post-img-box">
@@ -161,7 +168,7 @@ const SinglePost = () => {
         <div className="poster-info">
           <div className="poster-img">
             <img src={currentPost.user_id.profile_url} alt='profile' />
-            <div className="post-name"> {currentPost.user_id.username}</div>
+            <div className="post-name" onClick={() => goToUserPage(currentPost.user_id.id)}> {currentPost.user_id.username}</div>
             {user.id === currentPost.user_id.id ? (
               <div className='owner-buttons'>
                 <button onClick={() => deletePost(currentPost.id)}><i className="fas fa-trash-alt"></i></button>
@@ -179,7 +186,7 @@ const SinglePost = () => {
             <div key={comment.id} className='post-contents'>
               <div className="poster-img">
                 <img src={comment.user_id.profile_url} alt='profile' />
-                <div className="post-name">{comment.user_id.username}</div>
+                <div className="post-name" onClick={() => goToUserPage(comment.user_id.id)}>{comment.user_id.username}</div>
               </div>
               <div className="comment-content">
                 <p className="the-comment">{comment.comment}</p>
