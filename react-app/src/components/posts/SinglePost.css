@@ -108,7 +108,7 @@
 
 .poster-img > img {
   height: auto;
-  max-width: 100px;
+  max-width: 90px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -141,12 +141,12 @@
   max-height: 5px;
 }
 .poster-info {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
   padding: 10px 0px;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
-  max-width: 29vw;
-  min-width:29vw;
+  max-width: 30vw;
+  min-width:30vw;
   font-size: 12px;
 }
 
@@ -156,6 +156,7 @@
   word-wrap: break-word;
   min-width: 20vw;
   max-width: 20vw;
+  padding: 0px 10px;
 }
 
 .poster-content > p {
@@ -199,14 +200,15 @@
   align-items: flex-start;
   max-width: 20vw;
   min-width: 20vw;
+  padding: 0px 10px;
 }
 
 .comment-content > p {
   font-family: 'Helvetica';
   font-size: 12px;
   word-wrap: break-word;
-  min-width: 20vw;
-  max-width: 20vw;
+  min-width: 19vw;
+  max-width: 19vw;
 }
 
 .comment-content > p.date {
