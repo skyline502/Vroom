@@ -62,7 +62,6 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
       }
-      dispatch(hideModal());
     }
   };
 
@@ -93,6 +92,7 @@ const SignUpForm = () => {
   }
 
   if (user) {
+    dispatch(hideModal());
     return <Redirect to='/' />;
   }
 
