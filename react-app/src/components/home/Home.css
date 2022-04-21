@@ -100,8 +100,13 @@
   background-color: black;
 }
 
+.home-username {
+  transition-duration: 0.3s;
+}
+
 .home-username:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 .post-profile {

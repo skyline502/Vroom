@@ -17,7 +17,6 @@ const CreatePostForm = () => {
   const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
   const names = images.map(image => image.name);
-  console.log('filenames', names)
 
   const addImage = e => {
     const image = e.target.files[0]
@@ -80,9 +79,11 @@ const CreatePostForm = () => {
       form.append('title', title);
       form.append('description', description);
 
+      let audio = new Audio('/lfa-sound.mp3')
+
       dispatch(setCurrentModal(LoadingScreen))
       dispatch(showModal());
-
+      audio.play();
       let data = await dispatch(createAPost(form));
       if (data) {
         setErrors(data);
