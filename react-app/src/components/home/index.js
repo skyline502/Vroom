@@ -1,12 +1,13 @@
 import './Home.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import { setPost, getOnePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
+
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
     return converted.toLocaleString();
   }
   let history = useHistory();
+  const topOfPage = useRef(null);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -34,7 +36,7 @@ const Home = () => {
   }
 
   return (
-    <div className='posts-container'>
+    <div className='posts-container' ref={topOfPage}>
       <h1>{user.username}'s Feed</h1>
       {posts?.map(post => (
         <div key={post.id} className='post'>
@@ -69,6 +71,7 @@ const Home = () => {
           </div>
         </div>
       ))}
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   )
 }

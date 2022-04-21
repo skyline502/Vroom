@@ -1,7 +1,7 @@
 import './Posts.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import { setPost, getOnePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
@@ -10,7 +10,7 @@ import SinglePost from './single-post';
 const Posts = () => {
   const posts = useSelector(state => state.posts.posts);
   const dispatch = useDispatch();
-
+  const topOfPage = useRef(null);
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
@@ -26,7 +26,7 @@ const Posts = () => {
   }
 
   return (
-    <div className='posts-container'>
+    <div className='posts-container' ref={topOfPage}>
       <div className='tile-posts-container'>
         {posts?.map(post => (
           <div key={post.id} className='post-preview'>
@@ -45,6 +45,7 @@ const Posts = () => {
           </div>
         ))}
       </div>
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   )
 }

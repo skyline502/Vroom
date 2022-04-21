@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './User.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ function User() {
   const { userId } = useParams();
   const dispatch = useDispatch();
   const allPosts = useSelector(state => state.posts.posts);
+  const topOfPage = useRef(null);
 
   const posts = allPosts.filter(post => post.user_id.id === user.id);
 
@@ -46,7 +47,7 @@ function User() {
   }
 
   return (
-    <div className='profile-container'>
+    <div className='profile-container' ref={topOfPage}>
       <div className='profile-header'>
         <img src={user.profile_url} className='profile-user' alt='profile' />
         <div className='profile-details'>
@@ -79,6 +80,7 @@ function User() {
           </div>
         ))}
       </div>
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   );
 }
