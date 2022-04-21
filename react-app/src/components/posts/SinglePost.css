@@ -107,7 +107,9 @@
 }
 
 .poster-img > img {
-  height: 40px;
+  height: auto;
+  max-width: 100px;
+  object-fit: cover;
   border-radius: 5px;
 }
 
@@ -117,6 +119,8 @@
   align-items: center;
   justify-content: flex-start;
   min-width: 100px;
+  /* background-color: black; */
+  contain: content;
 }
 
 #liked {
@@ -139,7 +143,7 @@
 .poster-info {
   display: flex;
   justify-content: flex-start;
-  padding:10px;
+  padding: 10px 0px;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   max-width: 29vw;
   min-width:29vw;
@@ -147,12 +151,11 @@
 }
 
 .poster-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-left: 10px;
-  margin-top: -10px;
+  font-family: 'Helvetica';
+  font-size: 12px;
+  word-wrap: break-word;
+  min-width: 20vw;
+  max-width: 20vw;
 }
 
 .poster-content > p {
@@ -161,15 +164,15 @@
 }
 
 .post-contents {
-  display: flex;
-  min-height: 50px;
-  max-height: 100px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid rgb(211, 211, 211, 0.1);
-  padding: 20px;
-  max-width: 37vw;
-  min-width:37vw;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  height: auto;
+  max-width: 31vw;
+  min-width:31vw;
   font-size: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 5px 0px;
 }
 
 .comment-box {
@@ -179,7 +182,8 @@
   overflow-y: scroll;
   border-bottom: 1px solid rgb(211, 211, 211, 0.4);
   height:100vh;
-  max-width: 41vw;
+  max-width: 30vw;
+  min-width: 30vw;
   box-sizing: content-box;
 }
 
@@ -190,16 +194,19 @@
 .comment-content {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 10px;
-  max-width: 37vw;
+  max-width: 20vw;
+  min-width: 20vw;
 }
 
 .comment-content > p {
   font-family: 'Helvetica';
   font-size: 12px;
   word-wrap: break-word;
+  min-width: 20vw;
+  max-width: 20vw;
 }
 
 .comment-content > p.date {
@@ -215,12 +222,12 @@
 
 .the-comment {
   margin-top: 0;
-  max-width: 31vw;
+  max-width: 26vw;
   word-wrap: break-word;
 }
 
 .current-post-desc {
-  max-width: 31vw;
+  max-width: 26vw;
   word-wrap: break-word;
 }
 
@@ -287,6 +294,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2px;
   width:20px;
 }
 
@@ -395,5 +403,5 @@
 
 .crt-cmt-input {
   margin-bottom: -150px;
-  max-width: 25vw;
+  max-width: 26vw;
 }

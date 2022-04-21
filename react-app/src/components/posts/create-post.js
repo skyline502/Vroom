@@ -15,6 +15,10 @@ const CreatePostForm = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   const allowedExt = ["png", "jpg", "jpeg", "gif"];
+
+  const names = images.map(image => image.name);
+  console.log('filenames', names)
+
   const addImage = e => {
     const image = e.target.files[0]
     setErrors([]);
@@ -32,6 +36,11 @@ const CreatePostForm = () => {
       setErrors(['That is not a supported image type!']);
       return;
     }
+    if (names.includes(image.name)) {
+      setErrors(['You have already added this image!']);
+      return;
+    }
+
     if (!images?.length) {
       setImages([image]);
     } else if (images?.length && images?.length < 6) {
@@ -71,19 +80,17 @@ const CreatePostForm = () => {
       form.append('title', title);
       form.append('description', description);
 
+      dispatch(setCurrentModal(LoadingScreen))
+      dispatch(showModal());
+
       let data = await dispatch(createAPost(form));
-      let audio = new Audio('/lfa-sound.mp3');
       if (data) {
         setErrors(data);
-      }
-
-      audio.play();
-      dispatch(setCurrentModal(LoadingScreen));
-      dispatch(showModal());
-      audio.onended = () => {
         dispatch(hideModal());
-        history.goBack();
+        return;
       }
+      setTimeout(() => history.goBack(), 500);
+      setTimeout(() => dispatch(hideModal()), 800);
     }
   }
 
