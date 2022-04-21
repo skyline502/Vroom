@@ -78,6 +78,8 @@
   border-radius: 5px;
   box-shadow: 1px 1px 10px lightgray;
   align-items: flex-start;
+  animation-duration: 0.5s;
+  animation-name: slidein;
 }
 
 .drop-profile {
@@ -180,9 +182,30 @@ a > img:hover {
   background-color: white;
   position: fixed;
   top: 55px;
-  width: 170px;
+  width: 200px;
+  max-height: 200px;
+  overflow-y: scroll;
   border-radius: 10px;
   box-shadow: 1px 1px 10px lightgray ;
+  animation-duration: 0.5s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from{
+    margin-top: -20px;
+    opacity: 0.5;
+  }
+
+  to {
+    margin-top: 0px;
+    opacity: 1;
+  }
+
+}
+
+.show-results::-webkit-scrollbar {
+  display: none;
 }
 
 
