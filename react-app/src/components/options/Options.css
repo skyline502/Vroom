@@ -20,8 +20,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-width: 60vw;
   padding: 20px 0px;
+}
+
+.options-buttons > div > p {
+  margin: 0;
+  transition-duration: 0.3s;
 }
 
 .options > div > p {
@@ -34,18 +40,21 @@
 
 
 .options > div > p:hover {
-  background-color: black;
   cursor: pointer;
-  color: white;
+}
+
+.options-buttons > div {
+  border-bottom: 1px solid rgb(211, 211, 211, 0.2);
+  min-width: 60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
 }
 
 .options-buttons > div > p:hover {
   cursor: pointer;
-  background-color: black;
-}
-
-.options-buttons > div > button > i {
-  margin-right: 10px;
+  transform: scale(1.2);
 }
 
 .options-buttons > div > button {
@@ -54,8 +63,27 @@
   font-family: 'Bebas Neue';
   font-size: 16px;
   margin-top: 0;
+  min-width: 60vw;
+  transition-duration: 0.3s;
+}
+
+.options-buttons > div > button:hover {
+  transform: scale(1.2);
 }
 
 .options-buttons > div > button:hover {
   cursor: pointer;
+}
+
+.options-buttons > p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-top: 10px;
+  transition-duration: 0.3s;
+}
+
+.options-buttons > p:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
