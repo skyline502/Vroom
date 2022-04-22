@@ -1,0 +1,61 @@
+.options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 60vw;
+  height: auto;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.options-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60vw;
+  padding: 20px 0px;
+}
+
+.options > div > p {
+  min-width: 60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;;
+}
+
+
+.options > div > p:hover {
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.options-buttons > div > p:hover {
+  cursor: pointer;
+  background-color: black;
+}
+
+.options-buttons > div > button > i {
+  margin-right: 10px;
+}
+
+.options-buttons > div > button {
+  background-color: transparent;
+  border: 0;
+  font-family: 'Bebas Neue';
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.options-buttons > div > button:hover {
+  cursor: pointer;
+}

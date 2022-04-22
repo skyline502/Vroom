@@ -1,12 +1,14 @@
 import './Home.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef} from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import { setPost, getOnePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
+import Options from '../options';
+
 
 
 
@@ -35,6 +37,15 @@ const Home = () => {
     }
   }
 
+  const showOptions = async (post) => {
+    let onePost = await dispatch(getOnePost(post.id));
+    dispatch(setPost(onePost));
+    if (onePost) {
+      dispatch(setCurrentModal(Options));
+      dispatch(showModal());
+    }
+  }
+
   return (
     <div className='posts-container' ref={topOfPage}>
       <h1>{user.username}'s Feed</h1>
@@ -46,9 +57,12 @@ const Home = () => {
               <div
                 className='home-username'
                 onClick={() => history.push(`/users/${post.user_id.id}`)}
-                >
-                  {post.user_id.username}
+              >
+                {post.user_id.username}
               </div>
+            </div>
+            <div className='options-menu'>
+              <i className="fas fa-ellipsis-h" onClick={() => showOptions(post)}></i>
             </div>
           </div>
           <div className='image-box'>
@@ -71,7 +85,7 @@ const Home = () => {
           </div>
         </div>
       ))}
-      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({ behavior: 'smooth' })}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   )
 }

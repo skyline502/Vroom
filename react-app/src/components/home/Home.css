@@ -1,6 +1,7 @@
 .post {
   margin-bottom: 30px;
   max-width: 600px;
+  border: 1px solid lightgray;
 }
 
 .image-box {
@@ -167,6 +168,10 @@
 .comment-date {
   font-family: 'Helvetica';
   font-size: 12px;
+}
+
+.options-menu:hover {
+  cursor: pointer;
 }
 
 .to-the-top {
