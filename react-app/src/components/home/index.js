@@ -1,14 +1,14 @@
 import './Home.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts';
-import { useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 import { showModal, setCurrentModal } from '../../store/modal';
 import { setPost, getOnePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
 import Options from '../options';
-
+import { createALike } from '../../store/posts';
 
 
 
@@ -46,6 +46,16 @@ const Home = () => {
     }
   }
 
+  const like = async (post) => {
+    console.log(post, 'like post')
+    let newLike = new FormData();
+    newLike.append('post_id', post.id);
+    newLike.append('user_id', user.id);
+
+    await dispatch(createALike(newLike));
+    dispatch(getAllPosts());
+  }
+
   return (
     <div className='posts-container' ref={topOfPage}>
       <h1>{user.username}'s Feed</h1>
@@ -76,11 +86,16 @@ const Home = () => {
             </div>
           </div>
           <div className='post-content'>
-            <button onClick={() => showSinglePost(post)}><i className="far fa-comment" id='comment-home'></i></button>
+            <div className='post-btns'>
+              <button onClick={() => showSinglePost(post)}><i className="far fa-comment" id='comment-home'></i></button>
+              {post?.likes?.filter(like => like.user_id === user.id).length > 0 ? <i style={{ color: 'red' }} className="fas fa-heart" onClick={() => like(post)} /> : <i className="far fa-heart" id='liked' onClick={() => like(post)} />}
+            </div>
+            <div>{`${post.likes.length} Likes`}</div>
             <div className='post-title'>
               <div>{post.title}</div>
             </div>
             <p>{post.description}</p>
+            <div className='all-comments' onClick={() => showSinglePost(post)}>{`view all ${post?.comments?.length} comments`}</div>
             <p>posted on {convertDate(post.created_at)}</p>
           </div>
         </div>
