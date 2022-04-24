@@ -95,6 +95,13 @@ def sign_up():
         errors.append('Username has already been taken.')
     if email:
         errors.append('That email has already been used.')
+
+    if len(request.form['name'] > 100):
+        errors.append('Your name must be between 2 and 100 characters long.')
+
+    if len(password) < 8 or len(password) > 255:
+        errors.append('Password must be between 8 and 255 characters long!')
+
     if password != confirm:
         errors.append('Passwords do not match.')
 
@@ -103,8 +110,11 @@ def sign_up():
     else:
         errors.append('Please provide a valid email')
 
-    if len(request.form['username']) < 2 or len(request.form['username']) > 255:
-        errors.append('Username must be between 2 characters and 255 in length')
+    if len(request.form['email']) > 255:
+        errors.append('Email must not be more than 255 characters long.')
+
+    if len(request.form['username']) < 2 or len(request.form['username']) > 40:
+        errors.append('Username must be between 2 characters and 40 in length')
 
     if allowed_file(request.files['profile_pic'].filename) == False:
         print(allowed_file(request.files['profile_pic']), '......file in backend')
