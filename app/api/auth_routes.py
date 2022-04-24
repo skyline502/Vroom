@@ -96,7 +96,7 @@ def sign_up():
     if email:
         errors.append('That email has already been used.')
 
-    if len(request.form['name'] > 100):
+    if len(request.form['name']) > 100 or len(request.form['name']) < 2:
         errors.append('Your name must be between 2 and 100 characters long.')
 
     if len(password) < 8 or len(password) > 255:
@@ -110,8 +110,8 @@ def sign_up():
     else:
         errors.append('Please provide a valid email')
 
-    if len(request.form['email']) > 255:
-        errors.append('Email must not be more than 255 characters long.')
+    if len(request.form['email']) > 255 or len(request.form['email'] < 6):
+        errors.append('Email must be between 7 and 255 characters long.')
 
     if len(request.form['username']) < 2 or len(request.form['username']) > 40:
         errors.append('Username must be between 2 characters and 40 in length')
