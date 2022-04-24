@@ -22,13 +22,10 @@ const SignUpForm = () => {
     return converted.toLocaleString();
   }
 
-  console.log(password, 'password:...');
-  console.log(confirm, 'confirm...')
-
   const onSignUp = async (e) => {
     setErrors([]);
     e.preventDefault();
-    let validationErrors = []
+    let validationErrors = [];
     let emailValidation = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
     const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
@@ -57,11 +54,10 @@ const SignUpForm = () => {
     }
 
     if (validationErrors) {
-      setErrors(validationErrors)
+      setErrors(validationErrors);
     }
 
     if (password === confirm && !errors.length) {
-      console.log(errors, 'errors....')
       setErrors([])
       const data = await dispatch(signUp(name, username, email, password, confirm, profile_pic));
       if (data) {
