@@ -110,7 +110,7 @@ def sign_up():
     else:
         errors.append('Please provide a valid email')
 
-    if len(request.form['email']) > 255 or len(request.form['email'] < 6):
+    if len(request.form['email']) > 255 or len(request.form['email']) < 6:
         errors.append('Email must be between 7 and 255 characters long.')
 
     if len(request.form['username']) < 2 or len(request.form['username']) > 40:
