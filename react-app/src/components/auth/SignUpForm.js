@@ -15,11 +15,15 @@ const SignUpForm = () => {
   const [profile_pic, setProfile] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
   const convertDate = (date) => {
     let converted = new Date(date);
     return converted.toLocaleString();
   }
+
+  console.log(password, 'password:...');
+  console.log(confirm, 'confirm...')
 
   const onSignUp = async (e) => {
     setErrors([]);
@@ -28,8 +32,16 @@ const SignUpForm = () => {
     let emailValidation = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
     const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
-    if (username.length < 2 || username.length > 255) {
-      validationErrors.push('username must be between 2 and 255 characters in length');
+    if (password !== confirm) {
+      validationErrors.push('Passwords do not match.')
+    }
+
+    if (password.length < 8 || password.length > 255) {
+      validationErrors.push('Password must be between 8 and 255 characters long.')
+    }
+
+    if (username.length < 2 || username.length > 40) {
+      validationErrors.push('username must be between 2 and 40 characters in length');
     }
 
     if (!emailValidation.test(email)) {
@@ -40,23 +52,16 @@ const SignUpForm = () => {
       validationErrors.push('Name must be between 2 and 100 characters long')
     }
 
-    if (password.length < 8 || password.length > 255) {
-      validationErrors.push('Password must be between 8 and 255 characters long.')
-    }
-
-    if (password !== confirm) {
-      validationErrors.push('Passwords do not match.')
-    }
-
     if (profile_pic && !allowedExt?.includes(profile_pic?.name.split('.')[1])) {
       validationErrors.push(`${profile_pic?.name}'s is not an image file!`)
     }
 
-    if (errors) {
+    if (validationErrors) {
       setErrors(validationErrors)
     }
 
     if (password === confirm && !errors.length) {
+      console.log(errors, 'errors....')
       setErrors([])
       const data = await dispatch(signUp(name, username, email, password, confirm, profile_pic));
       if (data) {
@@ -84,6 +89,12 @@ const SignUpForm = () => {
   const updateProfile = (e) => {
     setErrors([])
     const file = e.target.files[0];
+
+    if (!allowedExt.includes(file?.name.split('.')[1])) {
+      setErrors(['That is not a supported image type!']);
+      return;
+    }
+
     if (file.size < 1000000) {
       setProfile(file);
     } else {

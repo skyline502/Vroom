@@ -73,7 +73,7 @@ const SinglePost = () => {
   const handleEditSubmit = async (e) => {
     setErrors([]);
     if (e.keyCode === 13) {
-      if (currentComment.length < 2) {
+      if (currentComment.length < 2 || currentComment.length > 200) {
         setErrors(['comments must be between 2 and 200 characters in length.']);
         return;
       }
