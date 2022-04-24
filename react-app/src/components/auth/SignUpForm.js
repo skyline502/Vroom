@@ -15,6 +15,7 @@ const SignUpForm = () => {
   const [profile_pic, setProfile] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const allowedExt = ["png", "jpg", "jpeg", "gif"];
 
   const convertDate = (date) => {
     let converted = new Date(date);
@@ -88,6 +89,12 @@ const SignUpForm = () => {
   const updateProfile = (e) => {
     setErrors([])
     const file = e.target.files[0];
+
+    if (!allowedExt.includes(file?.name.split('.')[1])) {
+      setErrors(['That is not a supported image type!']);
+      return;
+    }
+
     if (file.size < 1000000) {
       setProfile(file);
     } else {

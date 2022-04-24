@@ -45,7 +45,7 @@ const LoginForm = () => {
           <h3>stand out on vroom</h3>
         </div>
         <div className='about-message'>
-          <h2>Connect with people who love cars, show off your ride by creating content and give feedback on other people's rides.</h2>
+          <h2>Connect with people who love cars, show off your ride by creating content and giving feedback on other people's rides.</h2>
         </div>
       </div>
       <div className='login-container'>
