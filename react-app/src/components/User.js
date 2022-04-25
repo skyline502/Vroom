@@ -53,7 +53,7 @@ function User() {
         <div className='profile-details'>
           <strong>{user.username}</strong>
           <div className='posts-info'>
-            <strong>{user.posts?.length}</strong>
+            <strong>{posts?.length}</strong>
             <p>posts</p>
           </div>
           <strong> {user.name}</strong>
