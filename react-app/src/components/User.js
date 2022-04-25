@@ -18,10 +18,6 @@ function User() {
 
   const posts = allPosts.filter(post => post.user_id.id === user.id);
 
-  if (isNaN(Number(userId))) {
-    history.push('/404');
-  }
-
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch])
@@ -31,6 +27,10 @@ function User() {
       return;
     }
     (async () => {
+      if (isNaN(Number(userId))) {
+        history.push('/404');
+        return;
+      }
       const response = await fetch(`/api/users/${userId}`);
       const user = await response.json();
       if (user.errors) {
