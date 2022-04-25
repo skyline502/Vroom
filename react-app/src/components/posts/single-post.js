@@ -126,6 +126,7 @@ const SinglePost = () => {
       setErrors(data);
     }
     dispatch(getAllPosts())
+    // history.push('/');
     dispatch(hideModal());
   }
 
