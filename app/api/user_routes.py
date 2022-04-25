@@ -16,4 +16,9 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    return user.to_dict()
+    print(user, 'user in backend....')
+
+    if user:
+        return user.to_dict()
+    else:
+        return {'errors': 'user not found'}
