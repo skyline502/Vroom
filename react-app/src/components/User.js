@@ -39,7 +39,7 @@ function User() {
         setUser(user);
       }
     })();
-  }, [userId]);
+  }, [userId, history]);
 
   if (!user) {
     return null;
