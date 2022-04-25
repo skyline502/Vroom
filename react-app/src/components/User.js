@@ -19,7 +19,6 @@ function User() {
   const posts = allPosts.filter(post => post.user_id.id === user.id);
 
   if (isNaN(Number(userId))) {
-    console.log(Number(userId), 'can you convert...')
     history.push('/404');
   }
 
@@ -36,8 +35,9 @@ function User() {
       const user = await response.json();
       if (user.errors) {
         history.push('/404');
+      } else {
+        setUser(user);
       }
-      setUser(user);
     })();
   }, [userId]);
 
