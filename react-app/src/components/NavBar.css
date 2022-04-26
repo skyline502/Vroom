@@ -193,7 +193,7 @@ a > img:hover {
 
 @keyframes slidein {
   from{
-    margin-top: -20px;
+    margin-top: -10px;
     opacity: 0.5;
   }
 
