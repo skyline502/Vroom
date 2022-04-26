@@ -7,6 +7,8 @@ import { setPost, getOnePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
 import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
+import Options from '../options';
+import { createALike } from '../../store/posts';
 
 
 
@@ -35,6 +37,24 @@ const Home = () => {
     }
   }
 
+  const showOptions = async (post) => {
+    let onePost = await dispatch(getOnePost(post.id));
+    dispatch(setPost(onePost));
+    if (onePost) {
+      dispatch(setCurrentModal(Options));
+      dispatch(showModal());
+    }
+  }
+
+  const like = async (post) => {
+    let newLike = new FormData();
+    newLike.append('post_id', post.id);
+    newLike.append('user_id', user.id);
+
+    await dispatch(createALike(newLike));
+    dispatch(getAllPosts());
+  }
+
   return (
     <div className='posts-container' ref={topOfPage}>
       <h1>{user.username}'s Feed</h1>
@@ -46,9 +66,12 @@ const Home = () => {
               <div
                 className='home-username'
                 onClick={() => history.push(`/users/${post.user_id.id}`)}
-                >
-                  {post.user_id.username}
+              >
+                {post.user_id.username}
               </div>
+            </div>
+            <div className='options-menu'>
+              <i className="fas fa-ellipsis-h" onClick={() => showOptions(post)}></i>
             </div>
           </div>
           <div className='image-box'>
@@ -62,16 +85,21 @@ const Home = () => {
             </div>
           </div>
           <div className='post-content'>
-            <button onClick={() => showSinglePost(post)}><i className="far fa-comment" id='comment-home'></i></button>
+            <div className='post-btns'>
+              <button onClick={() => showSinglePost(post)}><i className="far fa-comment" id='comment-home'></i></button>
+              {post?.likes?.filter(like => like.user_id === user.id).length > 0 ? <i style={{ color: 'red' }} className="fas fa-heart" onClick={() => like(post)} /> : <i className="far fa-heart" id='liked' onClick={() => like(post)} />}
+            </div>
+            <div>{`${post.likes.length} Likes`}</div>
             <div className='post-title'>
               <div>{post.title}</div>
             </div>
             <p>{post.description}</p>
+            <div className='all-comments' onClick={() => showSinglePost(post)}>{`view all ${post?.comments?.length} comments`}</div>
             <p>posted on {convertDate(post.created_at)}</p>
           </div>
         </div>
       ))}
-      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({ behavior: 'smooth' })}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 .post {
   margin-bottom: 30px;
   max-width: 600px;
+  border: 1px solid lightgray;
 }
 
 .image-box {
@@ -39,6 +40,14 @@
   display:none;
 }
 
+.all-comments {
+  color: lightgray;
+}
+
+.all-comments:hover {
+  cursor: pointer;
+}
+
 .images {
   display: flex;
   justify-content: flex-end;
@@ -56,15 +65,30 @@
   object-fit: cover;
 }
 
-.post-content > button {
+.post-btns {
+  margin-left: -5px;
+}
+
+.post-btns > button {
   background-color: transparent;
   border:0;
   transition-duration: 0.5s;
 }
 
-.post-content > button:hover {
+.post-btns > button:hover {
   cursor: pointer;
   transform: scale(1.2);
+}
+
+.post-btns > i {
+  font-size: 14px;
+  margin-left: 10px;
+  transition-duration: 0.3s;
+}
+
+.post-btns > i:hover {
+  cursor: pointer;
+  transform: scale(1.2)
 }
 
 .user-info {
@@ -167,6 +191,10 @@
 .comment-date {
   font-family: 'Helvetica';
   font-size: 12px;
+}
+
+.options-menu:hover {
+  cursor: pointer;
 }
 
 .to-the-top {
