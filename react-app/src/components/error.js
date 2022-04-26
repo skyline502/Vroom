@@ -7,7 +7,7 @@ const NotFound = () => {
     <div className="error-page">
       <h1>404 Not Found</h1>
       <img src='/r32.jpg' alt='404' style={{height: 300}}/>
-      <button onClick={() => history.goBack()} className='back-btn'>Go back</button>
+      <button onClick={() => history.push('/')} className='back-btn'>Go home</button>
     </div>
   )
 }

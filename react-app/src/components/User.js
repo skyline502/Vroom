@@ -6,6 +6,7 @@ import { getOnePost, setPost, getAllPosts } from '../store/posts';
 import SinglePost from './posts/single-post';
 import { setCurrentModal, showModal } from '../store/modal';
 import { getPostComments } from '../store/comments';
+import { useHistory } from 'react-router-dom';
 
 function User() {
   const [user, setUser] = useState({});
@@ -13,6 +14,7 @@ function User() {
   const dispatch = useDispatch();
   const allPosts = useSelector(state => state.posts.posts);
   const topOfPage = useRef(null);
+  let history = useHistory();
 
   const posts = allPosts.filter(post => post.user_id.id === user.id);
 
@@ -25,11 +27,19 @@ function User() {
       return;
     }
     (async () => {
+      if (isNaN(Number(userId))) {
+        history.push('/404');
+        return;
+      }
       const response = await fetch(`/api/users/${userId}`);
       const user = await response.json();
-      setUser(user);
+      if (user.errors) {
+        history.push('/404');
+      } else {
+        setUser(user);
+      }
     })();
-  }, [userId]);
+  }, [userId, history]);
 
   if (!user) {
     return null;
@@ -53,7 +63,7 @@ function User() {
         <div className='profile-details'>
           <strong>{user.username}</strong>
           <div className='posts-info'>
-            <strong>{user.posts?.length}</strong>
+            <strong>{posts?.length}</strong>
             <p>posts</p>
           </div>
           <strong> {user.name}</strong>

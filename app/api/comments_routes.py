@@ -66,7 +66,7 @@ def edit_comment(comment_id):
   comment = Comment.query.get(comment_id)
   errors = []
 
-  if len(request.form['comment']) < 2:
+  if len(request.form['comment']) < 2 or len(request.form['comment']) > 200:
     errors.append('Comments must be between 2 and 200 in length.')
 
   if len(errors):
