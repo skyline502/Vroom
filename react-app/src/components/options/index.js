@@ -15,8 +15,6 @@ const Options = () => {
   const currentPost = useSelector(state => state.posts.current.post);
   const dispatch = useDispatch();
 
-  console.log(currentPost, 'current post.....')
-
   useEffect(() => {
     dispatch(getAllPosts())
   }, [dispatch])

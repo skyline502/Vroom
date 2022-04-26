@@ -47,7 +47,6 @@ const Home = () => {
   }
 
   const like = async (post) => {
-    console.log(post, 'like post')
     let newLike = new FormData();
     newLike.append('post_id', post.id);
     newLike.append('user_id', user.id);

@@ -71,8 +71,6 @@ def edit_comment(comment_id):
 
   if len(errors):
     return {'errors': errors}, 405
-  # print(dir(comment), 'this is the comment found!....')
-  # print(dir(request.form.keys), 'this is the form....')
   comment.comment = request.form['comment']
   comment.updated_at = datetime.now()
   db.session.commit()
