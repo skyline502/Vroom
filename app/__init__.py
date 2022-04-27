@@ -93,4 +93,6 @@ def react_root(path):
         return app.send_static_file('loading-screen.gif')
     if path == 'r32.jpg':
         return app.send_static_file('r32.jpg')
+    if path == 'vroom-prev.png':
+        return app.send_static_file('vroom-prev.png')
     return app.send_static_file('index.html')
