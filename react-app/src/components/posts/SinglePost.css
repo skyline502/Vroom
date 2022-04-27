@@ -342,10 +342,6 @@
 
 .show-edit >input:focus {
   outline: 1px solid lightblue;
-
-}
-
-.show-edit > input:hover {
   width: 100px;
   opacity: 1;
 }
