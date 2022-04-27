@@ -10,6 +10,7 @@ import { deleteAPost } from "../../store/posts";
 import EditPostForm from "./edit-post-modal/edit-post";
 import { createALike } from "../../store/posts";
 import { useHistory } from "react-router-dom";
+import Picker from 'emoji-picker-react';
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -17,6 +18,9 @@ const SinglePost = () => {
   const user = useSelector(state => state.session.user);
   const [newComment, setNewComment] = useState('');
   const [comment_id, setComment_Id] = useState(null);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [emo, setEmo] = useState(false);
+  const [showEmo, setShowEmo] = useState(false);
   const [errors, setErrors] = useState([]);
   const [idx, setIdx] = useState(0);
   const [showEdit, setShowEdit] = useState(false);
@@ -30,7 +34,20 @@ const SinglePost = () => {
     let converted = new Date(date);
     return converted.toLocaleString();
   }
+
+  const chooseEmoji = (e, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
   const commentsEnd = useRef(null);
+
+  useEffect(() => {
+    if (showEmo) {
+      setEmo('show-emo');
+    } else {
+      setEmo(false);
+    }
+  },[showEmo])
 
   useEffect(() => {
     dispatch(getPostComments(currentPost.id));
@@ -208,7 +225,7 @@ const SinglePost = () => {
                           value={currentComment}
                           onChange={e => setCurrentComment(e.target.value)}
                           onKeyDown={handleEditSubmit}
-                          // onMouseLeave={() => setShowEdit(false)}
+                        // onMouseLeave={() => setShowEdit(false)}
                         />
                       </div>
                     </div>
@@ -239,6 +256,10 @@ const SinglePost = () => {
             className='crt-cmt-input'
             onKeyDown={onSubmit}
           />
+          <div className={`emojis ${emo}`}>
+            <Picker onEmojiClick={chooseEmoji} />
+          </div>
+          <button className='emoji-btn'><i className="fas fa-grin"></i></button>
         </div>
       </div>
     </div>

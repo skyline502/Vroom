@@ -332,6 +332,37 @@
   width:0px;
 }
 
+.emojis {
+  display: none;
+  background-color: black;
+  position: fixed;
+  right: 20px;
+  bottom: 350px;
+  max-height: 0px;
+  max-width: 300px;
+}
+
+.show-emo {
+  display:flex;
+}
+
+.emoji-btn {
+  color: yellow;
+  background-color: gray;
+  border-radius: 50%;
+  width: 15px;
+  display:flex;
+  justify-content: center;
+  border: 0;
+  position: fixed;
+  right: 30px;
+  bottom: 32px;
+}
+
+.emoji-btn:hover {
+  cursor: pointer;
+}
+
 .show-edit > input {
   border: 1px solid lightblue;
   border-radius: 2px;
