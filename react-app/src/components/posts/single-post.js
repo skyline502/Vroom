@@ -16,7 +16,7 @@ const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
   const post_comments = useSelector(state => state.comments.current);
   const user = useSelector(state => state.session.user);
-  const [newComment, setNewComment] = useState('');
+  let [newComment, setNewComment] = useState('');
   const [comment_id, setComment_Id] = useState(null);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [emo, setEmo] = useState(false);
@@ -38,6 +38,13 @@ const SinglePost = () => {
   const chooseEmoji = (e, emojiObject) => {
     setChosenEmoji(emojiObject);
   };
+
+  const showPicker = () => {
+    setChosenEmoji(null);
+    setShowEmo(!showEmo);
+  }
+
+  console.log(chosenEmoji, 'chosen emoji!')
 
   const commentsEnd = useRef(null);
 
@@ -64,6 +71,14 @@ const SinglePost = () => {
       setEditField(null);
     }
   }, [showEdit])
+
+  useEffect(() => {
+    if (newComment) {
+      setNewComment(newComment + chosenEmoji?.emoji);
+    } else {
+      setNewComment(chosenEmoji?.emoji);
+    }
+  },[chosenEmoji])
 
   const nextPic = () => {
     if (idx !== currentPost.images.length - 1) {
@@ -133,6 +148,8 @@ const SinglePost = () => {
         await dispatch(getAllPosts());
         dispatch(getPostComments(currentPost.id));
         setNewComment('');
+        setChosenEmoji(null);
+        setShowEmo(false);
       }
     }
   }
@@ -259,7 +276,7 @@ const SinglePost = () => {
           <div className={`emojis ${emo}`}>
             <Picker onEmojiClick={chooseEmoji} />
           </div>
-          <button className='emoji-btn'><i className="fas fa-grin"></i></button>
+          <button className='emoji-btn' onClick={() => showPicker()}><i className="fas fa-grin"></i></button>
         </div>
       </div>
     </div>
