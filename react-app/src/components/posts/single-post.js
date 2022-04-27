@@ -208,7 +208,7 @@ const SinglePost = () => {
                           value={currentComment}
                           onChange={e => setCurrentComment(e.target.value)}
                           onKeyDown={handleEditSubmit}
-                          onMouseLeave={() => setShowEdit(false)}
+                          // onMouseLeave={() => setShowEdit(false)}
                         />
                       </div>
                     </div>
