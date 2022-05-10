@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask import Blueprint, jsonify, request
+from flask_login import login_required, current_user
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -16,7 +16,6 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    print(user.is_following(1), 'user in backend....')
 
     if user:
         followers = [follower.to_dict() for follower in list(user.followers)]
@@ -26,3 +25,11 @@ def user(id):
         return user
     else:
         return {'errors': 'user not found'}
+
+
+@user_routes.route('/<int:id>', methods=['POST'])
+@login_required
+def follow(id):
+    user = User.query.get(id)
+    print(user, 'user....inbackend')
+    # print(dir(current_user), 'flask login')

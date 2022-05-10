@@ -1,6 +1,7 @@
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const FOLLOW_USER = 'session/FOLLOW_USER';
 
 
 const setUser = (user) => ({
@@ -10,7 +11,35 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
-})
+});
+
+const followUser = (user) => ({
+  type: FOLLOW_USER,
+  user
+});
+
+export const followThisUser = (id) => async dispatch => {
+  console.log(id, 'in the store.....')
+  const response = await fetch(`/api/users/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(followUser(data));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
 
 
 const initialState = { user: null };

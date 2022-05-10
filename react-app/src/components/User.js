@@ -7,6 +7,7 @@ import SinglePost from './posts/single-post';
 import { setCurrentModal, showModal } from '../store/modal';
 import { getPostComments } from '../store/comments';
 import { useHistory } from 'react-router-dom';
+import { followThisUser } from '../store/session';
 
 function User() {
   const [user, setUser] = useState({});
@@ -15,6 +16,7 @@ function User() {
   const dispatch = useDispatch();
   const allPosts = useSelector(state => state.posts.posts);
   const currentUser = useSelector(state => state.session.user);
+  console.log(currentUser, 'this is the current user...')
   const topOfPage = useRef(null);
   let history = useHistory();
 
@@ -24,6 +26,12 @@ function User() {
     let following = followers.filter(follower => follower.id === currentUser.id);
     console.log(following)
     return following.length > 0;
+  }
+
+  const follow = async() => {
+    console.log('I follow you!')
+    let data = await dispatch(followThisUser(userId));
+    console.log(data)
   }
 
   useEffect(() => {
@@ -55,7 +63,6 @@ function User() {
     return null;
   }
 
-
   const showSinglePost = async (post) => {
     let onePost = await dispatch(getOnePost(post.id));
     dispatch(setPost(onePost));
@@ -81,7 +88,7 @@ function User() {
             <p>followers</p>
             {
               user.id !== currentUser.id ?
-            <button>{isFollowing()? <p>unfollow</p>:<p>follow</p>}</button> : <></>
+            <div>{isFollowing()? <button onClick={() => follow()}>unfollow</button>:<button onClick={() => follow()}>follow</button>}</div> : <></>
             }
           </div>
           <strong> {user.name}</strong>

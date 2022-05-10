@@ -45,15 +45,15 @@ class User(db.Model, UserMixin):
 
     def follow(self, user):
         if not self.is_following(user):
-            self.followed.append(user)
+            self.followers.append(user)
 
     def unfollow(self, user):
         if self.is_following(user):
-            self.followed.remove(user)
+            self.followers.remove(user)
 
     def is_following(self, user):
         return self.followers.filter(
-            follows.c.followed_id == user).count() > 0
+            follows.c.followed_id == user.id).count() > 0
                            
 
     def to_dict(self):
