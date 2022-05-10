@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User
+from app.models import User,db
 
 user_routes = Blueprint('users', __name__)
 
@@ -32,4 +32,14 @@ def user(id):
 def follow(id):
     user = User.query.get(id)
     print(user, 'user....inbackend')
-    # print(dir(current_user), 'flask login')
+    following = user.is_following(current_user)
+    if following:
+        user.unfollow(current_user)
+        print(current_user.username, 'is unfollowing', user.username)
+        print(current_user.followers, 'my followers....')
+        db.session.commit()
+    else:
+        user.follow(current_user)
+        print(current_user.username, 'is following', user.username)
+        db.session.commit()
+    return user.to_dict()        

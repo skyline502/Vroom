@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
         secondary=follows,
         primaryjoin=(follows.c.follower_id == id),
         secondaryjoin=(follows.c.followed_id == id),
-        backref=db.backref('following', lazy='dynamic'),
+        backref=db.backref('follows', lazy='dynamic'),
         lazy='dynamic'
     )
     posts = relationship('Post', backref='user', cascade='all,delete-orphan')
@@ -50,6 +50,7 @@ class User(db.Model, UserMixin):
     def unfollow(self, user):
         if self.is_following(user):
             self.followers.remove(user)
+
 
     def is_following(self, user):
         return self.followers.filter(

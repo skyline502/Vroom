@@ -30,8 +30,22 @@ function User() {
 
   const follow = async() => {
     console.log('I follow you!')
-    let data = await dispatch(followThisUser(userId));
-    console.log(data)
+    await dispatch(followThisUser(userId));
+    (async () => {
+      if (isNaN(Number(userId))) {
+        history.push('/404');
+        return;
+      }
+      const response = await fetch(`/api/users/${userId}`);
+      const user = await response.json();
+      if (user.errors) {
+        history.push('/404');
+      } else {
+        console.log(user, 'this is the user......')
+        setUser(user);
+        setFollowers(user.followers)
+      }
+    })();
   }
 
   useEffect(() => {
