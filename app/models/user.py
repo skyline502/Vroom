@@ -4,6 +4,12 @@ from sqlalchemy.orm import relationship, backref
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship, backref
 
+follows = db.Table(
+    'follows',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -15,7 +21,14 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_url = db.Column(db.String(2000), nullable=False)
 
-    # followers = relationship('Follower', backref='user', cascade='all,delete-orphan', primaryjoin=())
+    followers = db.relationship(
+        'User', 
+        secondary=follows,
+        primaryjoin=(follows.c.follower_id == id),
+        secondaryjoin=(follows.c.followed_id == id),
+        backref=db.backref('following', lazy='dynamic'),
+        lazy='dynamic'
+    )
     posts = relationship('Post', backref='user', cascade='all,delete-orphan')
 
 
