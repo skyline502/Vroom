@@ -19,6 +19,7 @@ def user(id):
     print(user, 'user in backend....')
 
     if user:
+        print(dir(user.followers), 'followers.....')
         return user.to_dict()
     else:
         return {'errors': 'user not found'}

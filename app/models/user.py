@@ -63,6 +63,6 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_url': self.profile_url,
-            'posts': [post.to_dict() for post in self.posts]
+            'posts': [post.to_dict() for post in self.posts],
         }
 
