@@ -125,3 +125,32 @@
   box-shadow: 1px 1px 10px lightgray;
   transform: scale(1.1);
 }
+
+.followers-button > button {
+  background-color: black;
+  color: white;
+  font-family: 'Bebas Neue';
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+  font-size: 16px;
+  transition-duration: 0.5s;
+  margin-left: 200px;
+}
+
+.followers-button > button:hover {
+  transform: scale(1.2);
+  color: black;
+  background-color: white;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.followers-info {
+  display: flex;
+  align-items: center;
+}
+
+.followers-info > p {
+  margin-left: 10px;
+}

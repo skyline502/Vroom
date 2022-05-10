@@ -16,7 +16,7 @@ function User() {
   const dispatch = useDispatch();
   const allPosts = useSelector(state => state.posts.posts);
   const currentUser = useSelector(state => state.session.user);
-  console.log(currentUser, 'this is the current user...')
+
   const topOfPage = useRef(null);
   let history = useHistory();
 
@@ -24,12 +24,12 @@ function User() {
 
   const isFollowing = () => {
     let following = followers.filter(follower => follower.id === currentUser.id);
-    console.log(following)
+
     return following.length > 0;
   }
 
-  const follow = async() => {
-    console.log('I follow you!')
+  const follow = async () => {
+
     await dispatch(followThisUser(userId));
     (async () => {
       if (isNaN(Number(userId))) {
@@ -41,7 +41,6 @@ function User() {
       if (user.errors) {
         history.push('/404');
       } else {
-        console.log(user, 'this is the user......')
         setUser(user);
         setFollowers(user.followers)
       }
@@ -66,7 +65,6 @@ function User() {
       if (user.errors) {
         history.push('/404');
       } else {
-        console.log(user, 'this is the user......')
         setUser(user);
         setFollowers(user.followers)
       }
@@ -92,20 +90,18 @@ function User() {
       <div className='profile-header'>
         <img src={user.profile_url} className='profile-user' alt='profile' />
         <div className='profile-details'>
-          <strong>{user.username}</strong>
+          <strong>Username:&nbsp;&nbsp;{user.username}</strong>
+          <strong>Name:&#160;&nbsp;{user.name}</strong>
           <div className='posts-info'>
-            <strong>{posts?.length}</strong>
-            <p>posts</p>
+            <strong>Posts:&nbsp;&nbsp;{posts?.length}</strong>
           </div>
           <div className='followers-info'>
-            <strong>{followers?.length}</strong>
-            <p>followers</p>
+            <strong>Followers:&nbsp;&nbsp;{followers?.length}</strong>
             {
               user.id !== currentUser.id ?
-            <div>{isFollowing()? <button onClick={() => follow()}>unfollow</button>:<button onClick={() => follow()}>follow</button>}</div> : <></>
+                <div className='followers-button'>{isFollowing() ? <button onClick={() => follow()}>unfollow</button> : <button onClick={() => follow()}>follow</button>}</div> : <></>
             }
           </div>
-          <strong> {user.name}</strong>
         </div>
       </div>
       {/* <div className='user-posts-heading'>
@@ -129,7 +125,7 @@ function User() {
           </div>
         ))}
       </div>
-      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({behavior:'smooth'})}><i className="fas fa-chevron-circle-up" /></button>
+      <button className='to-the-top' onClick={() => topOfPage.current?.scrollIntoView({ behavior: 'smooth' })}><i className="fas fa-chevron-circle-up" /></button>
     </div>
   );
 }
