@@ -19,7 +19,6 @@ const followUser = (user) => ({
 });
 
 export const followThisUser = (id) => async dispatch => {
-  console.log(id, 'in the store.....')
   const response = await fetch(`/api/users/${id}`, {
     headers: {
       'Content-Type': 'application/json'
