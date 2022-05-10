@@ -43,6 +43,19 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
+                           
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -51,19 +64,5 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'profile_url': self.profile_url,
             'posts': [post.to_dict() for post in self.posts]
-            # 'followers': self.followers
         }
 
-# class Follower(db.Model):
-#     __tablename__ = 'followers'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-#     def to_dict(self):
-#         return {
-#             'id': self.id,
-#             'user_id': self.user_id,
-#             'follower_id': self.follower_id
-#         }
