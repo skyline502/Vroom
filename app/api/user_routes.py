@@ -16,7 +16,7 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    print(user, 'user in backend....')
+    print(user.is_following(1), 'user in backend....')
 
     if user:
         print(dir(user.followers), 'followers.....')

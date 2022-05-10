@@ -52,8 +52,8 @@ class User(db.Model, UserMixin):
             self.followed.remove(user)
 
     def is_following(self, user):
-        return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
+        return self.followers.filter(
+            follows.c.followed_id == user).count() > 0
                            
 
     def to_dict(self):
