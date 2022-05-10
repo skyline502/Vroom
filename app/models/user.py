@@ -4,6 +4,12 @@ from sqlalchemy.orm import relationship, backref
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship, backref
 
+follows = db.Table(
+    'follows',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -15,7 +21,14 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_url = db.Column(db.String(2000), nullable=False)
 
-    # followers = relationship('Follower', backref='user', cascade='all,delete-orphan', primaryjoin=())
+    followers = db.relationship(
+        'User', 
+        secondary=follows,
+        primaryjoin=(follows.c.follower_id == id),
+        secondaryjoin=(follows.c.followed_id == id),
+        backref=db.backref('following', lazy='dynamic'),
+        lazy='dynamic'
+    )
     posts = relationship('Post', backref='user', cascade='all,delete-orphan')
 
 
@@ -30,6 +43,19 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followers.filter(
+            follows.c.followed_id == user).count() > 0
+                           
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -37,20 +63,6 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'profile_url': self.profile_url,
-            'posts': [post.to_dict() for post in self.posts]
-            # 'followers': self.followers
+            'posts': [post.to_dict() for post in self.posts],
         }
 
-# class Follower(db.Model):
-#     __tablename__ = 'followers'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-#     def to_dict(self):
-#         return {
-#             'id': self.id,
-#             'user_id': self.user_id,
-#             'follower_id': self.follower_id
-#         }

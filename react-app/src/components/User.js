@@ -10,13 +10,21 @@ import { useHistory } from 'react-router-dom';
 
 function User() {
   const [user, setUser] = useState({});
+  const [followers, setFollowers] = useState([]);
   const { userId } = useParams();
   const dispatch = useDispatch();
   const allPosts = useSelector(state => state.posts.posts);
+  const currentUser = useSelector(state => state.session.user);
   const topOfPage = useRef(null);
   let history = useHistory();
 
   const posts = allPosts.filter(post => post.user_id.id === user.id);
+
+  const isFollowing = () => {
+    let following = followers.filter(follower => follower.id === currentUser.id);
+    console.log(following)
+    return following.length > 0;
+  }
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -36,7 +44,9 @@ function User() {
       if (user.errors) {
         history.push('/404');
       } else {
+        console.log(user, 'this is the user......')
         setUser(user);
+        setFollowers(user.followers)
       }
     })();
   }, [userId, history]);
@@ -65,6 +75,14 @@ function User() {
           <div className='posts-info'>
             <strong>{posts?.length}</strong>
             <p>posts</p>
+          </div>
+          <div className='followers-info'>
+            <strong>{followers?.length}</strong>
+            <p>followers</p>
+            {
+              user.id !== currentUser.id ?
+            <button>{isFollowing()? <p>unfollow</p>:<p>follow</p>}</button> : <></>
+            }
           </div>
           <strong> {user.name}</strong>
         </div>

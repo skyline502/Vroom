@@ -16,9 +16,13 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    print(user, 'user in backend....')
+    print(user.is_following(1), 'user in backend....')
 
     if user:
-        return user.to_dict()
+        followers = [follower.to_dict() for follower in list(user.followers)]
+        user = user.to_dict();
+        user['followers'] = followers
+        print(user, '....this user has followers?')
+        return user
     else:
         return {'errors': 'user not found'}
