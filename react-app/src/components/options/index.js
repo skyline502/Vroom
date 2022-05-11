@@ -7,6 +7,8 @@ import EditPostForm from "../posts/edit-post-modal/edit-post";
 import './Options.css';
 import SinglePost from '../posts/single-post';
 import { getPostComments } from "../../store/comments";
+import { getFollowed } from '../../store/session';
+
 
 
 const Options = () => {
@@ -24,7 +26,7 @@ const Options = () => {
     if (data) {
       setErrors(data);
     }
-    dispatch(getAllPosts())
+    dispatch(getFollowed(user));
     dispatch(hideModal());
   }
 
