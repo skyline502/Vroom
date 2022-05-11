@@ -20,7 +20,7 @@ const CreatePostForm = () => {
   const names = images.map(image => image.name);
 
   const addImage = e => {
-    console.log(size, 'total size....')
+
     const image = e.target.files[0]
     setErrors([]);
     let total = size;
@@ -45,12 +45,10 @@ const CreatePostForm = () => {
     if (!images?.length) {
       setImages([image]);
       setSize(total += image.size);
-      console.log(size, 'size......', image.size, 'image...size')
     } else if (images?.length && images?.length < 6) {
       setImages([...images, image]);
       setSize(total += image.size);
     }
-    console.log(size, 'total size....')
   }
 
   const onSubmit = async (e) => {
