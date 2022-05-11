@@ -11,6 +11,7 @@ const CreatePostForm = () => {
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [size, setSize] = useState(0);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   let history = useHistory();
@@ -19,12 +20,13 @@ const CreatePostForm = () => {
   const names = images.map(image => image.name);
 
   const addImage = e => {
+    console.log(size, 'total size....')
     const image = e.target.files[0]
     setErrors([]);
+    let total = size;
 
-
-    if (image?.size > 1000000) {
-      setErrors(['File size too large, image must be less than 1MB in size'])
+    if (image?.size + size > 5000000) {
+      setErrors(['Max upload size for posts is 5MB and under'])
       return;
     }
     if (images?.length === 5) {
@@ -42,9 +44,13 @@ const CreatePostForm = () => {
 
     if (!images?.length) {
       setImages([image]);
+      setSize(total += image.size);
+      console.log(size, 'size......', image.size, 'image...size')
     } else if (images?.length && images?.length < 6) {
       setImages([...images, image]);
+      setSize(total += image.size);
     }
+    console.log(size, 'total size....')
   }
 
   const onSubmit = async (e) => {
@@ -152,6 +158,7 @@ const CreatePostForm = () => {
             </div>
           ))}
         </div>
+        <h2>limit:&nbsp;~{(size/1000000).toFixed(2)}/5&nbsp;MB</h2>
       </div>
     </div>
   )
