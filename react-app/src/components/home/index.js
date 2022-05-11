@@ -56,7 +56,7 @@ const Home = () => {
     newLike.append('user_id', user.id);
 
     await dispatch(createALike(newLike));
-    dispatch(getAllPosts());
+    dispatch(getFollowed(user))
   }
 
   return (
