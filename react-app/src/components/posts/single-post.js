@@ -10,6 +10,7 @@ import { deleteAPost } from "../../store/posts";
 import EditPostForm from "./edit-post-modal/edit-post";
 import { createALike } from "../../store/posts";
 import { useHistory } from "react-router-dom";
+import { getFollowed } from "../../store/session";
 
 const SinglePost = () => {
   const currentPost = useSelector(state => state.posts.current.post);
@@ -114,6 +115,7 @@ const SinglePost = () => {
         comment.append('comment', newComment);
         await dispatch(createAComment(comment));
         await dispatch(getAllPosts());
+        await dispatch(getFollowed(user))
         dispatch(getPostComments(currentPost.id));
         setNewComment('');
       }
