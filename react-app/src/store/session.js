@@ -2,6 +2,7 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const FOLLOW_USER = 'session/FOLLOW_USER';
+const GET_FOLLOWED = 'session/GET_FOLLOWED';
 
 
 const setUser = (user) => ({
@@ -17,6 +18,21 @@ const followUser = (user) => ({
   type: FOLLOW_USER,
   user
 });
+
+const getFollowedPosts = (user) => ({
+  type: GET_FOLLOWED,
+  user
+});
+
+export const getFollowed = (user) => async dispatch => {
+  const response = await fetch(`/api/users/${user.id}/follows`);
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data, 'this is the data returned to the store...for follows...')
+    dispatch(getFollowedPosts(data));
+    return null;
+  }
+}
 
 export const followThisUser = (id) => async dispatch => {
   const response = await fetch(`/api/users/${id}`, {
@@ -39,9 +55,6 @@ export const followThisUser = (id) => async dispatch => {
     return ['An error occurred. Please try again.']
   }
 }
-
-
-const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -75,6 +88,7 @@ export const login = (email, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
+    console.log(data, 'user logged in.....')
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -128,12 +142,18 @@ export const signUp = (name, username, email, password, confirm, profile_pic) =>
   }
 }
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = {user: null, followed: []}, action) {
   switch (action.type) {
     case SET_USER:
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+    case GET_FOLLOWED:
+      console.log(action.user, 'action.....')
+      return {
+        ...state,
+        followed: [...action.user.followed_posts]
+      }
     default:
       return state;
   }

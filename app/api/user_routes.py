@@ -1,9 +1,15 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User,db
+from app.models import User,db, Post, follows
 
 user_routes = Blueprint('users', __name__)
 
+def followed_posts(self):
+        followed = Post.query.join(
+            follows, (follows.c.follower_id == Post.user_id)).filter(
+                follows.c.followed_id == self.id)
+        own = Post.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Post.updated_at.desc())
 
 @user_routes.route('/')
 @login_required
@@ -38,8 +44,23 @@ def follow(id):
         print(current_user.username, 'is unfollowing', user.username)
         print(current_user.followers, 'my followers....')
         db.session.commit()
+        return {'id': None}
     else:
         user.follow(current_user)
         print(current_user.username, 'is following', user.username)
         db.session.commit()
-    return user.to_dict()        
+        return user.to_dict()
+
+
+@user_routes.route('/<int:id>/follows', methods=['GET'])
+@login_required
+def getFollow(id):
+    user = User.query.get(id);
+    print(user, 'this is the user....')
+    followed = list(followed_posts(user))
+    followed_post = [post.to_dict() for post in followed]
+    for post in followed_post:
+        post['user_id'] = User.query.get(post['user_id']).to_dict()
+    user = user.to_dict()
+    user['followed_posts'] = followed_post
+    return user

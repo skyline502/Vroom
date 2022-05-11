@@ -9,12 +9,13 @@ import { useHistory } from 'react-router-dom';
 import SinglePost from '../posts/single-post';
 import Options from '../options';
 import { createALike } from '../../store/posts';
+import { getFollowed } from '../../store/session';
 
 
 
 const Home = () => {
   const user = useSelector(state => state.session.user);
-  const posts = useSelector(state => state.posts.posts);
+  const posts = useSelector(state => state.session.followed);
   const dispatch = useDispatch();
   const convertDate = (date) => {
     let converted = new Date(date);
@@ -23,9 +24,12 @@ const Home = () => {
   let history = useHistory();
   const topOfPage = useRef(null);
 
+  console.log(user, 'current user......')
+
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch]);
+    dispatch(getFollowed(user))
+  }, [dispatch, user]);
 
   const showSinglePost = async (post) => {
     let onePost = await dispatch(getOnePost(post.id));
