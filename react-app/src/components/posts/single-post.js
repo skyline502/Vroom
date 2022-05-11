@@ -99,6 +99,7 @@ const SinglePost = () => {
   const handleDelete = async (id) => {
     await dispatch(deleteAComment(id));
     await dispatch(getAllPosts());
+    dispatch(getFollowed(user));
     dispatch(getPostComments(currentPost.id));
   }
 
@@ -115,7 +116,7 @@ const SinglePost = () => {
         comment.append('comment', newComment);
         await dispatch(createAComment(comment));
         await dispatch(getAllPosts());
-        await dispatch(getFollowed(user))
+        await dispatch(getFollowed(user));
         dispatch(getPostComments(currentPost.id));
         setNewComment('');
       }
@@ -127,7 +128,8 @@ const SinglePost = () => {
     if (data) {
       setErrors(data);
     }
-    dispatch(getAllPosts())
+    dispatch(getAllPosts());
+    dispatch(getFollowed(user));
     dispatch(hideModal());
   }
 
@@ -144,6 +146,7 @@ const SinglePost = () => {
 
     await dispatch(createALike(newLike));
     dispatch(getAllPosts());
+    dispatch(getFollowed(user));
   }
 
   const goToUserPage = (id) => {
