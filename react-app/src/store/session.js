@@ -28,6 +28,7 @@ export const getFollowed = (user) => async dispatch => {
   const response = await fetch(`/api/users/${user.id}/follows`);
   if (response.ok) {
     const data = await response.json();
+    console.log(data, 'this is the data returned to the store...for follows...')
     dispatch(getFollowedPosts(data));
     return null;
   }
@@ -54,9 +55,6 @@ export const followThisUser = (id) => async dispatch => {
     return ['An error occurred. Please try again.']
   }
 }
-
-
-const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -144,12 +142,18 @@ export const signUp = (name, username, email, password, confirm, profile_pic) =>
   }
 }
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = {user: null, followed: []}, action) {
   switch (action.type) {
     case SET_USER:
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+    case GET_FOLLOWED:
+      console.log(action.user, 'action.....')
+      return {
+        ...state,
+        followed: [...action.user.followed_posts]
+      }
     default:
       return state;
   }
