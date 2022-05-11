@@ -87,8 +87,8 @@ const CreatePostForm = () => {
 
       let audio = new Audio('/lfa-sound.mp3')
 
-      dispatch(setCurrentModal(LoadingScreen))
-      dispatch(showModal());
+      await dispatch(setCurrentModal(LoadingScreen))
+      await dispatch(showModal());
       audio.play();
       let data = await dispatch(createAPost(form));
       if (data) {
