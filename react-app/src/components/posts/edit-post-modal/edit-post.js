@@ -1,11 +1,13 @@
 import './EditPost.css'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editAPost, getAllPosts } from '../../../store/posts';
+import { editAPost } from '../../../store/posts';
 import { hideModal } from '../../../store/modal';
+import { getFollowed } from '../../../store/session';
 
 const EditPostForm = () => {
   const currentPost = useSelector(state => state.posts.current);
+  const user = useSelector(state => state.session.user);
   const [title, setTitle] = useState(currentPost?.title);
   const [description, setDescription] = useState(currentPost?.description);
   // const [images, setImages] = useState([]);
@@ -71,7 +73,7 @@ const EditPostForm = () => {
       if (data) {
         setErrors(data);
       }
-      dispatch(getAllPosts());
+      dispatch(getFollowed(user));
       dispatch(hideModal());
     }
   }
