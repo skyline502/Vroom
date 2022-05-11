@@ -76,6 +76,8 @@ const CreatePostForm = () => {
 
     if (!validationErrors.length) {
       e.preventDefault();
+      await dispatch(setCurrentModal(LoadingScreen))
+      await dispatch(showModal());
       let form = new FormData();
       images.forEach((image) => {
         form.append('images array', image)
@@ -87,8 +89,6 @@ const CreatePostForm = () => {
 
       let audio = new Audio('/lfa-sound.mp3')
 
-      await dispatch(setCurrentModal(LoadingScreen))
-      await dispatch(showModal());
       audio.play();
       let data = await dispatch(createAPost(form));
       if (data) {
