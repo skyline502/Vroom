@@ -24,8 +24,6 @@ const Home = () => {
   let history = useHistory();
   const topOfPage = useRef(null);
 
-  console.log(user, 'current user......')
-
   useEffect(() => {
     dispatch(getAllPosts());
     dispatch(getFollowed(user))

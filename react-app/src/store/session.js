@@ -28,7 +28,6 @@ export const getFollowed = (user) => async dispatch => {
   const response = await fetch(`/api/users/${user.id}/follows`);
   if (response.ok) {
     const data = await response.json();
-    console.log(data, 'this is the data returned to the store...for follows...')
     dispatch(getFollowedPosts(data));
     return null;
   }
@@ -88,7 +87,6 @@ export const login = (email, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
-    console.log(data, 'user logged in.....')
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
@@ -149,7 +147,6 @@ export default function reducer(state = {user: null, followed: []}, action) {
     case REMOVE_USER:
       return { user: null }
     case GET_FOLLOWED:
-      console.log(action.user, 'action.....')
       return {
         ...state,
         followed: [...action.user.followed_posts]
