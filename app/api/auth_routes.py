@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Post, follows
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -19,6 +19,12 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
+def followed_posts(self):
+        followed = Post.query.join(
+            follows, (follows.c.follower_id == Post.user_id)).filter(
+                follows.c.followed_id == self.id)
+        own = Post.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Post.updated_at.desc())
 
 @auth_routes.route('/')
 def authenticate():
@@ -43,7 +49,13 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return user.to_dict()
+        followed = list(followed_posts(user))
+        followed_post = [post.to_dict() for post in followed]
+        for post in followed_post:
+            post['user_id'] = User.query.get(post['user_id']).to_dict()
+        user = user.to_dict()
+        user['followed_posts'] = followed_post
+        return user
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

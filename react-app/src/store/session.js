@@ -2,6 +2,7 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const FOLLOW_USER = 'session/FOLLOW_USER';
+const GET_FOLLOWED = 'session/GET_FOLLOWED';
 
 
 const setUser = (user) => ({
@@ -17,6 +18,20 @@ const followUser = (user) => ({
   type: FOLLOW_USER,
   user
 });
+
+const getFollowedPosts = (user) => ({
+  type: GET_FOLLOWED,
+  user
+});
+
+export const getFollowed = (user) => async dispatch => {
+  const response = await fetch(`/api/users/${user.id}/follows`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(getFollowedPosts(data));
+    return null;
+  }
+}
 
 export const followThisUser = (id) => async dispatch => {
   const response = await fetch(`/api/users/${id}`, {
@@ -75,6 +90,7 @@ export const login = (email, password) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
+    console.log(data, 'user logged in.....')
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
