@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
+import './Chat.css'
 let socket;
 
 
@@ -16,7 +17,6 @@ const Chat = () => {
 
     socket.on('chat', (chat) => {
       setMessages(messages => [...messages, chat]);
-
       //when component unmounts, and disconnects
       return (() => {
         socket.disconnect();
@@ -30,20 +30,22 @@ const Chat = () => {
 
   const sendChat = e => {
     e.preventDefault();
-    socket.emit('chat', { user: user.username, msg: chatInput });
+    if (chatInput) {
+      socket.emit('chat', { user: user.username, msg: chatInput });
+    }
     setChatInput('');
   }
 
   return (user && (
     <div>
-      <div>
+      <div className="messages-box">
         {messages.map((message, ind) => (
           <div key={ind}>
             {`${message.user}: ${message.msg}`}
           </div>
         ))}
       </div>
-      <form onSubmit={sendChat}>
+      <form onSubmit={sendChat} className='chat-form'>
         <input
           value={chatInput}
           onChange={updateChatInput}

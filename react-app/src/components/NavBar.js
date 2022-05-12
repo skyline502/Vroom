@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import UsersList from "./UsersList";
 import Chat from "./chat";
 import { setCurrentModal, showModal } from "../store/modal";
+import { io } from 'socket.io-client';
+let socket;
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -24,6 +26,8 @@ const NavBar = () => {
   }, [drop]);
 
   const showChat = () => {
+    socket = io();
+    socket.emit('chat', { user: user.username, msg: 'has connected'})
     dispatch(setCurrentModal(Chat));
     dispatch(showModal());
   }
