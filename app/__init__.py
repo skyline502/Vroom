@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from .socket import socketio
 
 from .models import db, User
 from .api.user_routes import user_routes
@@ -37,6 +38,7 @@ app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(comments_routes, url_prefix='/api/comments')
 db.init_app(app)
 Migrate(app, db)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -96,3 +98,6 @@ def react_root(path):
     if path == 'vroom-prev.png':
         return app.send_static_file('vroom-prev.png')
     return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    socketio.run(app)

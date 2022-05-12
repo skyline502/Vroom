@@ -208,6 +208,14 @@ a > img:hover {
   display: none;
 }
 
+.chat-box > i {
+  font-size: 22px;
+}
+
+.chat-box > i:hover {
+  cursor: pointer;
+}
+
 
 .result-user-info {
   display: flex;
