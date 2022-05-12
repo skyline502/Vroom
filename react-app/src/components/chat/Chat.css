@@ -1,0 +1,45 @@
+.messages-box {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  background-color: white;
+  height: 60vh;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.chat-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  border-top: 1px solid lightgray;
+  background-color: lightgray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: black;
+}
+
+.chat-form > input {
+  width: 22vw;
+  margin-left: 10px;
+}
+
+.chat-form > button {
+  display: flex;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-family: 'Bebas Neue';
+  border-radius: 5px;
+  margin-left: 2px;
+  transition-duration: 0.2s;
+}
+
+.chat-form > button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
