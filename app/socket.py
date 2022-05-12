@@ -4,8 +4,8 @@ import os
 
 if os.environ.get('FLASK_ENV') == 'production':
   origins = [
-    'https://vroom-pssh.herokuapp.com/',
-    'http://vroom-pssh.herokuapp.com/'
+    'http://vroom-pssh.herokuapp.com',
+    'https://vroom-pssh.herokuapp.com'
   ]
 else:
   origins = '*'
