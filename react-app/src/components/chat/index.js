@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
 import './Chat.css'
@@ -9,6 +9,8 @@ const Chat = () => {
   const [chatInput, setChatInput] = useState('');
   const [messages, setMessages] = useState([]);
   const user = useSelector(state => state.session.user);
+  const msgEnd = useRef(null);
+
 
   useEffect(() => {
     //open socket connection
@@ -24,6 +26,10 @@ const Chat = () => {
     })
   }, []);
 
+  useEffect(() => {
+    msgEnd.current?.scrollIntoView();
+  },[messages])
+
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
   };
@@ -31,7 +37,7 @@ const Chat = () => {
   const sendChat = e => {
     e.preventDefault();
     if (chatInput) {
-      socket.emit('chat', { user: user.username, msg: chatInput });
+      socket.emit('chat', { user: user, msg: chatInput });
     }
     setChatInput('');
   }
@@ -40,10 +46,11 @@ const Chat = () => {
     <div>
       <div className="messages-box">
         {messages.map((message, ind) => (
-          <div key={ind}>
-            {`${message.user}: ${message.msg}`}
+          <div key={ind} className='chat-msg'>
+            <div>{message.user.profile_url? <img className='chat-profile' src={message.user.profile_url} alt='profile'/>: message.user}</div>&nbsp;&nbsp;<p>{message.msg}</p>
           </div>
         ))}
+        <div ref={msgEnd}></div>
       </div>
       <form onSubmit={sendChat} className='chat-form'>
         <input
