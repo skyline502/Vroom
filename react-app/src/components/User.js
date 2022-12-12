@@ -96,7 +96,7 @@ function User() {
             <strong>Posts:&nbsp;&nbsp;{posts?.length}</strong>
           </div>
           <div className='followers-info'>
-            <strong>Followers:&nbsp;&nbsp;{followers?.length}</strong>
+            <strong>Followers:&nbsp;&nbsp;{followers?.length === 0 ? 'None': followers?.length}</strong>
             {
               user.id !== currentUser.id ?
                 <div className='followers-button'>{isFollowing() ? <button onClick={() => follow()}>unfollow</button> : <button onClick={() => follow()}>follow</button>}</div> : <></>
